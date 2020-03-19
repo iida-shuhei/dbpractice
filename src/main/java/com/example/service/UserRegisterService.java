@@ -48,4 +48,14 @@ public class UserRegisterService {
 		userMail.setMailAddress(userRegisterForm.getMailAddress());
 		UserMailRepository.insert(userMail);
 	}
+	
+	/**
+	 * メールアドレスの重複チェック.
+	 * 
+	 * @param mailAddress メールアドレス
+	 * @return メールアドレス情報
+	 */
+	public UserMail findByEmail(String mailAddress) {
+		return UserMailRepository.findByEmail(mailAddress);
+	}
 }

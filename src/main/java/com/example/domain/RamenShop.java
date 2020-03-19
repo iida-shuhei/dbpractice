@@ -1,6 +1,7 @@
 package com.example.domain;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class RamenShop {
 
@@ -12,7 +13,7 @@ public class RamenShop {
 	private String other;
 	private String holidays;
 	private RamenShopTime ramenShopTime;
-	private Ramen Ramen;
+	private List<Ramen> ramenList;
 	private String createdBy;
 	private Timestamp createdAt;
 	private String updatedBy;
@@ -85,12 +86,12 @@ public class RamenShop {
 		this.ramenShopTime = ramenShopTime;
 	}
 
-	public Ramen getRamen() {
-		return Ramen;
+	public List<Ramen> getRamenList() {
+		return ramenList;
 	}
 
-	public void setRamen(Ramen ramen) {
-		Ramen = ramen;
+	public void setRamenList(List<Ramen> ramenList) {
+		this.ramenList = ramenList;
 	}
 
 	public String getCreatedBy() {
@@ -153,7 +154,7 @@ public class RamenShop {
 	public String toString() {
 		return "RamenShop [shopId=" + shopId + ", shopName=" + shopName + ", zipcode=" + zipcode + ", prefecture="
 				+ prefecture + ", city=" + city + ", other=" + other + ", holidays=" + holidays + ", ramenShopTime="
-				+ ramenShopTime + ", Ramen=" + Ramen + ", createdBy=" + createdBy + ", createdAt=" + createdAt
+				+ ramenShopTime + ", ramenList=" + ramenList + ", createdBy=" + createdBy + ", createdAt=" + createdAt
 				+ ", updatedBy=" + updatedBy + ", updatedAt=" + updatedAt + ", version=" + version + ", deletedBy="
 				+ deletedBy + ", deletedAt=" + deletedAt + "]";
 	}

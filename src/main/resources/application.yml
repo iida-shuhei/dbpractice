@@ -1,9 +1,9 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ramen?serverTimezone=JST
-    username: student
-    password: password
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/ramenRecord
+    username: iidahigashi
+    password: postgres
   servlet:
     multipart:
       max-file-size: 30MB

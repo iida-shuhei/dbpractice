@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+<link th:href="@{/css/insert_article.css}" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script th:src="@{/js/insert_article.js}"></script>
+</head>
+<body>
+<div class="box">
+		<div class="container">
+			<div class="row vertical-offset-100">
+				<div class="col-md-4 col-md-offset-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">ラーメン店舗登録</h3>
+						</div>
+						<div class="panel-body">
+							<fieldset>
+								<form th:action="@{/ramen/insert}" method="post"
+									th:object="${articleRegisterForm}" enctype="multipart/form-data">
+									<div class="form-group">
+										<label th:errors="*{shopName}" style="color: red">店舗名を入力してください</label>
+										<input type="text" name="shopName" th:field="*{shopName}"
+											class="form-control" placeholder="店舗名">
+									</div>
+									<div class="form-group">
+										<label th:errors="*{zipcode}" style="color: red">郵便番号を入力してください</label>
+										<input type="number" name="zipcode" th:field="*{zipcode}" id="zipcode"
+											class="form-control" placeholder="郵便番号">
+										<input type="button" id="btn" value="検索">
+									</div>
+									<div class="form-group">
+										<label th:errors="*{prefecture}" style="color: red">都道府県を入力してください</label>
+										<input type="text" name="prefecture" class="form-control" id="prefecture"
+											th:field="*{prefecture}"
+											placeholder="都道府県">
+									</div>
+									<div class="form-group">
+										<label th:errors="*{city}" style="color: red">市町村を入力してください</label>
+										<input type="text" name="city" class="form-control" th:field="*{city}" id="city"
+											placeholder="市町村">
+									</div>
+									<div class="form-group">
+										<label th:errors="*{other}" style="color: red">その他を入力してください</label>
+										<input type="text" name="other" class="form-control" th:field="*{other}" id="other"
+											placeholder="その他">
+									</div>
+									<div class="form-group">
+										<label th:errors="*{holidays}" style="color: red">休日を入力してください</label>
+										<input type="text" name="holidays" class="form-control" th:field="*{holidays}" id="other"
+											placeholder="休日️">
+									</div>
+									<div class="form-group">
+										<label th:errors="*{ramenName}" style="color: red">ラーメン名を入力してください</label>
+										<input type="text" name="ramenName" class="form-control" th:field="*{ramenName}"
+											placeholder="醤油ラーメン">
+									</div>
+									<div class="form-group">
+										<label th:errors="*{ramenPrice}" style="color: red">ラーメン名を入力してください</label>
+										<input type="text" name="ramenPrice" class="form-control" th:field="*{ramenPrice}"
+											placeholder="値段（800）">
+									</div>
+										<label th:errors="*{ramenImage}" style="color: red">画像を選択してください</label>
+										<input type="file" name="ramenImage" th:field="*{ramenImage}" accept=".jpg,.png"><br>
+									
+									<input class="btn btn-success btn-block" type="submit"
+										value="登録">
+								</form>
+							</fieldset>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<!-- 									<div class="form-group"> -->
+<!-- 										<label th:errors="*{daysId}" style="color: red">営業日を選択してください</label> -->
+<!-- 										<input type="checkbox" name="daysId" value="1">月曜日 -->
+<!-- 										<input type="checkbox" name="daysId" value="2">火曜日 -->
+<!-- 										<input type="checkbox" name="daysId" value="3">水曜日 -->
+<!-- 										<input type="checkbox" name="daysId" value="4">木曜日<br> -->
+<!-- 										<input type="checkbox" name="daysId" value="5">金曜日 -->
+<!-- 										<input type="checkbox" name="daysId" value="6">土曜日 -->
+<!-- 										<input type="checkbox" name="daysId" value="7">日曜日 -->
+<!-- 									</div> -->
+<!-- <form th:action="@{/ramen/insert}" method="post" enctype="multipart/form-data"> -->
+<!-- 店名<input type="text" name="shopName"> -->
+<!-- 郵便番号<input type="text" name="zipcode"> -->
+<!-- 都道府県<input type="text" name="prefecture"> -->
+<!-- 市町村<input type="text" name="city"> -->
+<!-- その他<input type="text" name="other"> -->
+<!-- 休日<input type="text" name="holidays"> -->
+
+<!-- <select name="daysId"> -->
+<!-- <option value="1">月曜</option> -->
+<!-- <option value="2">火曜</option> -->
+<!-- <option value="3">水曜</option> -->
+<!-- <option value="4">木曜</option> -->
+<!-- <option value="5">金曜</option> -->
+<!-- <option value="6">土曜</option> -->
+<!-- <option value="7">日曜</option> -->
+<!-- </select> -->
+<!-- 昼スタート<input type="text" name="noonStartTime"> -->
+<!-- 昼エンド<input type="text" name="noonEndTime"> -->
+<!-- 夜スタート<input type="text" name="nightStartTime"> -->
+<!-- 夜エンド<input type="text" name="nightEndTime"> -->
+<!-- その他<input type="text" name="otherTime"> -->
+
+<!-- ラーメン<input type="text" name="ramenName"> -->
+<!-- 価格<input type="text" name="ramenPrice"> -->
+<!-- <input type="file" name="ramenImage" accept=".jpg,.png"> -->
+
+<!-- <button>登録</button> -->
+<!-- </form> -->
+
+</body>
+</html>

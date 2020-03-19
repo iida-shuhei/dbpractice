@@ -6,9 +6,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class ArticleRegisterForm {
 
+	// Article
 	private Integer userId;
 	private Integer shopId;
 
+	// RamenShop
 	private String shopName;
 	private String zipcode;
 	private String prefecture;
@@ -18,6 +20,7 @@ public class ArticleRegisterForm {
 	private String createdBy;
 	private Timestamp createdAt;
 
+	// RamenShopTime
 	private Integer daysId;
 	private String noonStartTime;
 	private String noonEndTime;
@@ -25,8 +28,12 @@ public class ArticleRegisterForm {
 	private String nightEndTime;
 	private String otherTime;
 
+	// Ramen
 	private String ramenName;
 	private Integer ramenPrice;
+	private Integer ramenImagePathId;
+
+	// RamenImage
 	private MultipartFile ramenImage;
 
 	public Integer getUserId() {
@@ -173,6 +180,14 @@ public class ArticleRegisterForm {
 		this.ramenPrice = ramenPrice;
 	}
 
+	public Integer getRamenImagePathId() {
+		return ramenImagePathId;
+	}
+
+	public void setRamenImagePathId(Integer ramenImagePathId) {
+		this.ramenImagePathId = ramenImagePathId;
+	}
+
 	public MultipartFile getRamenImage() {
 		return ramenImage;
 	}
@@ -183,12 +198,13 @@ public class ArticleRegisterForm {
 
 	@Override
 	public String toString() {
-		return "RamenShopRegisterForm [userId=" + userId + ", shopId=" + shopId + ", shopName=" + shopName
-				+ ", zipcode=" + zipcode + ", prefecture=" + prefecture + ", city=" + city + ", other=" + other
-				+ ", holidays=" + holidays + ", createdBy=" + createdBy + ", createdAt=" + createdAt + ", daysId="
-				+ daysId + ", noonStartTime=" + noonStartTime + ", noonEndTime=" + noonEndTime + ", nightStartTime="
+		return "ArticleRegisterForm [userId=" + userId + ", shopId=" + shopId + ", shopName=" + shopName + ", zipcode="
+				+ zipcode + ", prefecture=" + prefecture + ", city=" + city + ", other=" + other + ", holidays="
+				+ holidays + ", createdBy=" + createdBy + ", createdAt=" + createdAt + ", daysId=" + daysId
+				+ ", noonStartTime=" + noonStartTime + ", noonEndTime=" + noonEndTime + ", nightStartTime="
 				+ nightStartTime + ", nightEndTime=" + nightEndTime + ", otherTime=" + otherTime + ", ramenName="
-				+ ramenName + ", ramenPrice=" + ramenPrice + ", ramenImage=" + ramenImage + "]";
+				+ ramenName + ", ramenPrice=" + ramenPrice + ", ramenImagePathId=" + ramenImagePathId + ", ramenImage="
+				+ ramenImage + "]";
 	}
 
 }
