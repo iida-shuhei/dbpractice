@@ -1,5 +1,5 @@
 //郵便番号検索
-$(function(){
+$(function() {
 	$('#btn').on('click',function(){
 		$.ajax({
 			url: "http://zipcloud.ibsnet.co.jp/api/search?zipcode=" 

@@ -75,6 +75,12 @@ public class RamenRepository {
 		return ramen;
 	}
 	
+	/**
+	 * 店舗IDからラーメンを検索する.
+	 * 
+	 * @param shopId 店舗ID
+	 * @return ラーメン情報
+	 */
 	public List<Ramen> findByShopId(int shopId) {
 		String sql = "select ramen_id,\n" + 
 				"shop_id,\n" + 

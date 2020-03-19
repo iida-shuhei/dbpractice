@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import com.example.domain.Ramen;
+import com.example.domain.RamenImage;
 import com.example.domain.RamenShop;
 import com.example.domain.RamenShopTime;
 
@@ -47,26 +48,26 @@ public class RamenShopRepository {
 
 		while (rs.next()) {
 
-			int nowId = rs.getInt("r_shop_id");
+			int nowId = rs.getInt("s_shop_id");
 			if (nowId != preId) {
 				RamenShop ramenShop = new RamenShop();
-				ramenShop.setShopId(rs.getInt("r_shop_id"));
+				ramenShop.setShopId(nowId);
 				ramenShop.setShopName(rs.getString("shop_name"));
 				ramenShop.setZipcode(rs.getString("zipcode"));
 				ramenShop.setPrefecture(rs.getString("prefecture"));
 				ramenShop.setCity(rs.getString("city"));
 				ramenShop.setOther(rs.getString("other"));
 				ramenShop.setHolidays(rs.getString("holidays"));
-				ramenShop.setCreatedBy(rs.getString("created_by"));
-				ramenShop.setCreatedAt(rs.getTimestamp("created_at"));
-				ramenShop.setUpdatedBy(rs.getString("updated_by"));
-				ramenShop.setUpdatedAt(rs.getTimestamp("updated_at"));
-				ramenShop.setVersion(rs.getInt("version"));
-				ramenShop.setDeletedBy(rs.getString("deleted_by"));
-				ramenShop.setDeletedAt(rs.getTimestamp("deleted_at"));
+				ramenShop.setCreatedBy(rs.getString("s_created_by"));
+				ramenShop.setCreatedAt(rs.getTimestamp("s_created_at"));
+				ramenShop.setUpdatedBy(rs.getString("s_updated_by"));
+				ramenShop.setUpdatedAt(rs.getTimestamp("s_updated_at"));
+				ramenShop.setVersion(rs.getInt("s_version"));
+				ramenShop.setDeletedBy(rs.getString("s_deleted_by"));
+				ramenShop.setDeletedAt(rs.getTimestamp("s_deleted_at"));
 
 				RamenShopTime ramenShopTime = new RamenShopTime();
-				ramenShopTime.setShopId(rs.getInt("t_shop_id"));
+				ramenShopTime.setShopId(ramenShop.getShopId());
 				ramenShopTime.setDaysId(rs.getInt("days_id"));
 				ramenShopTime.setNoonStartTime(rs.getString("noon_start_time"));
 				ramenShopTime.setNoonEndTime(rs.getString("noon_end_time"));
@@ -84,17 +85,23 @@ public class RamenShopRepository {
 
 				Ramen ramen = new Ramen();
 				ramen.setRamenId(rs.getInt("ramen_id"));
-				ramen.setShopId(rs.getInt("shop_id"));
+				ramen.setShopId(rs.getInt("r_shop_id"));
 				ramen.setRamenName(rs.getString("ramen_name"));
 				ramen.setRamenPrice(rs.getInt("ramen_price"));
 				ramen.setRamenImagePathId(rs.getInt("ramen_image_path_id"));
-				ramen.setCreatedBy(rs.getString("created_by"));
-				ramen.setCreatedAt(rs.getTimestamp("created_at"));
-				ramen.setUpdatedBy(rs.getString("updated_by"));
-				ramen.setUpdatedAt(rs.getTimestamp("updated_at"));
-				ramen.setVersion(rs.getInt("version"));
-				ramen.setDeletedBy(rs.getString("deleted_by"));
-				ramen.setDeletedAt(rs.getTimestamp("deleted_at"));
+				ramen.setCreatedBy(rs.getString("r_created_by"));
+				ramen.setCreatedAt(rs.getTimestamp("r_created_at"));
+				ramen.setUpdatedBy(rs.getString("r_updated_by"));
+				ramen.setUpdatedAt(rs.getTimestamp("r_updated_at"));
+				ramen.setVersion(rs.getInt("r_version"));
+				ramen.setDeletedBy(rs.getString("r_deleted_by"));
+				ramen.setDeletedAt(rs.getTimestamp("r_deleted_at"));
+				
+				RamenImage ramenImage = new RamenImage();
+				ramenImage.setImageId(rs.getInt("image_id"));
+				ramenImage.setImagePath(rs.getString("image_path"));
+				ramen.setRamenImage(ramenImage);
+				
 				ramenList.add(ramen);
 			}
 			preId = nowId;
@@ -121,30 +128,48 @@ public class RamenShopRepository {
 	 * @return ラーメン店の情報.
 	 */
 	public List<RamenShop> findAll() {
-		String sql = "select r.shop_id r_shop_id, \n" + 
+		String sql = "select s.shop_id s_shop_id, \n" + 
 				"shop_name, \n" + 
 				"zipcode,\n" + 
 				"prefecture,\n" + 
 				"city,\n" + 
 				"other,\n" + 
 				"holidays,\n" + 
-				"created_by,\n" + 
-				"created_at,\n" + 
-				"updated_by,\n" + 
-				"updated_at,\n" + 
-				"version,\n" + 
-				"deleted_by,\n" + 
-				"deleted_at,\n" + 
+				"s.created_by s_created_by,\n" + 
+				"s.created_at s_created_at,\n" + 
+				"s.updated_by s_updated_by,\n" + 
+				"s.updated_at s_updated_at,\n" + 
+				"s.version s_version,\n" + 
+				"s.deleted_by s_deleted_by,\n" + 
+				"s.deleted_at s_deleted_at,\n" + 
 				"t.shop_id t_shop_id, \n" + 
 				"days_id, \n" + 
 				"noon_start_time,\n" + 
 				"noon_end_time,\n" + 
 				"night_start_time,\n" + 
 				"night_end_time,\n" + 
-				"other_time\n" + 
-				"from ramen_shops as r\n" + 
+				"other_time,\n" + 
+				"ramen_id,\n" + 
+				"r.shop_id r_shop_id,\n" + 
+				"ramen_name,\n" + 
+				"ramen_price,\n" + 
+				"ramen_image_path_id,\n" + 
+				"r.created_by r_created_by,\n" + 
+				"r.created_at r_created_at,\n" + 
+				"r.updated_by r_updated_by,\n" + 
+				"r.updated_at r_updated_at,\n" + 
+				"r.version r_version,\n" + 
+				"r.deleted_by r_deleted_by,\n" + 
+				"r.deleted_at r_deleted_at,\n" + 
+				"image_id,\n" + 
+				"image_path\n" + 
+				"from ramen_shops as s\n" + 
 				"left join ramen_shops_times as t\n" + 
-				"on r.shop_id = t.shop_id";
+				"on s.shop_id = t.shop_id\n" + 
+				"left join ramens as r\n" + 
+				"on s.shop_id = r.shop_id\n" + 
+				"left join ramen_images\n" + 
+				"on r.ramen_image_path_id = image_id";
 		return template.query(sql, RAMEN_SHOP_RESULT_SET_EXTRACTOR);
 	}
 }
