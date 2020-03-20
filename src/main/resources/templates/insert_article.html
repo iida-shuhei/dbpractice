@@ -28,16 +28,16 @@
 										aria-labelledby="Modal" aria-hidden="true">
 										<div class="modal-dialog" role="document">
 											<div class="modal-content">
-												<div class="modal-header"><a type="button" th:href="@{/ramenShop/toRegister}" class="btn btn-primary">新規登録</a>
+												<div class="modal-header">
+												<a type="button" th:href="@{/ramenShop/toRegister}" class="btn btn-primary">ラーメン店舗新規登録</a>
 												</div>
 												<div class="modal-body">
 												<input type="radio" th:each="ramenShop : ${ramenShopList}"
 											th:text="${ramenShop.shopName}" name="ramenShop">
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary"
-														data-dismiss="modal">閉じる</button>
-													<button type="button" class="btn btn-primary">決定</button>
+													<button type="button" class="btn btn-primary"
+														data-dismiss="modal">決定</button>
 												</div>
 											</div>
 										</div>

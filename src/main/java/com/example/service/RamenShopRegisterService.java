@@ -6,9 +6,10 @@ import java.sql.Timestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.example.domain.RamenShop;
 import com.example.domain.RamenShopTime;
-import com.example.form.ArticleRegisterForm;
+import com.example.form.RamenShopRegisterForm;
 import com.example.repository.RamenImageRepository;
 import com.example.repository.RamenShopRepository;
 import com.example.repository.RamenShopTimeRepository;
@@ -39,14 +40,14 @@ public class RamenShopRegisterService {
 	 * @param articleRegisterForm 記事登録フォーム
 	 * @throws IOException
 	 */
-	public void insert(ArticleRegisterForm articleRegisterForm){
+	public void insert(RamenShopRegisterForm ramenShopRegisterForm){
 		RamenShop ramenShop = new RamenShop();
-		ramenShop.setShopName(articleRegisterForm.getShopName());
-		ramenShop.setZipcode(articleRegisterForm.getZipcode());
-		ramenShop.setPrefecture(articleRegisterForm.getPrefecture());
-		ramenShop.setCity(articleRegisterForm.getCity());
-		ramenShop.setOther(articleRegisterForm.getOther());
-		ramenShop.setHolidays(articleRegisterForm.getHolidays());
+		ramenShop.setShopName(ramenShopRegisterForm.getShopName());
+		ramenShop.setZipcode(ramenShopRegisterForm.getZipcode());
+		ramenShop.setPrefecture(ramenShopRegisterForm.getPrefecture());
+		ramenShop.setCity(ramenShopRegisterForm.getCity());
+		ramenShop.setOther(ramenShopRegisterForm.getOther());
+		ramenShop.setHolidays(ramenShopRegisterForm.getHolidays());
 		ramenShop.setCreatedBy("飯田");
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		ramenShop.setCreatedAt(timestamp);
@@ -54,12 +55,12 @@ public class RamenShopRegisterService {
 
 		RamenShopTime ramenShopTime = new RamenShopTime();
 		ramenShopTime.setShopId(ramenShop.getShopId());
-		ramenShopTime.setDaysId(articleRegisterForm.getDaysId());
-		ramenShopTime.setNoonStartTime(articleRegisterForm.getNoonStartTime());
-		ramenShopTime.setNoonEndTime(articleRegisterForm.getNoonEndTime());
-		ramenShopTime.setNightStartTime(articleRegisterForm.getNightStartTime());
-		ramenShopTime.setNightEndTime(articleRegisterForm.getNightEndTime());
-		ramenShopTime.setOtherTime(articleRegisterForm.getOtherTime());
+		ramenShopTime.setDaysId(ramenShopRegisterForm.getDaysId());
+		ramenShopTime.setNoonStartTime(ramenShopRegisterForm.getNoonStartTime());
+		ramenShopTime.setNoonEndTime(ramenShopRegisterForm.getNoonEndTime());
+		ramenShopTime.setNightStartTime(ramenShopRegisterForm.getNightStartTime());
+		ramenShopTime.setNightEndTime(ramenShopRegisterForm.getNightEndTime());
+		ramenShopTime.setOtherTime(ramenShopRegisterForm.getOtherTime());
 		ramenShopTimeRepository.insert(ramenShopTime);
 	}
 }
