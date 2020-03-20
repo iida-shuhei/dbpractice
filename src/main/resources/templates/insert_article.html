@@ -33,7 +33,7 @@
 												</div>
 												<div class="modal-body">
 												<input type="radio" th:each="ramenShop : ${ramenShopList}"
-											th:text="${ramenShop.shopName}" name="ramenShop">
+											th:text="${ramenShop.shopName}" th:value="${ramenShop.shopId}" name="shopId">
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-primary"
@@ -59,6 +59,7 @@
 									<input type="file" name="ramenImage" th:field="*{ramenImage}"
 										accept=".jpg,.png"><br> <input
 										class="btn btn-success btn-block" type="submit" value="登録">
+									<input type="hidden" name="shopId">
 								</form>
 							</fieldset>
 						</div>
