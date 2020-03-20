@@ -74,7 +74,7 @@ drop table if exists ramen_shops_times cascade;
 
 create table ramen_shops_times (
 shop_id int
-, days_id int
+, days text
 , noon_start_time text
 , noon_end_time text
 , night_start_time text

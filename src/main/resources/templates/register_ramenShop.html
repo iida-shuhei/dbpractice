@@ -52,9 +52,56 @@
 										<input type="text" name="holidays" class="form-control"
 											th:field="*{holidays}" id="other" placeholder="休日️">
 									</div>
-									
-									<input
-										class="btn btn-success btn-block" type="submit" value="登録">
+
+									<div class="form-group">
+										<button id="btn">営業時間を登録する</button>
+									</div>
+
+									<div class="form-group">
+										営業時間登録<br> 
+										<input type="checkbox" name="days" th:value="月曜日" id="mon">月曜日 
+										
+										<div style="display: inline-flex" id="forMon"> 
+										<input type="text" name="noonStartTime" class="form-control" placeholder="営業開始" style="width: 130px;"> 〜 
+										<input type="text" name="noonEndTime" class="form-control" placeholder="営業終了" style="width: 130px;">
+										
+										<a type="button" id="btnForMon">追加</a></div><br>
+										
+										<div style="display: inline-flex" id="forMonNight"> 
+										<input type="text" name="noonStartTime" class="form-control" placeholder="営業開始" style="width: 130px;"> 〜 
+										<input type="text" name="noonEndTime" class="form-control" placeholder="営業終了" style="width: 130px;">
+										</div>
+										
+										
+										<input type="checkbox" name="days" th:value="火曜日">火曜日 
+										<span style="display: inline-flex"> 
+										<input type="text" name="noonStartTime" class="form-control" placeholder="営業開始" style="width: 130px;"> 〜 
+										<input type="text" name="noonEndTime" class="form-control" placeholder="営業終了" style="width: 130px;"></span><br>
+										<input type="checkbox" name="days" th:value="水曜日">水曜日<br> 
+										<span style="display: inline-flex"> 
+										<input type="text" name="noonStartTime" class="form-control" placeholder="営業開始" style="width: 130px;"> 〜 
+										<input type="text" name="noonEndTime" class="form-control" placeholder="営業終了" style="width: 130px;"></span><br>
+										<input type="checkbox" name="days" th:value="木曜日">木曜日 
+										<span style="display: inline-flex"> 
+										<input type="text" name="noonStartTime" class="form-control" placeholder="営業開始" style="width: 130px;"> 〜 
+										<input type="text" name="noonEndTime" class="form-control" placeholder="営業終了" style="width: 130px;"></span><br>
+										<input type="checkbox" name="days" th:value="金曜日">金曜日 
+										<span style="display: inline-flex"> 
+										<input type="text" name="noonStartTime" class="form-control" placeholder="営業開始" style="width: 130px;"> 〜 
+										<input type="text" name="noonEndTime" class="form-control" placeholder="営業終了" style="width: 130px;"></span><br>
+										<input type="checkbox" name="days" th:value="土曜日">土曜日 
+										<span style="display: inline-flex"> 
+										<input type="text" name="noonStartTime" class="form-control" placeholder="営業開始" style="width: 130px;"> 〜 
+										<input type="text" name="noonEndTime" class="form-control" placeholder="営業終了" style="width: 130px;"></span><br>
+										<input type="checkbox" name="days" th:value="日曜日">日曜日<br>
+										<span style="display: inline-flex"> 
+										<input type="text" name="noonStartTime" class="form-control" placeholder="営業開始" style="width: 130px;"> 〜 
+										<input type="text" name="noonEndTime" class="form-control" placeholder="営業終了" style="width: 130px;"></span><br>
+
+									</div>
+
+									<input class="btn btn-success btn-block" type="submit"
+										value="登録">
 								</form>
 							</fieldset>
 						</div>
@@ -95,13 +142,6 @@
 	<!-- 夜スタート<input type="text" name="nightStartTime"> -->
 	<!-- 夜エンド<input type="text" name="nightEndTime"> -->
 	<!-- その他<input type="text" name="otherTime"> -->
-
-	<!-- ラーメン<input type="text" name="ramenName"> -->
-	<!-- 価格<input type="text" name="ramenPrice"> -->
-	<!-- <input type="file" name="ramenImage" accept=".jpg,.png"> -->
-
-	<!-- <button>登録</button> -->
-	<!-- </form> -->
 
 </body>
 </html>

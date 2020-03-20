@@ -31,8 +31,8 @@
 												<div class="modal-header">
 												<a type="button" th:href="@{/ramenShop/toRegister}" class="btn btn-primary">ラーメン店舗新規登録</a>
 												</div>
-												<div class="modal-body">
-												<input type="radio" th:each="ramenShop : ${ramenShopList}"
+												<div class="modal-body" th:each="ramenShop : ${ramenShopList}">
+												<input type="radio" id="ramenShop"
 											th:text="${ramenShop.shopName}" th:value="${ramenShop.shopId}" name="shopId">
 												</div>
 												<div class="modal-footer">

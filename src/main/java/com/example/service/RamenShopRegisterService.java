@@ -55,7 +55,7 @@ public class RamenShopRegisterService {
 
 		RamenShopTime ramenShopTime = new RamenShopTime();
 		ramenShopTime.setShopId(ramenShop.getShopId());
-		ramenShopTime.setDaysId(ramenShopRegisterForm.getDaysId());
+		ramenShopTime.setDays(ramenShopRegisterForm.getDays());
 		ramenShopTime.setNoonStartTime(ramenShopRegisterForm.getNoonStartTime());
 		ramenShopTime.setNoonEndTime(ramenShopRegisterForm.getNoonEndTime());
 		ramenShopTime.setNightStartTime(ramenShopRegisterForm.getNightStartTime());

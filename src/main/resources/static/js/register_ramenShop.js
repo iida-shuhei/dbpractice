@@ -19,5 +19,17 @@ $(function() {
 				$('#city').val(data.address2);
 				$('#other').val(data.address3);
 			}
-		});
 	});
+});
+
+//営業時間：月曜日
+$(function(){
+	$("#forMon").hide();
+	$("#forMonNight").hide();
+	$("#mon").on('click',function(){
+		$("#forMon").toggle();
+	})
+	$("#btnForMon").on('click',function(){
+		$("#forMonNight").show();
+	})
+});

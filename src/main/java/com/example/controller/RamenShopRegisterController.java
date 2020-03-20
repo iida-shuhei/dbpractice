@@ -29,7 +29,7 @@ public class RamenShopRegisterController {
 	/**
 	 * ラーメン店舗を登録する.
 	 * 
-	 * @return HTML
+	 * @return 登録画面へ遷移
 	 */
 	@RequestMapping("/toRegister")
 	public String toRegister() {

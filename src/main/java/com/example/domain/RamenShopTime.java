@@ -3,7 +3,7 @@ package com.example.domain;
 public class RamenShopTime {
 
 	private Integer shopId;
-	private Integer daysId;
+	private String days;
 	private String noonStartTime;
 	private String noonEndTime;
 	private String nightStartTime;
@@ -18,12 +18,12 @@ public class RamenShopTime {
 		this.shopId = shopId;
 	}
 
-	public Integer getDaysId() {
-		return daysId;
+	public String getDays() {
+		return days;
 	}
 
-	public void setDaysId(Integer daysId) {
-		this.daysId = daysId;
+	public void setDays(String days) {
+		this.days = days;
 	}
 
 	public String getNoonStartTime() {
@@ -68,7 +68,7 @@ public class RamenShopTime {
 
 	@Override
 	public String toString() {
-		return "RamenShopTime [shopId=" + shopId + ", daysId=" + daysId + ", noonStartTime=" + noonStartTime
+		return "RamenShopTime [shopId=" + shopId + ", days=" + days + ", noonStartTime=" + noonStartTime
 				+ ", noonEndTime=" + noonEndTime + ", nightStartTime=" + nightStartTime + ", nightEndTime="
 				+ nightEndTime + ", otherTime=" + otherTime + "]";
 	}

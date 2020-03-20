@@ -68,7 +68,7 @@ public class RamenShopRepository {
 
 				RamenShopTime ramenShopTime = new RamenShopTime();
 				ramenShopTime.setShopId(ramenShop.getShopId());
-				ramenShopTime.setDaysId(rs.getInt("days_id"));
+				ramenShopTime.setDays(rs.getString("days"));
 				ramenShopTime.setNoonStartTime(rs.getString("noon_start_time"));
 				ramenShopTime.setNoonEndTime(rs.getString("noon_end_time"));
 				ramenShopTime.setNightStartTime(rs.getString("night_start_time"));
@@ -143,7 +143,7 @@ public class RamenShopRepository {
 				"s.deleted_by s_deleted_by,\n" + 
 				"s.deleted_at s_deleted_at,\n" + 
 				"t.shop_id t_shop_id, \n" + 
-				"days_id, \n" + 
+				"days, \n" + 
 				"noon_start_time,\n" + 
 				"noon_end_time,\n" + 
 				"night_start_time,\n" + 
