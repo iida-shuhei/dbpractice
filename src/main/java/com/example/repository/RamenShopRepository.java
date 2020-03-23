@@ -6,9 +6,12 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -30,6 +33,8 @@ public class RamenShopRepository {
 
 	@Autowired
 	private NamedParameterJdbcTemplate template;
+	
+	private static final RowMapper<RamenShop> rowMapper = new BeanPropertyRowMapper<RamenShop>(RamenShop.class);
 
 	// Insert時に自動採番されたIDを取得する
 	private SimpleJdbcInsert insert;
@@ -40,7 +45,7 @@ public class RamenShopRepository {
 		SimpleJdbcInsert withTableName = simpleJdbcInsert.withTableName("ramen_shops");
 		insert = withTableName.usingGeneratedKeyColumns("shop_id");
 	}
-
+	
 	private static final ResultSetExtractor<List<RamenShop>> RAMEN_SHOP_RESULT_SET_EXTRACTOR = (rs) -> {
 		List<RamenShop> ramenShopList = new ArrayList<>();
 		int preId = 0;
@@ -171,5 +176,74 @@ public class RamenShopRepository {
 				"left join ramen_images\n" + 
 				"on r.ramen_image_path_id = image_id";
 		return template.query(sql, RAMEN_SHOP_RESULT_SET_EXTRACTOR);
+	}
+	
+	public List<RamenShop> findByShopName(String shopName) {
+		String sql = "select s.shop_id s_shop_id, \n" + 
+				"shop_name, \n" + 
+				"zipcode,\n" + 
+				"prefecture,\n" + 
+				"city,\n" + 
+				"other,\n" + 
+				"holidays,\n" + 
+				"s.created_by s_created_by,\n" + 
+				"s.created_at s_created_at,\n" + 
+				"s.updated_by s_updated_by,\n" + 
+				"s.updated_at s_updated_at,\n" + 
+				"s.version s_version,\n" + 
+				"s.deleted_by s_deleted_by,\n" + 
+				"s.deleted_at s_deleted_at,\n" + 
+				"t.shop_id t_shop_id, \n" + 
+				"days, \n" + 
+				"noon_start_time,\n" + 
+				"noon_end_time,\n" + 
+				"night_start_time,\n" + 
+				"night_end_time,\n" + 
+				"other_time,\n" + 
+				"ramen_id,\n" + 
+				"r.shop_id r_shop_id,\n" + 
+				"ramen_name,\n" + 
+				"ramen_price,\n" + 
+				"ramen_image_path_id,\n" + 
+				"r.created_by r_created_by,\n" + 
+				"r.created_at r_created_at,\n" + 
+				"r.updated_by r_updated_by,\n" + 
+				"r.updated_at r_updated_at,\n" + 
+				"r.version r_version,\n" + 
+				"r.deleted_by r_deleted_by,\n" + 
+				"r.deleted_at r_deleted_at,\n" + 
+				"image_id,\n" + 
+				"image_path\n" + 
+				"from ramen_shops as s\n" + 
+				"left join ramen_shops_times as t\n" + 
+				"on s.shop_id = t.shop_id\n" + 
+				"left join ramens as r\n" + 
+				"on s.shop_id = r.shop_id\n" + 
+				"left join ramen_images\n" + 
+				"on r.ramen_image_path_id = image_id\n" +
+				"where shop_name Ilike :shopName order by shop_name";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("shopName", '%' + shopName + '%');
+		return template.query(sql, param, RAMEN_SHOP_RESULT_SET_EXTRACTOR);
+	}
+	
+	public RamenShop load(Integer shopId) {
+		String sql = "select shop_id, \n" + 
+				"shop_name, \n" + 
+				"zipcode,\n" + 
+				"prefecture,\n" + 
+				"city,\n" + 
+				"other,\n" + 
+				"holidays,\n" + 
+				"created_by,\n" + 
+				"created_at,\n" + 
+				"updated_by,\n" + 
+				"updated_at,\n" + 
+				"version,\n" + 
+				"deleted_by,\n" + 
+				"deleted_at\n" +
+				"from ramen_shops\n" +
+				"where shop_id =:shopId";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("shopId", shopId);
+		return template.queryForObject(sql, param, rowMapper);
 	}
 }

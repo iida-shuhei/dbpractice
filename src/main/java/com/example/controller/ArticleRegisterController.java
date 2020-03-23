@@ -25,6 +25,7 @@ import com.example.repository.RamenImageRepository;
 import com.example.repository.RamenRepository;
 import com.example.repository.RamenShopRepository;
 import com.example.repository.RamenShopTimeRepository;
+import com.example.service.RamenShopService;
 
 /**
  * ラーメン店舗を管理するリポジトリ.
@@ -51,6 +52,16 @@ public class ArticleRegisterController {
 	@Autowired
 	public RamenShopTimeRepository ramenShopTimeRepository;
 	
+	@Autowired
+	public RamenShopService ramenShopService;
+	
+	@RequestMapping("/index")
+	public String index(Model model) {
+		List<RamenShop> ramenShopList = ramenShopRepository.findAll();
+		model.addAttribute("ramenShopList", ramenShopList);
+		return "articles";
+	}
+	
 	/**
 	 * 入力値を受け取るフォーム.
 	 * 
@@ -67,13 +78,11 @@ public class ArticleRegisterController {
 	 * @return 記事投稿画面
 	 */
 	@RequestMapping("/toInsert")
-	public String toInsert(Model model) {
-		List<RamenShop> ramenShopList = ramenShopRepository.findAll();
-		for (RamenShop ramenShop : ramenShopList) {
-			List<Ramen> ramenList = ramenRepository.findByShopId(ramenShop.getShopId());
-			ramenShop.setRamenList(ramenList);
+	public String toInsert(Integer shopId, Model model) {
+		if(shopId != null) {
+			RamenShop ramenShop = ramenShopService.load(shopId);
+			model.addAttribute("ramenShop", ramenShop);
 		}
-		model.addAttribute("ramenShopList", ramenShopList);
 		return "insert_article";
 	}
 
@@ -98,7 +107,7 @@ public class ArticleRegisterController {
 		}
 
 		if (result.hasErrors()) {
-			return toInsert(model);
+			return toInsert(articleRegisterForm.getShopId(),model);
 		}
 
 		RamenImage ramenImage = new RamenImage();

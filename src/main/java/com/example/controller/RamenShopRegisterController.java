@@ -27,7 +27,7 @@ public class RamenShopRegisterController {
 	}
 	
 	/**
-	 * ラーメン店舗を登録する.
+	 * ラーメン店舗を登録する画面へ遷移する.
 	 * 
 	 * @return 登録画面へ遷移
 	 */
@@ -36,6 +36,12 @@ public class RamenShopRegisterController {
 		return "register_ramenShop";
 	}
 	
+	/**
+	 * ラーメン店舗を登録する.
+	 * 
+	 * @param ramenShopRegisterForm ラーメン店舗を登録するフォーム
+	 * @return ラーメンを登録する画面
+	 */
 	@RequestMapping("/register")
 	public String register(RamenShopRegisterForm ramenShopRegisterForm) {
 		ramenShopRegisterService.insert(ramenShopRegisterForm);

@@ -20,31 +20,11 @@
 								<form th:action="@{/ramen/insert}" method="post"
 									th:object="${articleRegisterForm}"
 									enctype="multipart/form-data">
-									
-									<button type="button" class="btn btn-primary"
-										data-toggle="modal" data-target="#Modal">ラーメン店舗検索</button>
 
-									<div class="modal" id="Modal" tabindex="-1" role="dialog"
-										aria-labelledby="Modal" aria-hidden="true">
-										<div class="modal-dialog" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-												<a type="button" th:href="@{/ramenShop/toRegister}" class="btn btn-primary">ラーメン店舗新規登録</a>
-												</div>
-												<div class="modal-body" th:each="ramenShop : ${ramenShopList}">
-												<input type="radio" id="ramenShop"
-											th:text="${ramenShop.shopName}" th:value="${ramenShop.shopId}" name="shopId">
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-primary"
-														data-dismiss="modal">決定</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									
-									<p></p>									
-									
+									<a th:href="@{/ramenShop}" type="button" class="btn btn-primary">ラーメン店舗検索</a>
+
+									<p th:if="${ramenShop}" th:text="${ramenShop.shopName}"></p>
+
 									<div class="form-group">
 										<label th:errors="*{ramenName}" style="color: red">ラーメン名を入力してください</label>
 										<input type="text" name="ramenName" class="form-control"
@@ -59,7 +39,7 @@
 									<input type="file" name="ramenImage" th:field="*{ramenImage}"
 										accept=".jpg,.png"><br> <input
 										class="btn btn-success btn-block" type="submit" value="登録">
-									<input type="hidden" name="shopId">
+									<input type="hidden" th:if="${ramenShop}" th:value="${ramenShop.shopId}" name="shopId">
 								</form>
 							</fieldset>
 						</div>
@@ -69,7 +49,9 @@
 		</div>
 	</div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
