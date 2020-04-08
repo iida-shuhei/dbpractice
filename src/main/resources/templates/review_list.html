@@ -37,11 +37,11 @@
 		<section>
 			<div class="container">
 				<div class="each" th:each="review : ${reviewList}">
-					<a th:href="@{'/ramenShop/detail?id=' + ${review.reviewId}}"> 
+					<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}"> 
 						<input type="hidden" name="userId"> 
 						<img class="img" th:src="${review.ramenImage.imagePath}">
 					</a><br>
-					<a th:href="@{'/ramenShop/detail?id=' + ${review.reviewId}}"> 
+					<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}"> 
 						<input type="hidden" name="userId">
 						<span class="card-title" th:text="${review.ramenShop.shopName}"></span><br>
 					</a>
