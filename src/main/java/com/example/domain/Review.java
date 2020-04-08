@@ -1,19 +1,21 @@
 package com.example.domain;
 
-
 import java.sql.Timestamp;
-import java.util.List;
 
 import lombok.Data;
 
 @Data
-public class Article {
+public class Review {
 
-	private Integer articleId;
-	private Integer userId;
+	private Integer reviewId;
 	private Integer shopId;
-	private List<RamenShop> ramenShopList;
-	private String comments;
+	private Integer userId;
+	private String ramenName;
+	private Integer ramenPrice;
+	private Integer ramenImagePathId;
+	private RamenShop ramenShop;
+	private RamenImage ramenImage;
+	private User user;
 	
 	private String createdBy;
 	private Timestamp createdAt;
@@ -22,4 +24,5 @@ public class Article {
 	private Integer version;
 	private String deletedBy;
 	private Timestamp deletedAt;
+
 }

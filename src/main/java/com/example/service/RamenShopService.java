@@ -16,9 +16,9 @@ public class RamenShopService {
 	@Autowired
 	private RamenShopRepository ramenShopRepository;
 	
-	public List<RamenShop> findAll() {
-		return ramenShopRepository.findAll();
-	}
+//	public List<RamenShop> findAll() {
+//		return ramenShopRepository.findAll();
+//	}
 	
 	public RamenShop load(Integer shopId) {
 		return ramenShopRepository.load(shopId);

@@ -7,48 +7,50 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.domain.Ramen;
 import com.example.domain.RamenShop;
-import com.example.repository.RamenRepository;
 import com.example.repository.RamenShopRepository;
 
+/**
+ * ラーメン店舗を管理するコントローラー.
+ * 
+ * @author iidashuhei
+ *
+ */
 @Controller
-@RequestMapping("/ramenShop")
-public class RamenShopController {
+@RequestMapping("/ramenShopSearch")
+public class RamenShopSearchController {
 
 	@Autowired
 	private RamenShopRepository ramenShopRepository;
 	
-	@Autowired
-	private RamenRepository ramenRepository;
-	
+	/**
+	 * トップページを表示.
+	 * 
+	 * @param model モデル
+	 * @return トップページ情報
+	 */
 	@RequestMapping("")
 	public String index(Model model) {
 		List<RamenShop> ramenShopList = ramenShopRepository.findAll();
-		for (RamenShop ramenShop : ramenShopList) {
-			List<Ramen> ramenList = ramenRepository.findByShopId(ramenShop.getShopId());
-			ramenShop.setRamenList(ramenList);
-		}
 		model.addAttribute("ramenShopList", ramenShopList);
 		return "ramenShop_search";
 	}
 	
+	/**
+	 * ラーメン店舗を検索する.
+	 * 
+	 * @param shopName ラーメン店舗名
+	 * @param model モデル
+	 * @return ラーメン店舗検索サイト
+	 */
 	@RequestMapping("/search")
-	public String index(String shopName,Model model) {
+	public String search(String shopName,Model model) {
 		List<RamenShop> ramenShopList = ramenShopRepository.findByShopName(shopName);
 		if(shopName == null || ramenShopList.isEmpty()) {
 			List<RamenShop> ramenShopList1 = ramenShopRepository.findAll();
-			for (RamenShop ramenShop : ramenShopList1) {
-				List<Ramen> ramenList = ramenRepository.findByShopId(ramenShop.getShopId());
-				ramenShop.setRamenList(ramenList);
-			}
 			model.addAttribute("ramenShopList", ramenShopList1);
 			model.addAttribute("message", "該当するラーメン店舗はまだ登録されていません");
 		} else {
-			for (RamenShop ramenShop : ramenShopList) {
-				List<Ramen> ramenList = ramenRepository.findByShopId(ramenShop.getShopId());
-				ramenShop.setRamenList(ramenList);
-			}
 			model.addAttribute("ramenShopList", ramenShopList);
 		}
 		return "ramenShop_search";

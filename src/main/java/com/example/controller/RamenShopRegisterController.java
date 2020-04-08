@@ -1,12 +1,15 @@
 package com.example.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.example.form.RamenShopRegisterForm;
+import com.example.repository.RamenImageRepository;
+import com.example.repository.RamenShopTimeRepository;
 import com.example.service.RamenShopRegisterService;
+import com.example.service.RamenShopService;
 
 /**
  * ラーメン店舗を管理するコントローラー.
@@ -17,9 +20,18 @@ import com.example.service.RamenShopRegisterService;
 @Controller
 @RequestMapping("/ramenShop")
 public class RamenShopRegisterController {
+	
+	@Autowired
+	public RamenImageRepository ramenImageRepository;
 
 	@Autowired
+	public RamenShopTimeRepository ramenShopTimeRepository;
+	
+	@Autowired
 	private RamenShopRegisterService ramenShopRegisterService;
+	
+	@Autowired
+	public RamenShopService ramenShopService;
 	
 	@ModelAttribute
 	public RamenShopRegisterForm setUpForm() {
@@ -45,6 +57,6 @@ public class RamenShopRegisterController {
 	@RequestMapping("/register")
 	public String register(RamenShopRegisterForm ramenShopRegisterForm) {
 		ramenShopRegisterService.insert(ramenShopRegisterForm);
-		return "redirect:/ramen/toInsert";
+		return "redirect:/ramenShopSearch";
 	}
 }

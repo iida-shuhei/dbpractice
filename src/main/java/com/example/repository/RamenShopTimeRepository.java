@@ -31,4 +31,16 @@ public class RamenShopTimeRepository {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(ramenShopTime);
 		template.update(sql, param);
 	}
+	
+	public void delete(RamenShopTime ramenShopTime) {
+		String sql = "delete from ramen_shops_times "
+				+ "where days is null "
+				+ "and noon_start_time is null "
+				+ "and noon_end_time is null "
+				+ "and night_start_time is null "
+				+ "and night_end_time is null "
+				+ "and other_time is null";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(ramenShopTime);
+		template.update(sql, param);
+	}
 }

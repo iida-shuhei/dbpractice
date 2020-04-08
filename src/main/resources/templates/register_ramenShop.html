@@ -4,7 +4,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+<link th:href="@{/css/register_ramenShop.css}" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- <script th:src="@{/js/monday.js}"></script> -->
+<!-- <script th:src="@{/js/tuesday.js}"></script> -->
+<!-- <script th:src="@{/js/wednesday.js}"></script> -->
+<!-- <script th:src="@{/js/thursday.js}"></script> -->
+<!-- <script th:src="@{/js/friday.js}"></script> -->
+<!-- <script th:src="@{/js/saturday.js}"></script> -->
+<script th:src="@{/js/weekday.js}"></script>
 <script th:src="@{/js/register_ramenShop.js}"></script>
 </head>
 <body>
@@ -29,7 +37,7 @@
 									<div class="form-group">
 										<label th:errors="*{zipcode}" style="color: red">郵便番号を入力してください</label>
 										<input type="number" name="zipcode" th:field="*{zipcode}"
-											id="zipcode" class="form-control" placeholder="郵便番号">
+											id="zipcode" class="form-control" placeholder="郵便番号" pattern="\d{3}-?\d{4}">
 										<input type="button" id="btn" value="検索">
 									</div>
 									<div class="form-group">
@@ -52,53 +60,69 @@
 										<input type="text" name="holidays" class="form-control"
 											th:field="*{holidays}" id="other" placeholder="休日️">
 									</div>
-
-									<div class="form-group">
-										<button id="btn">営業時間を登録する</button>
-									</div>
-
-									<div class="form-group">
-										営業時間登録<br> 
-										<input type="checkbox" name="days" th:value="月曜日" id="mon">月曜日 
-										
-										<div style="display: inline-flex" id="forMon"> 
-										<input type="text" name="noonStartTime" class="form-control" placeholder="営業開始" style="width: 130px;"> 〜 
-										<input type="text" name="noonEndTime" class="form-control" placeholder="営業終了" style="width: 130px;">
-										
-										<a type="button" id="btnForMon">追加</a></div><br>
-										
-										<div style="display: inline-flex" id="forMonNight"> 
-										<input type="text" name="noonStartTime" class="form-control" placeholder="営業開始" style="width: 130px;"> 〜 
-										<input type="text" name="noonEndTime" class="form-control" placeholder="営業終了" style="width: 130px;">
-										</div>
-										
-										
-										<input type="checkbox" name="days" th:value="火曜日">火曜日 
-										<span style="display: inline-flex"> 
-										<input type="text" name="noonStartTime" class="form-control" placeholder="営業開始" style="width: 130px;"> 〜 
-										<input type="text" name="noonEndTime" class="form-control" placeholder="営業終了" style="width: 130px;"></span><br>
-										<input type="checkbox" name="days" th:value="水曜日">水曜日<br> 
-										<span style="display: inline-flex"> 
-										<input type="text" name="noonStartTime" class="form-control" placeholder="営業開始" style="width: 130px;"> 〜 
-										<input type="text" name="noonEndTime" class="form-control" placeholder="営業終了" style="width: 130px;"></span><br>
-										<input type="checkbox" name="days" th:value="木曜日">木曜日 
-										<span style="display: inline-flex"> 
-										<input type="text" name="noonStartTime" class="form-control" placeholder="営業開始" style="width: 130px;"> 〜 
-										<input type="text" name="noonEndTime" class="form-control" placeholder="営業終了" style="width: 130px;"></span><br>
-										<input type="checkbox" name="days" th:value="金曜日">金曜日 
-										<span style="display: inline-flex"> 
-										<input type="text" name="noonStartTime" class="form-control" placeholder="営業開始" style="width: 130px;"> 〜 
-										<input type="text" name="noonEndTime" class="form-control" placeholder="営業終了" style="width: 130px;"></span><br>
-										<input type="checkbox" name="days" th:value="土曜日">土曜日 
-										<span style="display: inline-flex"> 
-										<input type="text" name="noonStartTime" class="form-control" placeholder="営業開始" style="width: 130px;"> 〜 
-										<input type="text" name="noonEndTime" class="form-control" placeholder="営業終了" style="width: 130px;"></span><br>
-										<input type="checkbox" name="days" th:value="日曜日">日曜日<br>
-										<span style="display: inline-flex"> 
-										<input type="text" name="noonStartTime" class="form-control" placeholder="営業開始" style="width: 130px;"> 〜 
-										<input type="text" name="noonEndTime" class="form-control" placeholder="営業終了" style="width: 130px;"></span><br>
-
-									</div>
+									
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+								 営業時間登録
+								</button>
+								
+								<!-- モーダルの設定 -->
+								<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h5 class="modal-title" id="exampleModalLongTitle">ラーメン店舗営業時間</h5>
+								      </div>
+								      <div class="modal-body">
+								      
+								       		<label><input type="checkbox" value="月曜日" id="monday">月曜日</label>
+												<div id="parentMon">
+														<!-- ここにinputが追加される -->
+												</div>
+											<input type="button" value="追加" id="addMon"><br>
+									
+											<label><input type="checkbox" value="火曜日" id="tuesday">火曜日</label>
+												<div id="parentTue">
+														<!-- ここにinputが追加される -->
+												</div>
+											<input type="button" value="追加" id="addTue"><br>
+											
+											<label><input type="checkbox" value="水曜日" id="wednesday">水曜日</label>
+												<div id="parentWed">
+														<!-- ここにinputが追加される -->
+												</div>
+											<input type="button" value="追加" id="addWed"><br>
+											
+											<label><input type="checkbox" value="木曜日" id="thursday">木曜日</label>
+												<div id="parentThu">
+														<!-- ここにinputが追加される -->
+												</div>
+											<input type="button" value="追加" id="addThu"><br>
+											
+											<label><input type="checkbox" value="金曜日" id="friday">金曜日</label>
+												<div id="parentFri">
+														<!-- ここにinputが追加される -->
+												</div>
+											<input type="button" value="追加" id="addFri"><br>
+											
+											<label><input type="checkbox" value="土曜日" id="saturday">土曜日</label>
+												<div id="parentSat">
+														<!-- ここにinputが追加される -->
+												</div>
+											<input type="button" value="追加" id="addSat"><br>
+											
+											<label><input type="checkbox" value="日曜日" id="sunday">日曜日</label>
+												<div id="parentSun">
+														<!-- ここにinputが追加される -->
+												</div>
+											<input type="button" value="追加" id="addSun"><br>
+												
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal">決定</button>
+								      </div>
+								    </div>
+								  </div>
+								</div><br><br>
 
 									<input class="btn btn-success btn-block" type="submit"
 										value="登録">
@@ -110,38 +134,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- 									<div class="form-group"> -->
-	<!-- 										<label th:errors="*{daysId}" style="color: red">営業日を選択してください</label> -->
-	<!-- 										<input type="checkbox" name="daysId" value="1">月曜日 -->
-	<!-- 										<input type="checkbox" name="daysId" value="2">火曜日 -->
-	<!-- 										<input type="checkbox" name="daysId" value="3">水曜日 -->
-	<!-- 										<input type="checkbox" name="daysId" value="4">木曜日<br> -->
-	<!-- 										<input type="checkbox" name="daysId" value="5">金曜日 -->
-	<!-- 										<input type="checkbox" name="daysId" value="6">土曜日 -->
-	<!-- 										<input type="checkbox" name="daysId" value="7">日曜日 -->
-	<!-- 									</div> -->
-	<!-- <form th:action="@{/ramen/insert}" method="post" enctype="multipart/form-data"> -->
-	<!-- 店名<input type="text" name="shopName"> -->
-	<!-- 郵便番号<input type="text" name="zipcode"> -->
-	<!-- 都道府県<input type="text" name="prefecture"> -->
-	<!-- 市町村<input type="text" name="city"> -->
-	<!-- その他<input type="text" name="other"> -->
-	<!-- 休日<input type="text" name="holidays"> -->
-
-	<!-- <select name="daysId"> -->
-	<!-- <option value="1">月曜</option> -->
-	<!-- <option value="2">火曜</option> -->
-	<!-- <option value="3">水曜</option> -->
-	<!-- <option value="4">木曜</option> -->
-	<!-- <option value="5">金曜</option> -->
-	<!-- <option value="6">土曜</option> -->
-	<!-- <option value="7">日曜</option> -->
-	<!-- </select> -->
-	<!-- 昼スタート<input type="text" name="noonStartTime"> -->
-	<!-- 昼エンド<input type="text" name="noonEndTime"> -->
-	<!-- 夜スタート<input type="text" name="nightStartTime"> -->
-	<!-- 夜エンド<input type="text" name="nightEndTime"> -->
-	<!-- その他<input type="text" name="otherTime"> -->
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 </html>

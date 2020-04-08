@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+<link th:href="@{/css/ramenShop_search.css}" rel="stylesheet">
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
 	rel="stylesheet">
 </head>
@@ -17,31 +18,37 @@
 							<h3 class="panel-title">ラーメン店舗検索</h3>
 						</div>
 						<div class="panel-body">
-							<a type="button" th:href="@{/ramenShop/toRegister}"
-								class="btn btn-primary">ラーメン店舗新規登録</a><br> <br>
-							<form th:action="@{/ramenShop/search}" method="post">
-								ラーメン店舗を検索する <br>
-								<input type="text" name="shopName">
-								<button>
-									<i class="fas fa-search"></i>
-								</button>
-							</form>
+							<fieldset>
+							<div class="form-group">
+								<a type="button" th:href="@{/ramenShop/toRegister}"
+									class="btn btn-primary">ラーメン店舗新規登録</a>
+							</div>
+							<div class="form-group">
+								<form th:action="@{/ramenShopSearch/search}" method="post">
+									ラーメン店舗を検索する <br> 
+									<input type="text" name="shopName">
+									<input type="submit" value="検索">
+								</form>
+								<span th:text="${message}"></span>
+							</div>
+							<div class="form-group">
+								<small>登録されているラーメン店舗一覧</small><br>
+								<small style="color: red">もしここになければ新規登録してください</small>
+								
+								<form th:action="@{/review/toInsert}" method="post">
+									<div th:each="ramenShop : ${ramenShopList}">
+										<input type="radio" name="shopId" 
+										th:text="${ramenShop.shopName}" th:value="${ramenShop.shopId}">
+									</div>
+									<br>
+									<div class="form-group">
+										<input class="btn btn-success btn-block" type="submit" value="決定">
+									</div>
+								</form>
+								
+							</div>
+							</fieldset>
 						</div>
-						<span th:text="${message}"></span>
-
-						<form th:action="@{/ramen/toInsert}" method="post">
-							<div th:each="ramenShop : ${ramenShopList}">
-								<input type="radio" id="ramenShop"
-									th:text="${ramenShop.shopName}" th:value="${ramenShop.shopId}"
-									name="shopId">
-							</div>
-							<div>
-								<input type="hidden" name="shopId">
-								<button class="btn btn-primary"
-									data-dismiss="modal">決定</button>
-							</div>
-						</form>
-
 					</div>
 				</div>
 			</div>

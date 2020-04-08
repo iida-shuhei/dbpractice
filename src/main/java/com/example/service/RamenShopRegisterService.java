@@ -53,14 +53,16 @@ public class RamenShopRegisterService {
 		ramenShop.setCreatedAt(timestamp);
 		ramenShopRepository.insert(ramenShop);
 
-		RamenShopTime ramenShopTime = new RamenShopTime();
-		ramenShopTime.setShopId(ramenShop.getShopId());
-		ramenShopTime.setDays(ramenShopRegisterForm.getDays());
-		ramenShopTime.setNoonStartTime(ramenShopRegisterForm.getNoonStartTime());
-		ramenShopTime.setNoonEndTime(ramenShopRegisterForm.getNoonEndTime());
-		ramenShopTime.setNightStartTime(ramenShopRegisterForm.getNightStartTime());
-		ramenShopTime.setNightEndTime(ramenShopRegisterForm.getNightEndTime());
-		ramenShopTime.setOtherTime(ramenShopRegisterForm.getOtherTime());
-		ramenShopTimeRepository.insert(ramenShopTime);
+		for(RamenShopTime ramenShopTime : ramenShopRegisterForm.getRamenShopTimeList()) {
+			ramenShopTime.setDays(ramenShopTime.getDays());
+			ramenShopTime.setNoonStartTime(ramenShopTime.getNoonStartTime());
+			ramenShopTime.setNoonEndTime(ramenShopTime.getNoonEndTime());
+			ramenShopTime.setNightStartTime(ramenShopTime.getNightStartTime());
+			ramenShopTime.setNightEndTime(ramenShopTime.getNightEndTime());
+			ramenShopTime.setOtherTime(ramenShopTime.getOtherTime());
+			ramenShopTime.setShopId(ramenShop.getShopId());
+			ramenShopTimeRepository.insert(ramenShopTime);
+			ramenShopTimeRepository.delete(ramenShopTime);
+		}
 	}
 }

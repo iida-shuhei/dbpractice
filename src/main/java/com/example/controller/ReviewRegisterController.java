@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Base64;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,65 +14,44 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.domain.Article;
-import com.example.domain.Ramen;
 import com.example.domain.RamenImage;
 import com.example.domain.RamenShop;
-import com.example.form.ArticleRegisterForm;
-import com.example.repository.ArticleRepository;
+import com.example.domain.Review;
+import com.example.form.ReviewRegisterForm;
 import com.example.repository.RamenImageRepository;
-import com.example.repository.RamenRepository;
-import com.example.repository.RamenShopRepository;
 import com.example.repository.RamenShopTimeRepository;
+import com.example.repository.ReviewRepository;
 import com.example.service.RamenShopService;
 
 /**
- * ラーメン店舗を管理するリポジトリ.
+ * レビューを登録するコントローラー.
  * 
  * @author iidashuhei
  *
  */
 @Controller
-@RequestMapping("/ramen")
-public class ArticleRegisterController {
-
+@RequestMapping("/review")
+public class ReviewRegisterController {
+	
 	@Autowired
-	private RamenShopRepository ramenShopRepository;
-
-	@Autowired
-	private RamenRepository ramenRepository;
+	private ReviewRepository reviewRepository;
 	
 	@Autowired
 	public RamenImageRepository ramenImageRepository;
 
-	@Autowired
-	private ArticleRepository articleRepository;
-	
 	@Autowired
 	public RamenShopTimeRepository ramenShopTimeRepository;
 	
 	@Autowired
 	public RamenShopService ramenShopService;
 	
-	@RequestMapping("/index")
-	public String index(Model model) {
-		List<RamenShop> ramenShopList = ramenShopRepository.findAll();
-		model.addAttribute("ramenShopList", ramenShopList);
-		return "articles";
-	}
-	
-	/**
-	 * 入力値を受け取るフォーム.
-	 * 
-	 * @return 記事フォーム
-	 */
 	@ModelAttribute
-	private ArticleRegisterForm setUpForm() {
-		return new ArticleRegisterForm();
+	public ReviewRegisterForm setUpForm() {
+		return new ReviewRegisterForm();
 	}
 
 	/**
-	 * 記事投稿画面へ遷移.
+	 * レビュー登録画面へ遷移.
 	 * 
 	 * @return 記事投稿画面
 	 */
@@ -83,31 +61,35 @@ public class ArticleRegisterController {
 			RamenShop ramenShop = ramenShopService.load(shopId);
 			model.addAttribute("ramenShop", ramenShop);
 		}
-		return "insert_article";
+		return "register_review";
 	}
-
-	@RequestMapping("/insert")
-	public String insert(@Validated ArticleRegisterForm articleRegisterForm, BindingResult result, Model model) throws IOException {
 	
-		Article article = new Article();
-		article.setUserId(1);
-		article.setShopId(articleRegisterForm.getShopId());
-		articleRepository.insert(article);
-
+	/**
+	 * レビューを登録する.
+	 * 
+	 * @param articleRegisterForm 記事登録フォーム
+	 * @param result 結果
+	 * @param model モデル
+	 * @return トップページへリダイレクト
+	 * @throws IOException
+	 */
+	@RequestMapping("/insert")
+	public String insert(@Validated ReviewRegisterForm reviewRegisterForm, BindingResult result, Model model) throws IOException {
+	
 		// 画像ファイル形式チェック
-		MultipartFile image = articleRegisterForm.getRamenImage();
+		MultipartFile image = reviewRegisterForm.getRamenImage();
 		String fileExtension = null;
 		try {
 			fileExtension = getExtension(image.getOriginalFilename());
 			if (!"jpg".equals(fileExtension) && !"png".equals(fileExtension)) {
-				result.rejectValue("image", "", "拡張子は.jpgか.pngのみに対応しています");
+				result.rejectValue("ramenImage", "", "拡張子は.jpgか.pngのみに対応しています");
 			}
 		} catch (Exception e) {
-			result.rejectValue("image", "", "拡張子は.jpgか.pngのみに対応しています");
+			result.rejectValue("ramenImage", "", "画像を選択してください");
 		}
 
 		if (result.hasErrors()) {
-			return toInsert(articleRegisterForm.getShopId(),model);
+			return toInsert(reviewRegisterForm.getShopId(),model);
 		}
 
 		RamenImage ramenImage = new RamenImage();
@@ -121,15 +103,16 @@ public class ArticleRegisterController {
 		ramenImage.setImagePath(base64FileString);
 		ramenImageRepository.insert(ramenImage);
 		
-		Ramen ramen = new Ramen();
-		ramen.setShopId(articleRegisterForm.getShopId());
-		ramen.setRamenName(articleRegisterForm.getRamenName());
-		ramen.setRamenPrice(articleRegisterForm.getRamenPrice());
-		ramen.setRamenImagePathId(ramenImage.getImageId());
-		ramen.setCreatedBy("飯田");
+		Review review = new Review();
+		review.setShopId(reviewRegisterForm.getShopId());
+		review.setUserId(1);
+		review.setRamenName(reviewRegisterForm.getRamenName());
+		review.setRamenPrice(Integer.parseInt(reviewRegisterForm.getRamenPrice()));
+		review.setRamenImagePathId(ramenImage.getImageId());
+		review.setCreatedBy("飯田");
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		ramen.setCreatedAt(timestamp);
-		ramenRepository.insert(ramen);
+		review.setCreatedAt(timestamp);
+		reviewRepository.insert(review);
 		return "redirect:/";
 	}
 
