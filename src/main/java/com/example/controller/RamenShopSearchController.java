@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.RamenShop;
 import com.example.repository.RamenShopRepository;
+import com.example.service.RamenShopService;
 
 /**
  * ラーメン店舗を管理するコントローラー.
@@ -23,6 +24,9 @@ public class RamenShopSearchController {
 	@Autowired
 	private RamenShopRepository ramenShopRepository;
 	
+	@Autowired
+	private RamenShopService ramenShopService;
+	
 	/**
 	 * トップページを表示.
 	 * 
@@ -33,6 +37,9 @@ public class RamenShopSearchController {
 	public String index(Model model) {
 		List<RamenShop> ramenShopList = ramenShopRepository.findAll();
 		model.addAttribute("ramenShopList", ramenShopList);
+		//オートコンプリート機能
+		StringBuilder autoComplete = ramenShopService.getAutoComplete(ramenShopList);
+		model.addAttribute("autoComplete", autoComplete);
 		return "ramenShop_search";
 	}
 	
@@ -45,12 +52,13 @@ public class RamenShopSearchController {
 	 */
 	@RequestMapping("/search")
 	public String search(String shopName,Model model) {
-		List<RamenShop> ramenShopList = ramenShopRepository.findByShopName(shopName);
-		if(shopName == null || ramenShopList.isEmpty()) {
-			List<RamenShop> ramenShopList1 = ramenShopRepository.findAll();
-			model.addAttribute("ramenShopList", ramenShopList1);
+		List<RamenShop> ramenShopList = null;
+		if(shopName == null) {
+			ramenShopList = ramenShopRepository.findAll();
+			model.addAttribute("ramenShopList", ramenShopList);
 			model.addAttribute("message", "該当するラーメン店舗はまだ登録されていません");
 		} else {
+			ramenShopList = ramenShopRepository.findByShopName(shopName);
 			model.addAttribute("ramenShopList", ramenShopList);
 		}
 		return "ramenShop_search";
