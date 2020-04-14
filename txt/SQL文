@@ -4,6 +4,7 @@ drop table if exists users cascade;
 create table users (
 user_id serial primary key
  , user_name varchar(100) not null
+ , user_mail varchar(100) not null unique
  , password text not null
  , user_icon_id int
  , user_rank_id int default 1
@@ -15,15 +16,6 @@ user_id serial primary key
  , deleted_by varchar(50) default null
  , deleted_at date default null
 ) ;
-
--- ユーザーメール
-drop table if exists user_mails cascade;
-
-create table user_mails (
-user_id int not null
-, mail_type_id int not null
-, mail_address varchar(100) default null
-);
 
 -- ユーザーアイコン
 drop table if exists user_icons cascade;
@@ -41,12 +33,8 @@ rank_id serial primary key
 , user_rank varchar(50)
 );
 
-insert into user_ranks(user_rank)values('ルーキ-1'),('ルーキー2'),('ルーキー3'),('ブロンズ1'),('ブロンズ2'),('ブロンズ3'),('シルバー1'),('シルバー2'),('シルバー3'),
+insert into user_ranks(user_rank)values('ルーキー1'),('ルーキー2'),('ルーキー3'),('ブロンズ1'),('ブロンズ2'),('ブロンズ3'),('シルバー1'),('シルバー2'),('シルバー3'),
 ('ゴールド1'),('ゴールド2'),('ゴールド3'),('プラチナ1'),('プラチナ2'),('プラチナ3'),('レジェンド1'),('レジェンド2'),('レジェンド3'),('キング');
-
-
--- ユーザー登録
-insert into user_icons(icon_id,icon_image_path)values(1,'こんにちは');
 
 -- レビュー情報
 drop table if exists reviews cascade;

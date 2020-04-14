@@ -25,15 +25,9 @@
 											class="form-control" placeholder="名前">
 									</div>
 									<div class="form-group">
-										<select name="mailTypeId">
-											<option value="1">PC</option>
-											<option value="2">Phone</option>
-										</select>
-									</div>
-									<div class="form-group">
-										<label th:errors="*{mailAddress}" style="color: red">メールアドレスを入力してください</label>
-										<input type="email" name="mailAddress"
-											th:field="*{mailAddress}" class="form-control"
+										<label th:errors="*{userMail}" style="color: red">メールアドレスを入力してください</label>
+										<input type="email" name="userMail"
+											th:field="*{userMail}" class="form-control"
 											placeholder="メールアドレス">
 									</div>
 									<div class="form-group">

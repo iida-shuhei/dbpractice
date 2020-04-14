@@ -3,16 +3,20 @@ package com.example.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.LoginUser;
 import com.example.domain.RamenShop;
 import com.example.domain.Review;
+import com.example.domain.User;
 import com.example.form.ReviewRegisterForm;
 import com.example.repository.ReviewRepository;
 import com.example.service.RamenShopService;
+import com.example.service.UserService;
 
 /**
  * 記事管理するリポジトリ.
@@ -29,6 +33,9 @@ public class ShowReviewController {
 	
 	@Autowired
 	public RamenShopService ramenShopService;
+	
+	@Autowired
+	private UserService userService;
 	
 	/**
 	 * 入力値を受け取るフォーム.
@@ -47,9 +54,11 @@ public class ShowReviewController {
 	 * @return トップページ
 	 */
 	@RequestMapping("")
-	public String index(Model model) {
+	public String index(Model model,@AuthenticationPrincipal LoginUser loginUser) {
 		List<Review> reviewList = reviewRepository.findAll();
 		model.addAttribute("reviewList", reviewList);
+		User user = userService.findByUserId(loginUser.getUser().getUserId());
+		model.addAttribute("user", user);
 		return "review_list";
 	}
 	

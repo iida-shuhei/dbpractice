@@ -7,9 +7,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.domain.UserMail;
+import com.example.domain.User;
 import com.example.form.UserRegisterForm;
-import com.example.service.UserRegisterService;
+import com.example.service.UserService;
 
 /**
  * ユーザーを登録するコントローラー.
@@ -22,7 +22,7 @@ import com.example.service.UserRegisterService;
 public class UserRegisterController {
 
 	@Autowired
-	private UserRegisterService userRegisterService;
+	private UserService userRegisterService;
 
 	/**
 	 * 入力されたものを受け取るフォーム.
@@ -32,11 +32,6 @@ public class UserRegisterController {
 	@ModelAttribute
 	private UserRegisterForm setUpForm() {
 		return new UserRegisterForm();
-	}
-
-	@RequestMapping("/")
-	public String index() {
-		return "index";
 	}
 
 	/**
@@ -58,10 +53,10 @@ public class UserRegisterController {
 	 */
 	@RequestMapping("/register")
 	public String register(@Validated UserRegisterForm userRegisterForm, BindingResult result) {
-		UserMail userMail = userRegisterService.findByEmail(userRegisterForm.getMailAddress());
 		// メールアドレスの重複チェック
+		User userMail = userRegisterService.findByUserMail(userRegisterForm.getUserMail());
 		if (userMail != null) {
-			result.rejectValue("mailAddress", null, "そのメールアドレスはすでに使われています");
+			result.rejectValue("userMail", null, "そのメールアドレスはすでに使われています");
 		}
 		// パスワードと確認用パスワードのチェック
 		if (!(userRegisterForm.getPassword().equals(userRegisterForm.getConfirmationPassword()))) {
@@ -72,6 +67,6 @@ public class UserRegisterController {
 			return toRegister();
 		}
 		userRegisterService.insert(userRegisterForm);
-		return "redirect:/";
+		return "login";
 	}
 }

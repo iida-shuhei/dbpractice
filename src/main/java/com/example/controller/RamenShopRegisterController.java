@@ -1,10 +1,12 @@
 package com.example.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.LoginUser;
 import com.example.form.RamenShopRegisterForm;
 import com.example.repository.RamenImageRepository;
 import com.example.repository.RamenShopTimeRepository;
@@ -55,8 +57,8 @@ public class RamenShopRegisterController {
 	 * @return ラーメンを登録する画面
 	 */
 	@RequestMapping("/register")
-	public String register(RamenShopRegisterForm ramenShopRegisterForm) {
-		ramenShopRegisterService.insert(ramenShopRegisterForm);
+	public String register(RamenShopRegisterForm ramenShopRegisterForm,@AuthenticationPrincipal LoginUser loginUser) {
+		ramenShopRegisterService.insert(ramenShopRegisterForm,loginUser);
 		return "redirect:/ramenShopSearch";
 	}
 }

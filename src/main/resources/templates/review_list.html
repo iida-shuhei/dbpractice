@@ -20,13 +20,12 @@
 			</h1>
 			<div class="center">
 				<h2 class="title">らぁめん記録</h2>
-				<!-- 				<ul class="list"> -->
-				<!-- 					<li><a th:href="@{/logout}">ログアウト</a></li> -->
-				<!-- 					<li><a th:href="@{'/user/toUserDetail?id=' + ${user.id}}"><span -->
-				<!-- 							sec:authorize="hasRole('ROLE_USER')"><span -->
-				<!-- 								sec:authentication="principal.user.name"></span></span></a></li> -->
-				<!-- 					<li><a th:href="@{/article/toInsert}">投稿</a></li> -->
-				<!-- 				</ul> -->
+					<ul class="list">
+						<li><a th:href="@{/logout}">ログアウト</a></li>
+						<li><a th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}">
+						<span th:text="${user.userName}"></span></a></li>
+						<li><a th:href="@{/review/toInsert}">投稿</a></li>
+					</ul>
 			</div>
 		</div>
 		<div class="top"></div>

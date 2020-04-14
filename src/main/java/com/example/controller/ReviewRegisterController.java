@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.domain.LoginUser;
 import com.example.domain.RamenImage;
 import com.example.domain.RamenShop;
 import com.example.domain.Review;
@@ -74,7 +76,7 @@ public class ReviewRegisterController {
 	 * @throws IOException
 	 */
 	@RequestMapping("/insert")
-	public String insert(@Validated ReviewRegisterForm reviewRegisterForm, BindingResult result, Model model) throws IOException {
+	public String insert(@Validated ReviewRegisterForm reviewRegisterForm, BindingResult result, @AuthenticationPrincipal LoginUser loginUser, Model model) throws IOException {
 	
 		// 画像ファイル形式チェック
 		MultipartFile image = reviewRegisterForm.getRamenImage();
@@ -105,15 +107,15 @@ public class ReviewRegisterController {
 		
 		Review review = new Review();
 		review.setShopId(reviewRegisterForm.getShopId());
-		review.setUserId(1);
+		review.setUserId(loginUser.getUser().getUserId());
 		review.setRamenName(reviewRegisterForm.getRamenName());
 		review.setRamenPrice(Integer.parseInt(reviewRegisterForm.getRamenPrice()));
 		review.setRamenImagePathId(ramenImage.getImageId());
-		review.setCreatedBy("飯田");
+		review.setCreatedBy(loginUser.getUser().getUserName());
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		review.setCreatedAt(timestamp);
 		reviewRepository.insert(review);
-		return "redirect:/";
+		return "redirect:/showReview";
 	}
 
 	/*

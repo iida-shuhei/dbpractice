@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.sql.Timestamp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.domain.LoginUser;
 import com.example.domain.RamenShop;
 import com.example.domain.RamenShopTime;
 import com.example.form.RamenShopRegisterForm;
@@ -40,7 +42,7 @@ public class RamenShopRegisterService {
 	 * @param articleRegisterForm 記事登録フォーム
 	 * @throws IOException
 	 */
-	public void insert(RamenShopRegisterForm ramenShopRegisterForm){
+	public void insert(RamenShopRegisterForm ramenShopRegisterForm,@AuthenticationPrincipal LoginUser loginUser){
 		RamenShop ramenShop = new RamenShop();
 		ramenShop.setShopName(ramenShopRegisterForm.getShopName());
 		ramenShop.setZipcode(ramenShopRegisterForm.getZipcode());
@@ -48,7 +50,7 @@ public class RamenShopRegisterService {
 		ramenShop.setCity(ramenShopRegisterForm.getCity());
 		ramenShop.setOther(ramenShopRegisterForm.getOther());
 		ramenShop.setHolidays(ramenShopRegisterForm.getHolidays());
-		ramenShop.setCreatedBy("飯田");
+		ramenShop.setCreatedBy(loginUser.getUser().getUserName());
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		ramenShop.setCreatedAt(timestamp);
 		ramenShopRepository.insert(ramenShop);

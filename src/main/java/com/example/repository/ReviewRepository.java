@@ -790,4 +790,16 @@ public class ReviewRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
 		return template.query(sql, param, REVIEW__DETAIL_ROW_MAPPER);
 	}
+	
+	/**
+	 * ユーザーIDからレビュー数を取得する.
+	 * 
+	 * @param userId ユーザーID
+	 * @return レビュー数
+	 */
+	public Integer countReview(Integer userId) {
+		String sql = "select count(*) from reviews where user_id =:userId";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
+		return template.queryForObject(sql, param, Integer.class);
+	}
 }
