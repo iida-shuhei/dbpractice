@@ -1,6 +1,7 @@
 package com.example.service;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,9 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.User;
 import com.example.domain.UserIcon;
+import com.example.domain.UserRank;
 import com.example.form.UserRegisterForm;
 import com.example.repository.ReviewRepository;
 import com.example.repository.UserIconRepository;
+import com.example.repository.UserRankRepository;
 import com.example.repository.UserRepository;
 
 /**
@@ -32,6 +35,9 @@ public class UserService {
 	
 	@Autowired
 	private UserIconRepository userIconRepository;
+	
+	@Autowired
+	private UserRankRepository userRankRepository;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -101,7 +107,17 @@ public class UserService {
 		return reviewRepository.countReview(userId);
 	}
 	
+	/**
+	 * ユーザーランクを更新する.
+	 * 
+	 * @param userId ユーザーID
+	 * @param rankId ランクID
+	 */
 	public void updateUserRank(Integer userId, Integer rankId) {
 		userRepository.updateUserRank(userId, rankId);
+	}
+	
+	public List<UserRank> findAll() {
+		return userRankRepository.findAll();
 	}
 }

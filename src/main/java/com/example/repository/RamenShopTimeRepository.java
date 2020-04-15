@@ -32,6 +32,11 @@ public class RamenShopTimeRepository {
 		template.update(sql, param);
 	}
 	
+	/**
+	 * NULLのものを削除する.
+	 * 
+	 * @param ramenShopTime ラーメン店舗時間
+	 */
 	public void delete(RamenShopTime ramenShopTime) {
 		String sql = "delete from ramen_shops_times "
 				+ "where days is null "

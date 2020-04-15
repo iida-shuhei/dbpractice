@@ -4,10 +4,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import org.springframework.web.multipart.MultipartFile;
 
-
-import lombok.Data;
-
-@Data
 public class ReviewRegisterForm {
 
 	// Review
@@ -23,4 +19,53 @@ public class ReviewRegisterForm {
 	@NotNull(message = "画像を選択してください")
 	private MultipartFile ramenImage;
 
+	public Integer getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(Integer shopId) {
+		this.shopId = shopId;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getRamenName() {
+		return ramenName;
+	}
+
+	public void setRamenName(String ramenName) {
+		this.ramenName = ramenName;
+	}
+
+	public String getRamenPrice() {
+		return ramenPrice;
+	}
+
+	public void setRamenPrice(String ramenPrice) {
+		this.ramenPrice = ramenPrice;
+	}
+
+	public Integer getRamenImagePathId() {
+		return ramenImagePathId;
+	}
+
+	public void setRamenImagePathId(Integer ramenImagePathId) {
+		this.ramenImagePathId = ramenImagePathId;
+	}
+
+	public MultipartFile getRamenImage() {
+		return ramenImage;
+	}
+
+	public void setRamenImage(MultipartFile ramenImage) {
+		this.ramenImage = ramenImage;
+	}
+
+	
 }

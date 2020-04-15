@@ -22,13 +22,16 @@
 									<img th:src="${user.userIcon.iconImagePath}" style="border-radius: 30%;width:  100px; height: 100px;" onerror="this.src='/img/user.jpg'"/>
 								</div>
 								<div class="form-group">
-									<div th:text="${user.userRank.rank}"></div>
+									<div th:text="${user.userRank.userRank}"></div>
 								</div>
 								<div class="form-group">
 									<div th:text="${user.userName}"></div>
 								</div>
 								<div class="form-group">
 									<div th:text="${user.userMail}"></div>
+								</div>
+								<div class="form-group" th:each="rank : ${userRankList}">
+									<div th:text="${rank}"></div>
 								</div>
 							<form th:action="@{/user/toUserRamenList}" method="post">
 								<input class="btn-block btn btn-primary" type="submit" value="ラーメン記録">

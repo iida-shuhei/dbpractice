@@ -370,6 +370,7 @@ public class ReviewRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
 		return template.query(sql, param, REVIEW__DETAIL_ROW_MAPPER);
 	}
+	
 	/**
 	 * 火曜日の営業時間を表示する.
 	 * 
@@ -440,6 +441,7 @@ public class ReviewRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
 		return template.query(sql, param, REVIEW__DETAIL_ROW_MAPPER);
 	}
+	
 	/**
 	 * 水曜日の営業時間を表示する.
 	 * 
@@ -510,6 +512,7 @@ public class ReviewRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
 		return template.query(sql, param, REVIEW__DETAIL_ROW_MAPPER);
 	}
+	
 	/**
 	 * 木曜日の営業時間を表示する.
 	 * 
@@ -580,6 +583,7 @@ public class ReviewRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
 		return template.query(sql, param, REVIEW__DETAIL_ROW_MAPPER);
 	}
+	
 	/**
 	 * 金曜日の営業時間を表示する.
 	 * 
@@ -650,6 +654,7 @@ public class ReviewRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
 		return template.query(sql, param, REVIEW__DETAIL_ROW_MAPPER);
 	}
+	
 	/**
 	 * 土曜日の営業時間を表示する.
 	 * 
@@ -720,6 +725,7 @@ public class ReviewRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
 		return template.query(sql, param, REVIEW__DETAIL_ROW_MAPPER);
 	}
+	
 	/**
 	 * 日曜日の営業時間を表示する.
 	 * 

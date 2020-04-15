@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Base64;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.domain.LoginUser;
 import com.example.domain.User;
 import com.example.domain.UserIcon;
+import com.example.domain.UserRank;
 import com.example.form.UpdateUserForm;
 import com.example.service.UserService;
 
@@ -115,6 +117,9 @@ public class UserDetailController {
 	public String toUpdateUser(Integer userId, Model model) {
 		User user = userService.findByUserId(userId);
 		model.addAttribute("user", user);
+		
+		List<UserRank> userRankList = userService.findAll();
+		model.addAttribute("userRankList", userRankList);
 		return "update_user";
 	}
 	

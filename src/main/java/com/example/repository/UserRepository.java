@@ -54,7 +54,7 @@ public class UserRepository {
 		
 		UserRank userRank = new UserRank();
 		userRank.setRankId(rs.getInt("rank_id"));
-		userRank.setRank(rs.getString("user_rank"));
+		userRank.setUserRank(rs.getString("user_rank"));
 		user.setUserRank(userRank);
 		return user;
 	};
