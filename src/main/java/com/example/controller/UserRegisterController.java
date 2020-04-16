@@ -1,14 +1,20 @@
 package com.example.controller;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.TmpUser;
 import com.example.domain.User;
 import com.example.form.UserRegisterForm;
+import com.example.repository.MailRepository;
 import com.example.service.UserService;
 
 /**
@@ -23,6 +29,12 @@ public class UserRegisterController {
 
 	@Autowired
 	private UserService userRegisterService;
+	
+	@Autowired
+	private MailSender mailSender;
+	
+	@Autowired
+	private MailRepository mailRepository;
 
 	/**
 	 * 入力されたものを受け取るフォーム.
@@ -66,7 +78,34 @@ public class UserRegisterController {
 		if (result.hasErrors()) {
 			return toRegister();
 		}
+		User user = mailRepository.findByMail(userRegisterForm.getUserMail());
+		if(user == null) {
+			String vali = UUID.randomUUID().toString();
+			TmpUser tmpUser = new TmpUser();
+			tmpUser.setName(userRegisterForm.getUserName());
+			tmpUser.setMail(userRegisterForm.getUserMail());
+			tmpUser.setPassword(userRegisterForm.getPassword());
+			tmpUser.setUuid(vali);
+			mailRepository.insert(tmpUser);
+			
+			String IPadnPort = "localhost:8080";
+			String from = "rakus.yahoo@gmail.com";
+			String title = "アカウント確認のお願い";
+			String content = userRegisterForm.getUserName() + "さん" + "\n" + "\n" + "以下のリンクにアクセスしてアカウント認証をしてください" + "http://" + IPadnPort + "/validate"+"?uuid="+vali;
+			
+			SimpleMailMessage msg = new  SimpleMailMessage();
+			msg.setFrom(from);
+			msg.setTo(userRegisterForm.getUserMail());
+			msg.setSubject(title);
+			msg.setText(content);
+			mailSender.send(msg);
+					 
+			
+		}
+		
+		
 		userRegisterService.insert(userRegisterForm);
 		return "login";
+		
 	}
 }
