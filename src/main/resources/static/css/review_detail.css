@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+.container {
+	border: 2px solid;
+	margin: 0 auto;
+	padding: 0;
+	width: 630px;
+	margin-top: 30px;
+}
+
+.shopInfo {
+	width: 400px;
+	text-align: center;
+	margin: 30px auto 10px;
+	letter-spacing: 5px;
+	font-size: 16px;
+}
+
+.btn:hover {
+	color: red;
+	font-size: 15px;
+}
+
+.img {
+	text-align: center;
+}
+
+.del {
+	text-align: right;
+}
+
+.ramen {
+	text-align: center;
+	margin-top: 10px;
+}
