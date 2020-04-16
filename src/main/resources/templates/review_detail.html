@@ -5,6 +5,8 @@
 <title>Insert title here</title>
 <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
 <link th:href="@{/css/review_detail.css}" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" th:src="@{/js/review_detail.js}"></script>
 </head>
 <body>
 	<div th:text="${review.ramenName}"></div>
@@ -127,7 +129,12 @@
 		<span th:if="${sunday.ramenShop.ramenShopTime.otherTime}"
 			th:text="'日曜日 : ' + ${sunday.ramenShop.ramenShopTime.otherTime}"></span>
 	</div>
+	
+	<input type="hidden" id="reviewUserId" th:value="${review.userId}">
+	<input type="hidden" id="userId" th:value="${user.userId}">
 
-
+	<form>
+		<button class="btn btn-primary" id="del">削除</button>
+	</form>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.example.form;
 
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class UpdateUserForm {
@@ -7,9 +9,12 @@ public class UpdateUserForm {
 	private Integer userId;
 	private String userName;
 	private String userMail;
+	@NotBlank(message = "パスワードを入力してください")
 	private String password;
+	@NotBlank(message = "確認用パスワードを入力してください")
 	private String confirmationPassword;
 	private MultipartFile iconImagePath;
+	
 	public Integer getUserId() {
 		return userId;
 	}

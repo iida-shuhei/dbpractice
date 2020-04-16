@@ -29,20 +29,18 @@
 									<input type="email" name="userMail" class="form-control" placeholder="メールアドレス" th:value="${user.userMail}">
 								</div>
 								<div class="form-group">
-									<label th:errors="*{password}" style="color: red">パスワードを入力してください</label>
-									<input type="password" name="password" class="form-control"
+									<label th:errors="*{password}" style="color: red"></label>
+									<input type="password" name="password" class="form-control" th:field="*{password}"
 										pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
 										placeholder="パスワード">
 								</div>
 								<div class="form-group">
 									<label th:errors="*{confirmationPassword}" style="color: red"></label>
 									<input type="password" name="confirmationPassword" class="form-control"
-										pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+										pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" th:field="*{confirmationPassword}"
 										placeholder="確認用パスワード"><small style="color:red">パスワードは8文字以上、1文字以上の数字、小文字、大文字アルファベットが含まれていること</small>
 								</div>
 								<div class="form-group">
-<!-- 									<label th:if="${#fields.hasErrors('icon')}" -->
-<!-- 								th:errors="*{icon}" style="color: red"></label> -->
 									<input type="file" name="iconImagePath" accept=".jpg,.png">
 								</div>
 								<input type="hidden" name="userId" th:value="${user.userId}">

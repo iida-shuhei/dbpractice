@@ -22,7 +22,7 @@
 			<div class="center">
 				<h2 class="title">らぁめん記録</h2>
 			</div>
-			<span th:text="${user.userName}"></span>さんの記録
+			<span class="text"><span th:text="${user.userName}"></span>さんの記録</span>
 		</div>
 		<div class="top"></div>
 	</header>
@@ -50,7 +50,7 @@
 			<ul class="pager">
 				<li class="previous" th:if="${start != 0}">
 				<a th:href="@{'/userDetail/toUserReviewList?start='+${start - 8}}">&larr; prev</a></li>
-				<li class="next" th:if="${count > start * 2}">
+				<li class="next" th:if="${count > start + 8}">
 				<a th:href="@{'/userDetail/toUserReviewList?start='+${start + 8}}">next &rarr;</a></li>
 			</ul>
 		</nav>

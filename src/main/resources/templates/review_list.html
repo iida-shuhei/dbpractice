@@ -62,7 +62,7 @@
 					<ul class="pager">
 						<li class="previous" th:if="${start != 0}">
 						<a th:href="@{'/showReview?start='+${start - 8}}">&larr; prev</a></li>
-						<li class="next" th:if="${count > start * 2}">
+						<li class="next" th:if="${count > start + 8}">
 						<a th:href="@{'/showReview?start='+${start + 8}}">next &rarr;</a></li>
 					</ul>
 				</nav>

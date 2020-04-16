@@ -36,6 +36,10 @@ img.sign {
 	font-size: 10px;
 }
 
+.text {
+	text-align: center;
+}
+
 .info {
 	width: 1000px;
 	height: 20px;

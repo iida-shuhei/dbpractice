@@ -2,10 +2,10 @@
  * 
  */
 $(function() {
-	$("#edit").on('click', function() {
-		var articleUserId = $('#articleUserId').val();
+	$("#del").on('click', function() {
+		var reviewUserId = $('#reviewUserId').val();
 		var userId = $('#userId').val();
-		if (articleUserId != userId) {
+		if (reviewUserId != userId) {
 			alert('投稿した人だけが編集できます');
 			return false;
 		}

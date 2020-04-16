@@ -146,42 +146,61 @@ public class UserDetailController {
 	 */
 	@RequestMapping("/update")
 	public String update(@Validated UpdateUserForm updateUserForm, BindingResult result, Model model,@AuthenticationPrincipal LoginUser loginUser) throws IOException {
-		if (result.hasErrors()) {
-			return toUpdateUser(updateUserForm.getUserId(), model);
-		}
+		UserIcon userIcon = null;
+		
 		// パスワードと確認用パスワードのチェック
 		if (!(updateUserForm.getPassword().equals(updateUserForm.getConfirmationPassword()))) {
 			result.rejectValue("confirmationPassword", "null", "パスワードと確認用パスワードが異なります");
 		}
 
-		// 画像ファイル形式チェック
-		MultipartFile image = updateUserForm.getIconImagePath();
-		String fileExtension = null;
-		try {
-			fileExtension = getExtension(image.getOriginalFilename());
-			if (!"jpg".equals(fileExtension) && !"png".equals(fileExtension)) {
+		//画像があれば登録
+		if(!updateUserForm.getIconImagePath().getOriginalFilename().isEmpty()) {
+			// 画像ファイル形式チェック
+			MultipartFile image = updateUserForm.getIconImagePath();
+			String fileExtension = null;
+			try {
+				fileExtension = getExtension(image.getOriginalFilename());
+				if (!"jpg".equals(fileExtension) && !"png".equals(fileExtension)) {
+					result.rejectValue("icon", "", "拡張子は.jpgか.pngのみに対応しています");
+				}
+			} catch (Exception e) {
 				result.rejectValue("icon", "", "拡張子は.jpgか.pngのみに対応しています");
 			}
-		} catch (Exception e) {
-			result.rejectValue("icon", "", "拡張子は.jpgか.pngのみに対応しています");
+			// 画像ファイルをBase64形式にエンコード
+			String base64FileString = Base64.getEncoder().encodeToString(image.getBytes());
+			if ("jpg".equals(fileExtension)) {
+				base64FileString = "data:image/jpeg;base64," + base64FileString;
+			} else if ("png".equals(fileExtension)) {
+				base64FileString = "data:image/png;base64," + base64FileString;
+			}
+			userIcon = new UserIcon();
+			userIcon.setIconImagePath(base64FileString);
+			userService.registerIcon(userIcon);
 		}
-		// 画像ファイルをBase64形式にエンコード
-		String base64FileString = Base64.getEncoder().encodeToString(image.getBytes());
-		if ("jpg".equals(fileExtension)) {
-			base64FileString = "data:image/jpeg;base64," + base64FileString;
-		} else if ("png".equals(fileExtension)) {
-			base64FileString = "data:image/png;base64," + base64FileString;
-		}
-		UserIcon userIcon = new UserIcon();
-		userIcon.setIconImagePath(base64FileString);
-		userService.registerIcon(userIcon);
 		
 		User user = new User();
 		user.setUserId(updateUserForm.getUserId());
 		user.setUserName(updateUserForm.getUserName());
 		user.setUserMail(updateUserForm.getUserMail());
-		user.setPassword(passwordEncoder.encode(updateUserForm.getPassword()));
-		user.setUserIconId(userIcon.getIconId());
+		
+		//パスワードがあれば登録
+		if(!updateUserForm.getPassword().isEmpty()) {
+			user.setPassword(passwordEncoder.encode(updateUserForm.getPassword()));
+		} else {
+			user.setPassword(passwordEncoder.encode(loginUser.getUser().getPassword()));
+		}
+		
+		//画像があれば登録
+		if(!updateUserForm.getIconImagePath().getOriginalFilename().isEmpty()) {
+			user.setUserIconId(userIcon.getIconId());
+		} else {
+			user.setUserIconId(loginUser.getUser().getUserIconId());
+		}
+		
+		if (result.hasErrors()) {
+			return toUpdateUser(updateUserForm.getUserId(), model);
+		}
+		
 		user.setUpdatedBy(loginUser.getUser().getUserName());
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		user.setUpdatedAt(timestamp);

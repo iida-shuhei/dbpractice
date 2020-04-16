@@ -3,12 +3,16 @@ package com.example.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.LoginUser;
 import com.example.domain.Review;
+import com.example.domain.User;
 import com.example.service.ReviewService;
+import com.example.service.UserService;
 
 /**
  * レビュー詳細を管理するコントローラー.
@@ -23,6 +27,9 @@ public class DetailReviewController {
 	@Autowired
 	private ReviewService reviewService;
 	
+	@Autowired
+	private UserService userService;
+	
 	/**
 	 * レビューIDからレビュー詳細を表示する.
 	 * 
@@ -31,7 +38,7 @@ public class DetailReviewController {
 	 * @return レビュー詳細画面
 	 */
 	@RequestMapping("")
-	public String load(Integer reviewId, Model model) {
+	public String load(Integer reviewId, Model model,@AuthenticationPrincipal LoginUser loginUser) {
 		Review review = reviewService.load(reviewId);
 		List<Review> reviewMondayList = reviewService.findByMonday(reviewId);
 		List<Review> reviewTuesdayList = reviewService.findByTuesday(reviewId);
@@ -48,6 +55,9 @@ public class DetailReviewController {
 		model.addAttribute("reviewFridayList", reviewFridayList);
 		model.addAttribute("reviewSaturdayList", reviewSaturdayList);
 		model.addAttribute("reviewSundayList", reviewSundayList);
+		
+		User user = userService.findByUserId(loginUser.getUser().getUserId());
+		model.addAttribute("user", user);
 		return "review_detail";
 	}
 }

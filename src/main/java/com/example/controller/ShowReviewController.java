@@ -63,8 +63,6 @@ public class ShowReviewController {
 			start = 0;
 		};
 		
-		System.out.println(count);
-		
 		List<Review> reviewList = reviewRepository.findByNotLoginUser(loginUser.getUser().getUserId(), start);
 		if(reviewList.isEmpty()) {
 			model.addAttribute("message", "他の人はまだ投稿していないようだ…");
