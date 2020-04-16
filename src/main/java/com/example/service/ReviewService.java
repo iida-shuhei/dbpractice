@@ -53,4 +53,8 @@ public class ReviewService {
 	public List<Review> findBySunday(Integer reviewId) {
 		return reviewRepository.findBySunday(reviewId);
 	}
+	
+	public void delete(Review review) {
+		reviewRepository.delete(review);
+	}
 }

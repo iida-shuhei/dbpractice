@@ -21,15 +21,3 @@ $(function() {
 			}
 	});
 });
-
-//営業時間：月曜日
-$(function(){
-	$("#forMon").hide();
-	$("#forMonNight").hide();
-	$("#mon").on('click',function(){
-		$("#forMon").toggle();
-	})
-	$("#btnForMon").on('click',function(){
-		$("#forMonNight").show();
-	})
-});

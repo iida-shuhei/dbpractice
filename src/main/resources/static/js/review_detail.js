@@ -8,6 +8,9 @@ $(function() {
 		if (reviewUserId != userId) {
 			alert('投稿した人だけが編集できます');
 			return false;
+		} else {
+			alert('本当に削除しますか？');
+			return true;
 		}
 	});
 });

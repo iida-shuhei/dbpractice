@@ -130,11 +130,12 @@
 			th:text="'日曜日 : ' + ${sunday.ramenShop.ramenShopTime.otherTime}"></span>
 	</div>
 	
-	<input type="hidden" id="reviewUserId" th:value="${review.userId}">
 	<input type="hidden" id="userId" th:value="${user.userId}">
-
-	<form>
+	
+	<form th:action="@{/detail/delete}" method="post">
 		<button class="btn btn-primary" id="del">削除</button>
+	<input type="hidden" id="reviewUserId" th:value="${review.userId}" name="userId">
+	<input type="hidden" id="reviewId" th:value="${review.reviewId}" name="reviewId">
 	</form>
 </body>
 </html>

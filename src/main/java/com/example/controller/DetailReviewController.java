@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,17 @@ public class DetailReviewController {
 		User user = userService.findByUserId(loginUser.getUser().getUserId());
 		model.addAttribute("user", user);
 		return "review_detail";
+	}
+	
+	@RequestMapping("/delete")
+	public String delete(Integer reviewId, Integer userId, @AuthenticationPrincipal LoginUser loginUser) {
+		Review review = new Review();
+		review.setReviewId(reviewId);
+		review.setUserId(userId);
+		review.setDeletedBy(loginUser.getUser().getUserName());
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		review.setDeletedAt(timestamp);
+		reviewService.delete(review);
+		return "redirect:/userDetail/toUserReviewList";
 	}
 }

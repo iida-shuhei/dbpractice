@@ -237,7 +237,7 @@ public class ReviewRepository {
 				"on r.shop_id = s.shop_id\n" +
 				"left join users as u\n" +
 				"on r.user_id = u.user_id\n" +
-				"where r.user_id =:userId order by review_id desc limit 8 offset :start";
+				"where r.deleted_by is null and r.deleted_at is null and r.user_id =:userId order by review_id desc limit 8 offset :start";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("start", start);
 		return template.query(sql, param, REVIEW_ROW_MAPPER);
 	}
@@ -296,7 +296,7 @@ public class ReviewRepository {
 				"on r.shop_id = s.shop_id\n" +
 				"left join users as u\n" +
 				"on r.user_id = u.user_id\n" +
-				"where r.user_id <>:userId order by review_id desc limit 8 offset :start";
+				"where r.deleted_by is null and r.deleted_at is null and r.user_id <>:userId order by review_id desc limit 8 offset :start";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("start", start);
 		return template.query(sql, param, REVIEW_ROW_MAPPER);
 	}
@@ -865,7 +865,7 @@ public class ReviewRepository {
 	 * @return レビュー数
 	 */
 	public Integer countUserReview(Integer userId) {
-		String sql = "select count(*) from reviews where user_id =:userId";
+		String sql = "select count(*) from reviews where deleted_by is null and deleted_at is null and user_id =:userId";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
 		return template.queryForObject(sql, param, Integer.class);
 	}
@@ -877,8 +877,14 @@ public class ReviewRepository {
 	 * @return レビュー数
 	 */
 	public Integer countNotUserReview(Integer userId) {
-		String sql = "select count(*) from reviews where user_id <>:userId";
+		String sql = "select count(*) from reviews where deleted_by is null and deleted_at is null and user_id <>:userId";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
 		return template.queryForObject(sql, param, Integer.class);
+	}
+	
+	public void delete(Review review) {
+		String sql = "update reviews set deleted_by =:deletedBy, deleted_at =:deletedAt where review_id =:reviewId and user_id =:userId";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(review);
+		template.update(sql, param);
 	}
 }

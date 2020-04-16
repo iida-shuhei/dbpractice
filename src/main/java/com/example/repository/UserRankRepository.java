@@ -39,6 +39,11 @@ public class UserRankRepository {
 		return template.queryForObject(sql, param, rowMapper);
 	}
 	
+	/**
+	 * ユーザーランクを全件取得する.
+	 * 
+	 * @return ユーザーランク情報
+	 */
 	public List<UserRank> findAll() {
 		String sql = "select rank_id, user_rank from user_ranks;";
 		return template.query(sql, rowMapper);
