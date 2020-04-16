@@ -54,9 +54,25 @@ public class ShowReviewController {
 	 * @return トップページ
 	 */
 	@RequestMapping("")
-	public String index(Model model,@AuthenticationPrincipal LoginUser loginUser) {
-		List<Review> reviewList = reviewRepository.findAll();
+	public String index(Integer start, Model model,@AuthenticationPrincipal LoginUser loginUser) {
+		// Maxページ数を求める
+		Integer count = reviewRepository.countNotUserReview(loginUser.getUser().getUserId());
+
+		//何番目から表示するかを求める
+		if (start == null) {
+			start = 0;
+		};
+		
+		System.out.println(count);
+		
+		List<Review> reviewList = reviewRepository.findByNotLoginUser(loginUser.getUser().getUserId(), start);
+		if(reviewList.isEmpty()) {
+			model.addAttribute("message", "他の人はまだ投稿していないようだ…");
+		}
 		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("start", start);
+		model.addAttribute("count", count);
+		
 		User user = userService.findByUserId(loginUser.getUser().getUserId());
 		model.addAttribute("user", user);
 		return "review_list";

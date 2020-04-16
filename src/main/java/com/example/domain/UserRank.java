@@ -4,6 +4,7 @@ public class UserRank {
 
 	private Integer rankId;
 	private String userRank;
+	
 	public Integer getRankId() {
 		return rankId;
 	}

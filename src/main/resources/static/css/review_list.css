@@ -1,20 +1,24 @@
 @charset "UTF-8";
 
-.container {
-	display: flex;
+img.photo {
+	display: inline-block; /* ここがポイント */
+	height: 200px;
+	margin-right: 15px;
+	margin-bottom: 17px;
+	width: 100%;
 }
 
-.each {
+div.ramen {
+	display: inline-block;
+	max-width: 90%;
+	height: auto;
+	padding: 4px;
+	line-height: 1.42857143;
+	background-color: #fff;
 	border: 1px solid #ddd;
 	border-radius: 4px;
-	margin: 20px;
-	text-align: center;
-}
-
-.each img {
-	width: 300px;
-	height: 200px;
-	padding: 5px;
+	transition: all .2s ease-in-out;
+	margin: 10px;
 }
 
 img.sign {

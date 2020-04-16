@@ -103,8 +103,8 @@ public class UserService {
 	 * @param userId ユーザーID
 	 * @return レビュー数
 	 */
-	public Integer countReview(Integer userId) {
-		return reviewRepository.countReview(userId);
+	public Integer countUserReview(Integer userId) {
+		return reviewRepository.countUserReview(userId);
 	}
 	
 	/**

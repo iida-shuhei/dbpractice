@@ -10,12 +10,12 @@
 <body>
 	<header>
 		<div class="top">
-			<p>このサイトはあなたが食べたラーメンを記録していくものです。食べたものを記録して、みんなと記録を共有しましょう。</p>
+			<p>このサイトは<span th:text="${user.userName}"></span>さんが食べたラーメンを記録していくものです。食べたものを記録して、みんなと記録を共有しましょう。</p>
 		</div>
 
 		<div class="info">
 			<h1>
-				<a th:href="@{/article}"><img th:src="@{/img/sign.jpg}"
+				<a th:href="@{/showReview}"><img th:src="@{/img/sign.jpg}"
 					class="sign"></a>
 			</h1>
 			<div class="center">
@@ -35,29 +35,37 @@
 		<div th:text="${message}" style="font-size: 20px; text-align: center;"></div>
 
 		<section>
-			<div class="container">
-				<div class="each" th:each="review : ${reviewList}">
-					<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}"> <input
-						type="hidden" name="userId"> <img class="img"
-						th:src="${review.ramenImage.imagePath}">
-					</a><br> <a th:href="@{'/detail?reviewId=' + ${review.reviewId}}">
-						<input type="hidden" name="userId"> <span
-						class="card-title" th:text="${review.ramenShop.shopName}"></span><br>
+			<div class="card-deck">
+				<div class="row row-eq-height">
+					<div class="col-sm-6 col-md-3" th:each="review : ${reviewList}">
+				<div class="card ramen">
+					<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}"> 
+					<input type="hidden" name="userId"> 
+					<img class="card-img-top img-fluid row-eq-height photo" th:src="${review.ramenImage.imagePath}"></a>
+					<div class="card-body px-2 py-3 text-center">
+					<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}">
+						<input type="hidden" name="userId"> 
+						<span class="card-title" th:text="${review.ramenShop.shopName}"></span><br>
 					</a> post by <span th:text="${review.createdBy}"></span>
 				</div>
+				</div>
+			</div>
+			</div>
 			</div>
 		</section>
 	</main>
-	<!-- pagination -->
-	<!-- 		<div class="pages"> -->
-	<!-- 			<nav class="page-nav"> -->
-	<!-- 				<ul class="pager"> -->
-	<!-- 					<li class="previous" th:if="${start != 0}"> -->
-	<!-- 					<a th:href="@{'/article?start='+${start - 8}}">&larr; prev</a></li> -->
-	<!-- 					<li class="next" th:if="${count >= start * 2}" th:unless="${start == 0}"> -->
-	<!-- 					<a th:href="@{'/article?start='+${start + 8}}">next &rarr;</a></li> -->
-	<!-- 				</ul> -->
-	<!-- 			</nav> -->
-	<!-- 		</div> -->
+	
+	
+<!-- pagination -->
+			<div class="pages">
+				<nav class="page-nav">
+					<ul class="pager">
+						<li class="previous" th:if="${start != 0}">
+						<a th:href="@{'/showReview?start='+${start - 8}}">&larr; prev</a></li>
+						<li class="next" th:if="${count > start * 2}">
+						<a th:href="@{'/showReview?start='+${start + 8}}">next &rarr;</a></li>
+					</ul>
+				</nav>
+			</div>
 </body>
 </html>

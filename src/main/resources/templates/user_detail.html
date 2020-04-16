@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
 <link th:href="@{/css/user_detail.css}" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 
@@ -22,18 +23,50 @@
 									<img th:src="${user.userIcon.iconImagePath}" style="border-radius: 30%;width:  100px; height: 100px;" onerror="this.src='/img/user.jpg'"/>
 								</div>
 								<div class="form-group">
-									<div th:text="${user.userRank.userRank}"></div>
+									<span th:text="${user.userRank.userRank}"></span>
+								
+								<!-- モーダルの設定 -->
+								<button type="button" class="btn btn-primary"
+										data-toggle="modal" data-target="#exampleModalLong">
+										ランク一覧</button>
 								</div>
+									<div class="modal fade" id="exampleModalLong" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLongTitle"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLongTitle">ランク一覧</h5>
+												</div>
+												<div class="modal-body">
+													<table class="info">
+														<tbody class="list1">
+															<tr th:each="rank : ${userRankList}">
+															<td th:text="${rank.userRank}"></td></tr>
+														</tbody>
+														<tbody class="list2">
+															<tr th:each="total : ${totalRamens}">
+															<td th:text="${total}"></td></tr>
+														</tbody>
+													</table>
+												<br>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">閉じる</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								
 								<div class="form-group">
 									<div th:text="${user.userName}"></div>
 								</div>
 								<div class="form-group">
 									<div th:text="${user.userMail}"></div>
 								</div>
-								<div class="form-group" th:each="rank : ${userRankList}">
-									<div th:text="${rank}"></div>
-								</div>
-							<form th:action="@{/user/toUserRamenList}" method="post">
+							<form th:action="@{/userDetail/toUserReviewList}" method="post">
 								<input class="btn-block btn btn-primary" type="submit" value="ラーメン記録">
 							</form><br>
 							<form th:action="@{/userDetail/toUpdateUser}" method="post">
@@ -47,5 +80,8 @@
 		</div>
 	</div>
 </div>
+<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 </html>

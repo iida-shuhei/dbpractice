@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.domain.LoginUser;
+import com.example.domain.Review;
 import com.example.domain.User;
 import com.example.domain.UserIcon;
 import com.example.domain.UserRank;
 import com.example.form.UpdateUserForm;
+import com.example.repository.ReviewRepository;
 import com.example.service.UserService;
 
 /**
@@ -36,6 +38,9 @@ public class UserDetailController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ReviewRepository reviewRepository;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -61,7 +66,7 @@ public class UserDetailController {
 	public String toDetail(@AuthenticationPrincipal LoginUser loginUser, Model model) {
 		User user = new User();
 		Integer rankId = 0;
-		Integer countReview = userService.countReview(loginUser.getUser().getUserId());
+		Integer countReview = userService.countUserReview(loginUser.getUser().getUserId());
 		if(countReview >= 0 && countReview <= 5) {
 			rankId = 1;
 		} else if(countReview >= 6 && countReview <= 10) {
@@ -102,7 +107,16 @@ public class UserDetailController {
 			rankId = 19;
 		}
 		userService.updateUserRank(loginUser.getUser().getUserId(), rankId);
-			
+		
+		List<UserRank> userRankList = userService.findAll();
+		model.addAttribute("userRankList", userRankList);
+		
+		String totalRamens [] = {
+				"０〜５杯","６〜１０杯","１１〜１５杯","１６〜２０杯","２１〜２５杯","２６〜３０杯","３１〜４０杯","４１〜５０杯","５１〜６０杯","６１〜７０杯",
+				"７１〜８０杯","８１〜９０杯","９１〜１１０杯","１１１〜１３０杯","１３１〜１５０杯","１５１〜１８０杯","１８１〜２１０杯","２１１〜２４０杯","２４１〜杯"
+		};
+		model.addAttribute("totalRamens", totalRamens);
+		
 		user = userService.findByUserId(loginUser.getUser().getUserId());
 		model.addAttribute("user", user);
 		return "user_detail";
@@ -117,9 +131,6 @@ public class UserDetailController {
 	public String toUpdateUser(Integer userId, Model model) {
 		User user = userService.findByUserId(userId);
 		model.addAttribute("user", user);
-		
-		List<UserRank> userRankList = userService.findAll();
-		model.addAttribute("userRankList", userRankList);
 		return "update_user";
 	}
 	
@@ -195,5 +206,35 @@ public class UserDetailController {
 			throw new FileNotFoundException();
 		}
 		return originalFileName.substring(point + 1);
+	}
+	
+	/**
+	 * ユーザーのラーメン記録を表示.
+	 * 
+	 * @param model     モデル
+	 * @param loginUser ログインユーザー
+	 * @return ユーザーのラーメン記録
+	 */
+	@RequestMapping("/toUserReviewList")
+	public String toUserReviewList(Integer start, @AuthenticationPrincipal LoginUser loginUser, Model model) {
+		// Maxページ数を求める
+		Integer count = reviewRepository.countUserReview(loginUser.getUser().getUserId());
+
+		// 何番目から表示するかを求める
+		if (start == null) {
+			start = 0;
+		};
+		
+		List<Review> reviewList = reviewRepository.findByLoginUser(loginUser.getUser().getUserId(),start);
+		if (reviewList.isEmpty()) {
+			model.addAttribute("message", "あなたのラーメン記録はまだありません");
+		}
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("start", start);
+		model.addAttribute("count", count);
+		
+		User user = userService.findByUserId(loginUser.getUser().getUserId());
+		model.addAttribute("user", user);
+		return "user_review_list";
 	}
 }

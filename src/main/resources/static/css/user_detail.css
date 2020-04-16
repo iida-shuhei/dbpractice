@@ -27,3 +27,18 @@ img.photo {
 	width: 180px;
 	height: 180px;
 }
+
+.info {
+	display: flex;
+}
+
+table.info {
+	border-collapse: collapse;
+}
+
+table.info,
+table.info tr,
+table.info td {
+	border: 1px solid;
+	width: 300px;
+}
