@@ -322,7 +322,7 @@ $(function(){
 			var count18 = document.getElementsByClassName("fri3").length;
 			var count19 = document.getElementsByClassName("sat3").length;
 			var count20 = document.getElementsByClassName("sun3").length;
-			var countTue = count1 + count2 + count3 + count4 + count5 + count6 + count7 + count8 + count9 + count10 + count11 + count12 + count13 + count14 + count15 + count16 + count17 + count18 + count19 + count20;
+			countTue = count1 + count2 + count3 + count4 + count5 + count6 + count7 + count8 + count9 + count10 + count11 + count12 + count13 + count14 + count15 + count16 + count17 + count18 + count19 + count20;
 			if(countTue === 0) {
 				countTue = 0
 			} else {

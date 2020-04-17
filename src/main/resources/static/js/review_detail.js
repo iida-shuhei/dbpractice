@@ -9,8 +9,12 @@ $(function() {
 			alert('投稿した人だけが編集できます');
 			return false;
 		} else {
-			alert('本当に削除しますか？');
-			return true;
+			var result = window.confirm('本当に削除しますか？');
+			if(result) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	});
 });
