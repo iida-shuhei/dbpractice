@@ -3,11 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+<link th:href="@{/css/waiting.css}" rel="stylesheet">
 </head>
 <body>
-
-<span th:text="${tmpUser.mail}"></span><span>宛にメールを送信したので確認してください。</span><br>
-<span>このタブは消してください</span>
-
+	<div class="container">
+		<span th:text="${tmpUser.mail}"></span><span>&nbsp;宛に</span><div>メールを送信したので確認してください。</div><br>
+		<img th:src="@{/img/waitRamen.png}" class="ramen">
+		<div>もしメールが来ていない場合は</div><div><a th:href="@{/toRegister}">こちら</a>から再度登録お願いします。</div>
+	</div>
 </body>
 </html>

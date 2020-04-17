@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.container {
+	width: 500px;
+	font-size: 15px;
+	text-align: center;
+	letter-spacing: 2px;
+	margin: 150px auto;
+	padding: 0;
+	border: 1px solid black;
+}
+
+.ramen {
+	width: 200px;
+	height: 200px;
+	margin-bottom: 25px;
+}

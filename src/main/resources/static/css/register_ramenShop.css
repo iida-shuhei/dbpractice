@@ -20,3 +20,8 @@
 	position: relative;
 	background-position: center;
 }
+
+.form {
+	width: 100%;
+	display: flex;
+}

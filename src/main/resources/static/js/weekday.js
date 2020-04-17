@@ -273,7 +273,7 @@ $(function(){
 		del.setAttribute("type","button");
 		del.setAttribute("value","削除");
 		del.setAttribute("id","delMon");
-		del.setAttribute("class","mon2");
+		del.setAttribute("class","mon2 btn btn-outline-info");
 	    
 	   
 		var childMon = document.getElementById("idMon");
@@ -545,7 +545,7 @@ $(function(){
 		del.setAttribute("type","button");
 		del.setAttribute("value","削除");
 		del.setAttribute("id","delTue");
-		del.setAttribute("class","tue2");
+		del.setAttribute("class","tue2 btn btn-outline-info");
 	    
 	   
 		var childTue = document.getElementById("idTue");
@@ -815,7 +815,7 @@ $(function(){
 		del.setAttribute("type","button");
 		del.setAttribute("value","削除");
 		del.setAttribute("id","delWed");
-		del.setAttribute("class","wed2");
+		del.setAttribute("class","wed2 btn btn-outline-info");
 	    
 	   
 		var childWed = document.getElementById("idWed");
@@ -1085,7 +1085,7 @@ $(function(){
 		del.setAttribute("type","button");
 		del.setAttribute("value","削除");
 		del.setAttribute("id","delThu");
-		del.setAttribute("class","thu2");
+		del.setAttribute("class","thu2 btn btn-outline-info");
 	    
 	   
 		var childThu = document.getElementById("idThu");
@@ -1355,7 +1355,7 @@ $(function(){
 		del.setAttribute("type","button");
 		del.setAttribute("value","削除");
 		del.setAttribute("id","delFri");
-		del.setAttribute("class","fri2");
+		del.setAttribute("class","fri2 btn btn-outline-info");
 	    
 	   
 		var childFri = document.getElementById("idFri");
@@ -1625,7 +1625,7 @@ $(function(){
 		del.setAttribute("type","button");
 		del.setAttribute("value","削除");
 		del.setAttribute("id","delSat");
-		del.setAttribute("class","sat2");
+		del.setAttribute("class","sat2 btn btn-outline-info");
 	    
 	   
 		var childSat = document.getElementById("idSat");
@@ -1895,7 +1895,7 @@ $(function(){
 		del.setAttribute("type","button");
 		del.setAttribute("value","削除");
 		del.setAttribute("id","delSun");
-		del.setAttribute("class","sun2");
+		del.setAttribute("class","sun2 btn btn-outline-info");
 	    
 	   
 		var childSun = document.getElementById("idSun");
