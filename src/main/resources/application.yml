@@ -1,10 +1,17 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/ramenRecord
-    username: iidahigashi
+    url: jdbc:postgresql://localhost:5432/student
+    username: postgres
     password: postgres
-  servlet:
-    multipart:
-      max-file-size: 30MB
-      max-request-size: 30MB
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: rakus.yahoo@gmail.com
+    password: Rakus!!tennis
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

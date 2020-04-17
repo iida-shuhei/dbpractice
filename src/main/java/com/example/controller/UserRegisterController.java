@@ -104,7 +104,7 @@ public class UserRegisterController {
 		}
 		
 		
-		userRegisterService.insert(userRegisterForm);
+//		userRegisterService.insert(userRegisterForm);
 		return "login";
 		
 	}
