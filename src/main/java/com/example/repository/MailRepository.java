@@ -12,8 +12,13 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.example.domain.TmpUser;
-import com.example.domain.User;
 
+/**
+ * メール認証用リポジトリ.
+ * 
+ * @author iidashuhei
+ *
+ */
 @Repository
 public class MailRepository {
 	
@@ -21,8 +26,6 @@ public class MailRepository {
 	private NamedParameterJdbcTemplate template;
 	
 	private static final RowMapper<TmpUser> TmpRowMapper = new BeanPropertyRowMapper<TmpUser>(TmpUser.class);
-	private static final RowMapper<User> rowMapper = new BeanPropertyRowMapper<User>(User.class);
-	
 	
 	/**
 	 * tmp_usersテーブルに登録情報を一時的に挿入.
@@ -45,32 +48,11 @@ public class MailRepository {
 			return tmpList.get(0);
 		}
 	}
-	//受け取ったメールアドレスからユーザー情報を検索
-	public User findByMail(String mail) {
-		String sql = "select user_name,user_mail,password from users where user_mail = :mail";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("mail",mail);
-		List<User> userList = template.query(sql,param ,rowMapper);
-		if(userList.size() == 0) {
-			return null;
-		}else {
-			return userList.get(0);
-		}
-	}
-		
-	//usersテーブルにユーザー情報を挿入.
-	public void register(User user) {
-		String sql = "insert into users(user_name,user_mail,password)values(:userName,:userMail,:password)";
-		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
-		template.update(sql, param);
-	}
 	
 	//受け取ってきたuuidを元に一致するユーザー情報をtmo_usersテーブルから削除.
 	public void delete(String uuid) {
-		String sql = "delete from tmp_user where uuid = :uuid";
+		String sql = "delete from tmp_users where uuid = :uuid";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("uuid",uuid);
 		template.update(sql, param);
 	}
-		
-
 }
-

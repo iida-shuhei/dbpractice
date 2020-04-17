@@ -1,17 +1,14 @@
 package com.example.service;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.User;
 import com.example.domain.UserIcon;
 import com.example.domain.UserRank;
-import com.example.form.UserRegisterForm;
 import com.example.repository.ReviewRepository;
 import com.example.repository.UserIconRepository;
 import com.example.repository.UserRankRepository;
@@ -39,23 +36,12 @@ public class UserService {
 	@Autowired
 	private UserRankRepository userRankRepository;
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
 	/**
 	 * ユーザー登録をする.
 	 * 
 	 * @param userRegisterForm ユーザー登録フォーム
 	 */
-	public void insert(UserRegisterForm userRegisterForm) {
-		User user = new User();
-		user.setUserName(userRegisterForm.getUserName());
-		user.setUserMail(userRegisterForm.getUserMail());
-		// パスワードをハッシュ化する
-		user.setPassword(passwordEncoder.encode(userRegisterForm.getPassword()));
-		user.setCreatedBy(userRegisterForm.getUserName());
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		user.setCreatedAt(timestamp);
+	public void insert(User user) {
 		userRepository.insert(user);
 	}
 	

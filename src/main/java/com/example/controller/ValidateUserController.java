@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import java.sql.Timestamp;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,12 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.domain.TmpUser;
 import com.example.domain.User;
 import com.example.repository.MailRepository;
+import com.example.service.UserService;
 
 @Controller
 @RequestMapping("")
 public class ValidateUserController {
 	
-	
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	private MailRepository mailRepository;
@@ -36,13 +40,13 @@ public class ValidateUserController {
 		    user.setUserName(name);
 		    user.setUserMail(mail);
 		    user.setPassword(password);
-		    System.err.println("通った");
-		    mailRepository.register(user);
+		    user.setCreatedBy(name);
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			user.setCreatedAt(timestamp);
+			
+		    userService.insert(user);
 		    mailRepository.delete(uuid);
-		    
 		}
 		return "login";
 	}
-
 }
-
