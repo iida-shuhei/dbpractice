@@ -106,6 +106,8 @@ public class UserRegisterController {
 			msg.setText(content);
 			mailSender.send(msg);
 		}
+
 		return "waiting";
+
 	}
 }
