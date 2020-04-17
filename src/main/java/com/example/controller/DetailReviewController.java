@@ -62,6 +62,14 @@ public class DetailReviewController {
 		return "review_detail";
 	}
 	
+	/**
+	 * レビューID、ユーザーIDからレビューを削除する.
+	 * 
+	 * @param reviewId レビューID
+	 * @param userId ユーザーID
+	 * @param loginUser ログインユーザー
+	 * @return 
+	 */
 	@RequestMapping("/delete")
 	public String delete(Integer reviewId, Integer userId, @AuthenticationPrincipal LoginUser loginUser) {
 		Review review = new Review();
