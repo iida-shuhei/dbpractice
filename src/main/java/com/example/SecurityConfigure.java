@@ -47,7 +47,8 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter{
 						,"/toRegister"
 						,"/register"
 						,"/validate*"
-//						,"/"
+						,"/reset/*"
+						,"/reset*"
 						).permitAll()//全てのユーザでアクセス化
 			.anyRequest().authenticated();//それ以外のパスは認証必須
 		

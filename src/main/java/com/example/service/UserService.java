@@ -103,6 +103,11 @@ public class UserService {
 		userRepository.updateUserRank(userId, rankId);
 	}
 	
+	/**
+	 * ユーザーランク一覧を取得する.
+	 * 
+	 * @return　ユーザーランク
+	 */
 	public List<UserRank> findAll() {
 		return userRankRepository.findAll();
 	}

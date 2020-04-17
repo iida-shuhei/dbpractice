@@ -33,12 +33,14 @@
 									<input type="password" name="password" class="form-control" th:field="*{password}"
 										pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
 										placeholder="パスワード">
+									<small style="color:red">変更する場合は、新しいパスワードを入力</small>
 								</div>
 								<div class="form-group">
 									<label th:errors="*{confirmationPassword}" style="color: red"></label>
 									<input type="password" name="confirmationPassword" class="form-control"
 										pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" th:field="*{confirmationPassword}"
-										placeholder="確認用パスワード"><small style="color:red">パスワードは8文字以上、1文字以上の数字、小文字、大文字アルファベットが含まれていること</small>
+										placeholder="確認用パスワード">
+									<small style="color:red">パスワードは8文字以上、1文字以上の数字、小文字、大文字アルファベットが含まれていること</small>
 								</div>
 								<div class="form-group">
 									<input type="file" name="iconImagePath" accept=".jpg,.png">
