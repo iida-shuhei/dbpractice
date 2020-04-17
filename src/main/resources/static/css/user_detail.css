@@ -22,12 +22,6 @@
 	background: url(/img/ramen07.jpg);
 }
 
-img.photo {
-	border-radius: 30%;
-	width: 180px;
-	height: 180px;
-}
-
 .info {
 	display: flex;
 }
@@ -41,4 +35,17 @@ table.info tr,
 table.info td {
 	border: 1px solid;
 	width: 300px;
+}
+
+.space {
+	padding-left: 20px;
+}
+
+.dai {
+	display: flex;
+}
+
+.box2 {
+	margin-left: 15px;
+	margin-bottom: 20px;
 }
