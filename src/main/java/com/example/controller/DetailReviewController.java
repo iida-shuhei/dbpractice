@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.Favorite;
 import com.example.domain.LoginUser;
 import com.example.domain.Review;
 import com.example.domain.User;
+import com.example.repository.FavoriteRepository;
 import com.example.service.ReviewService;
 import com.example.service.UserService;
 
@@ -30,6 +32,9 @@ public class DetailReviewController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private FavoriteRepository favoriteRepository;
 	
 	/**
 	 * レビューIDからレビュー詳細を表示する.
@@ -56,6 +61,13 @@ public class DetailReviewController {
 		model.addAttribute("reviewFridayList", reviewFridayList);
 		model.addAttribute("reviewSaturdayList", reviewSaturdayList);
 		model.addAttribute("reviewSundayList", reviewSundayList);
+		
+		List<Favorite> favoriteList = favoriteRepository.findByUserIdAndReviewId(loginUser.getUser().getUserId(), reviewId);
+		if(favoriteList.size() == 0) {
+			model.addAttribute("favorite", "favorite");
+		} else {
+			model.addAttribute("nofavorite", "nofavorite");
+		}
 		
 		User user = userService.findByUserId(loginUser.getUser().getUserId());
 		model.addAttribute("user", user);

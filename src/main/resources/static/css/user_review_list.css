@@ -21,12 +21,8 @@ div.ramen {
 	margin: 20px;
 }
 
-img.sign {
-	display: inline-block; /* ここがポイント */
-	height: 100px;
-	width: 30%;
-	margin-left: 85px;
-	margin-top: -62px;
+.title {
+	font-weight: bold;
 }
 
 .top {
@@ -36,39 +32,62 @@ img.sign {
 	font-size: 10px;
 }
 
-.info {
-	width: 1000px;
-	height: 20px;
-	margin: 45px auto;
+.text {
+	text-align: center;
 }
 
-.info h1 {
-	float: left;
+.sign {
+	width: 90px;
+	height: 90px;
 }
 
-.info .center {
-	width: 415px;
+.info ul {
 	margin: 0 auto;
-	padding-right: 100px;
 }
 
-.info .center li {
-	float: right;
-	font-size: 13px;
-	padding: 0 10px;
-	border-left: 1px solid #333;
+.info ul li {
+	display: inline-block;
+	margin-right: 3em;
+	vertical-align: middle;
 }
 
-.info .center li:first-child {
-	padding-right: 0;
+.smallInfo ul li {
+	display: inline-block;
+	margin-right: 2em;
+	font-size: 16px;
+	font-family: sans-serif;
+	font-weight: normal;
+	vertical-align: middle;
 }
 
-.info .center li:last-child {
-	padding-left: 0;
-	border-left: none;
+.smallInfo {
+	display: flex;
+	margin-left: auto;
+	padding: 0;
+	align-items: center;
 }
 
-.info .center li a {
+.smallInfo ul {
+	margin: 0;
+	padding: 0;
+}
+
+.bigInfo {
+	display: flex;
+}
+
+.img {
+	border-radius: 30%;
+	width: 40px;
+}
+
+.smallInfo ul li a {
 	text-decoration: none;
-	color: #333;
+	color: #00f;
+	font-weight: bold;
+}
+
+.smallInfo ul li a:hover {
+	color: #f03;
+	font-size: 17px;
 }

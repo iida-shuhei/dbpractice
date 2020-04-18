@@ -35,7 +35,6 @@ public class ResetPasswordController {
 	
 	@Autowired
 	private HttpSession session;
-	// 32バイトのCSRFトークンを作成
 	
 	@Autowired
 	private UserService userService;
@@ -92,8 +91,9 @@ public class ResetPasswordController {
 	 */
 	@RequestMapping("/updatePass")
 	public String updatePass(@Validated ResetPasswordForm resetPasswordForm, BindingResult result) {
+		//セッションに入れたトークンと同じかチェック
 		if (!(resetPasswordForm.getToken().equals(session.getAttribute("token")))) {
-			result.rejectValue("token", null, "入力したものとお送りした英数字が異なります");
+			result.rejectValue("token", null, "入力したものとお送りした英数字が異なるか、有効期限が切れています");
 		} else {
 			return "reset_password";
 		}

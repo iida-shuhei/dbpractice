@@ -14,16 +14,24 @@
 			<p>ここは<span th:text="${user.userName}"></span>さんが食べたラーメンを記録しているページです。</p>
 		</div>
 
-		<div class="info">
-			<h1>
-				<a th:href="@{/showReview}"><img th:src="@{/img/sign.jpg}"
-					class="sign"></a>
-			</h1>
-			<div class="center">
-				<h2 class="title">らぁめん記録</h2>
+		<div class="bigInfo">
+			<div class="info">
+				<ul>
+					<li><a th:href="@{/showReview}"><img th:src="@{/img/sign.jpg}" class="sign"></a></li>
+					<li><h2 class="title"><span th:text="${user.userName}"></span>さんのらぁめん記録</h2></li>
+				</ul>
 			</div>
-			<span class="text"><span th:text="${user.userName}"></span>さんの記録</span>
+			
+			<div class="smallInfo">
+				<ul>
+					<li><img th:src="${user.userIcon.iconImagePath}" class="img" onerror="this.src='/img/user.jpg'"/></li>
+					<li><a type="button" th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}"><span th:text="${user.userName}"></span></a></li>
+					<li><a th:href="@{/review/toInsert}">投稿</a></li>
+					<li><a th:href="@{/logout}">ログアウト</a></li>
+				</ul>
+			</div>
 		</div>
+		
 		<div class="top"></div>
 	</header>
 	

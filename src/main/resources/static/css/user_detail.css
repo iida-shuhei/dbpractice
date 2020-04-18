@@ -58,3 +58,14 @@ table.info td {
 	text-align: center;
 	letter-spacing: 3px;
 }
+
+.favorite a {
+	text-decoration: none;
+	color: #00f;
+	font-weight: bold;
+}
+
+.favorite a:hover {
+	color: #f03;
+	font-size: 15px;
+}

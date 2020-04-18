@@ -14,7 +14,7 @@
 				<div class="well">
 					<form method="post" th:action="@{/reset/updatePass}" th:object="${resetPasswordForm}">
 						<fieldset>
-							<legend> 英数字を入力してください </legend>
+							<legend> メールをご確認ください </legend>
 							<label class="control-label" style="color: red" for="inputError"></label>
 							<div class="alert alert-danger" th:if="${errorMessage}">
 								<span th:text="${errorMessage}">お送りしたメールに記載の英数字と異なっています</span>

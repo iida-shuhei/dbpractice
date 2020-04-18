@@ -33,3 +33,21 @@
 	text-align: center;
 	margin-top: 10px;
 }
+
+.heart:hover {
+	cursor: pointer;
+}
+
+.noheart:hover {
+	cursor: pointer;
+}
+
+.noheart {
+	color: black;
+	background-color: black;
+}
+
+.heart {
+	color: red;
+	background-color: red;
+}

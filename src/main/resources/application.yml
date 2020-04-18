@@ -1,8 +1,8 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/student
-    username: postgres
+    url: jdbc:postgresql://localhost:5432/ramen_record
+    username: higashiiida
     password: postgres
   mail:
     host: smtp.gmail.com

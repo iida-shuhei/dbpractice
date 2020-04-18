@@ -6,7 +6,7 @@ $(function() {
 		var reviewUserId = $('#reviewUserId').val();
 		var userId = $('#userId').val();
 		if (reviewUserId != userId) {
-			alert('投稿した人だけが編集できます');
+			alert('投稿した人だけが削除できます');
 			return false;
 		} else {
 			var result = window.confirm('本当に削除しますか？');
