@@ -23,7 +23,10 @@
 		</div>
 		
 		<div class="shopInfo">
-			🍜<span th:text="${review.ramenShop.shopName}"></span><br>
+		    <form th:action="@{/ramenShopDetail}" method="post">
+			<input type="hidden" name="shopId" th:value="${review.ramenShop.shopId}"><br>
+			<button class="btn">🍜<span th:text="${review.ramenShop.shopName}"></span></button>
+		    </form>
 			🏠<span class="text1" th:text="${review.ramenShop.prefecture}"></span>
 			<span class="text2" th:text="${review.ramenShop.city}"></span>
 			<span class="text3" th:text="${review.ramenShop.other}"></span>

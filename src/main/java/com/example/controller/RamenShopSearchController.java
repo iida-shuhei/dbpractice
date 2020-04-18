@@ -19,7 +19,7 @@ import com.example.service.RamenShopService;
  */
 @Controller
 @RequestMapping("/ramenShopSearch")
-public class RamenShopSearchController {
+public class RamenShopSearchController { 
 
 	@Autowired
 	private RamenShopRepository ramenShopRepository;
@@ -37,7 +37,7 @@ public class RamenShopSearchController {
 	public String index(Model model) {
 		List<RamenShop> ramenShopList = ramenShopRepository.findAll();
 		model.addAttribute("ramenShopList", ramenShopList);
-		//オートコンプリート機能
+	    //オートコンプリート機能 
 		StringBuilder autoComplete = ramenShopService.getAutoComplete(ramenShopList);
 		model.addAttribute("autoComplete", autoComplete);
 		return "ramenShop_search";
@@ -63,4 +63,6 @@ public class RamenShopSearchController {
 		}
 		return "ramenShop_search";
 	}
+	
+	
 }

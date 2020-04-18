@@ -54,8 +54,8 @@ public class DetailReviewController {
 		model.addAttribute("reviewWednesdayList", reviewWednesdayList);
 		model.addAttribute("reviewThursdayList", reviewThursdayList);
 		model.addAttribute("reviewFridayList", reviewFridayList);
-		model.addAttribute("reviewSaturdayList", reviewSaturdayList);
-		model.addAttribute("reviewSundayList", reviewSundayList);
+		model.addAttribute("reviewSaturdayList", reviewSaturdayList); 
+		model.addAttribute("reviewSundayList", reviewSundayList); 
 		
 		User user = userService.findByUserId(loginUser.getUser().getUserId());
 		model.addAttribute("user", user);
