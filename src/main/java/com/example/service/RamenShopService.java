@@ -16,10 +16,12 @@ public class RamenShopService {
 	@Autowired
 	private RamenShopRepository ramenShopRepository;
 	
-//	public List<RamenShop> findAll() {
-//		return ramenShopRepository.findAll();
-//	}
-	
+	/**
+	 * ショップIDから詳細を表示する.
+	 * 
+	 * @param shopId shopId
+	 * @return ショップ店舗の情報
+	 */
 	public RamenShop load(Integer shopId) {
 		return ramenShopRepository.load(shopId);
 	}

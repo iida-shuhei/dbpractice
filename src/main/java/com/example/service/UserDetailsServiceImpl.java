@@ -43,6 +43,5 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		authorityList.add(new SimpleGrantedAuthority("ROLE_USER"));
 		LoginUser loginUser = new LoginUser(user,authorityList);
 		return loginUser;
-	}
-	
+	}	
 }

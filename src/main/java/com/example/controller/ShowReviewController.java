@@ -89,5 +89,4 @@ public class ShowReviewController {
 		}
 		return "insert_article";
 	}
-
 }
