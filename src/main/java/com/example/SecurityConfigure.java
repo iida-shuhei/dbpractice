@@ -38,6 +38,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter{
 						,"/js/**"
 						,"/static/**");
 	}
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()

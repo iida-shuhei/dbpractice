@@ -8,6 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.repository.UserRepository;
 
+/**
+ * パスワードをリセットするサービス.
+ * 
+ * @author iidashuhei
+ *
+ */
 @Service
 @Transactional
 public class ResetPasswordService {

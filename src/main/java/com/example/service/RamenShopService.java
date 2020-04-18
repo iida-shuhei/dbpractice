@@ -16,17 +16,11 @@ public class RamenShopService {
 	@Autowired
 	private RamenShopRepository ramenShopRepository;
 	
-	
-	
-//	public List<RamenShop> findAll() {
-//		return ramenShopRepository.findAll();
-//	}
-	
-	
 	/**
-	 * ラーメン店舗情報を検索する.
-	 * @param shopId
-	 * @return
+	 * ショップIDから詳細を表示する.
+	 * 
+	 * @param shopId shopId
+	 * @return ショップ店舗の情報
 	 */
 	public RamenShop load(Integer shopId) {
 		return ramenShopRepository.load(shopId);
@@ -98,15 +92,7 @@ public class RamenShopService {
     public List<RamenShop> findBySunday(Integer shopId){
     	return ramenShopRepository.findBySunday(shopId);
     }
-    
-    
-    
-    
-    
-    
-	
-	
-	
+  
 	/**
 	 * オートコンプリート用にJavaScriptの配列の中身を文字列で作る.
 	 * 
