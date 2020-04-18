@@ -144,4 +144,16 @@ public class UserRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("userRankId", userRankId);
 		template.update(sql, param);
 	}
+	
+	/**
+	 * メールからパスワードを変更する.
+	 * 
+	 * @param userMail ユーザーメール
+	 * @param password パスワード
+	 */
+	public void updatePass(String userMail, String password) {
+		String sql = "update users set password =:password where user_mail =:userMail";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userMail", userMail).addValue("password", password);
+		template.update(sql, param);
+	}
 }

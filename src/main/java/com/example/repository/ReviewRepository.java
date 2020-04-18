@@ -247,7 +247,7 @@ public class ReviewRepository {
 	 * 
 	 * @return 記事
 	 */
-	public List<Review> findByNotLoginUser(Integer userId, Integer start) {
+	public List<Review> findAll(Integer start) {
 		String sql = "select review_id, \n" +
 				"r.shop_id r_shop_id, \n" +
 				"r.user_id r_user_id, \n" +
@@ -296,7 +296,70 @@ public class ReviewRepository {
 				"on r.shop_id = s.shop_id\n" +
 				"left join users as u\n" +
 				"on r.user_id = u.user_id\n" +
-				"where r.deleted_by is null and r.deleted_at is null and r.user_id <>:userId order by review_id desc limit 8 offset :start";
+				"where r.deleted_by is null and r.deleted_at is null order by review_id desc limit 8 offset :start";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("start", start);
+		return template.query(sql, param, REVIEW_ROW_MAPPER);
+	}
+	
+	/**
+	 * ユーザーのお気に入りレビュー一覧を取得する.
+	 * 
+	 * @return 記事
+	 */
+	public List<Review> findFavoriteReview(Integer userId, Integer start) {
+		String sql = "select r.review_id, \n" +
+				"r.shop_id r_shop_id, \n" +
+				"r.user_id r_user_id, \n" +
+				"ramen_name,\n" + 
+				"ramen_price,\n" + 
+				"ramen_image_path_id,\n" + 
+				"r.created_by r_created_by,\n" + 
+				"r.created_at r_created_at,\n" + 
+				"r.updated_by r_updated_by,\n" + 
+				"r.updated_at r_updated_at,\n" + 
+				"r.version r_version,\n" + 
+				"r.deleted_by r_deleted_by,\n" + 
+				"r.deleted_at r_deleted_at,\n" + 
+				"f.id, f.user_id f_user_id,\n" + 
+				"f.review_id f_review_id,\n" + 
+				"image_id,\n" + 
+				"image_path,\n" + 
+				"s.shop_id s_shop_id, \n" + 
+				"shop_name, \n" + 
+				"zipcode,\n" + 
+				"prefecture,\n" + 
+				"city,\n" + 
+				"other,\n" + 
+				"holidays,\n" + 
+				"s.created_by s_created_by,\n" + 
+				"s.created_at s_created_at,\n" + 
+				"s.updated_by s_updated_by,\n" + 
+				"s.updated_at s_updated_at,\n" + 
+				"s.version s_version,\n" + 
+				"s.deleted_by s_deleted_by,\n" + 
+				"s.deleted_at s_deleted_at,\n" + 
+				"u.user_id u_user_id,\n" + 
+				"user_name,\n" + 
+				"password,\n" + 
+				"user_icon_id,\n" + 
+				"user_rank_id,\n" + 
+				"u.created_by u_created_by,\n" + 
+				"u.created_at u_created_at,\n" + 
+				"u.updated_by u_updated_by,\n" + 
+				"u.updated_at u_updated_at,\n" + 
+				"u.version u_version,\n" + 
+				"u.deleted_by u_deleted_by,\n" + 
+				"u.deleted_at u_deleted_at\n" + 
+				"from reviews as r\n" + 
+				"left join favorites as f\n" + 
+				"on r.review_id = f.review_id\n" +
+				"left join ramen_images\n" + 
+				"on ramen_image_path_id = image_id\n" +
+				"left join ramen_shops as s\n" + 
+				"on r.shop_id = s.shop_id\n" +
+				"left join users as u\n" +
+				"on r.user_id = u.user_id\n" +
+				"where r.deleted_by is null and r.deleted_at is null and f.user_id = :userId order by r.review_id desc limit 8 offset :start";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("start", start);
 		return template.query(sql, param, REVIEW_ROW_MAPPER);
 	}
@@ -876,12 +939,29 @@ public class ReviewRepository {
 	 * @param userId ユーザーID
 	 * @return レビュー数
 	 */
-	public Integer countNotUserReview(Integer userId) {
-		String sql = "select count(*) from reviews where deleted_by is null and deleted_at is null and user_id <>:userId";
+	public Integer countAllReview(Integer userId) {
+		String sql = "select count(*) from reviews where deleted_by is null and deleted_at is null";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
 		return template.queryForObject(sql, param, Integer.class);
 	}
 	
+	/**
+	 * ログインしているユーザーのお気に入り記事数を取得する.
+	 * 
+	 * @param userId ユーザーID
+	 * @return お気に入り数
+	 */
+	public Integer countFavoriteReview(Integer userId) {
+		String sql = "select count(*) from favorites where user_id =:userId";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
+		return template.queryForObject(sql, param, Integer.class);
+	}
+	
+	/**
+	 * レビューを削除する.
+	 * 
+	 * @param review レビュー
+	 */
 	public void delete(Review review) {
 		String sql = "update reviews set deleted_by =:deletedBy, deleted_at =:deletedAt where review_id =:reviewId and user_id =:userId";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(review);

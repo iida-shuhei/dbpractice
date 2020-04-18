@@ -56,16 +56,16 @@ public class ShowReviewController {
 	@RequestMapping("")
 	public String index(Integer start, Model model,@AuthenticationPrincipal LoginUser loginUser) {
 		// Maxページ数を求める
-		Integer count = reviewRepository.countNotUserReview(loginUser.getUser().getUserId());
+		Integer count = reviewRepository.countAllReview(loginUser.getUser().getUserId());
 
 		//何番目から表示するかを求める
 		if (start == null) {
 			start = 0;
 		};
 		
-		List<Review> reviewList = reviewRepository.findByNotLoginUser(loginUser.getUser().getUserId(), start);
+		List<Review> reviewList = reviewRepository.findAll(start);
 		if(reviewList.isEmpty()) {
-			model.addAttribute("message", "他の人はまだ投稿していないようだ…");
+			model.addAttribute("message", "誰も投稿していないようだ…");
 		}
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("start", start);

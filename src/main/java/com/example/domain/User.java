@@ -19,6 +19,7 @@ public class User {
 	private String deletedBy;
 	private Timestamp deletedAt;
 	private Integer version;
+	
 	public Integer getUserId() {
 		return userId;
 	}

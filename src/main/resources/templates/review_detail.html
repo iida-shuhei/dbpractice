@@ -7,11 +7,28 @@
 <link th:href="@{/css/review_detail.css}" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" th:src="@{/js/review_detail.js}"></script>
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 </head>
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+$(function(){
+	$("#favorite-btn").on("click",function(){
+		$("#favorite").submit();
+	});
+});
+</script>
 <body>
+
+	<form th:action="@{/favorite}" id="favorite" method="post">
+		<input type="hidden" name="reviewId" th:value="${review.reviewId}">
+	</form>
+	
+	
 	<div class="container">
 			<img th:src="${user.userIcon.iconImagePath}" style="border-radius: 30%; width:8%" onerror="this.src='/img/user.jpg'"/>
-			<span th:text="${review.createdBy}"></span><br>
+			<span th:text="${review.createdBy}"></span>
+			<span th:if="${favorite}"><a type="button" id="favorite-btn"><img th:src="@{/img/heart1.png}" class="noheart" style="width:30px; height: 30px"></a></span>
+			<span th:if="${nofavorite}"><a type="button" id="favorite-btn"><img th:src="@{/img/heart1.png}" class="heart" style="width:30px; height: 30px"></a></span>
 		
 		<div class="img">
 			<img th:src="${review.ramenImage.imagePath}" style="width:100%; height: 470px">

@@ -28,13 +28,16 @@
 
 table.info {
 	border-collapse: collapse;
+	margin: 0 auto;
+	letter-spacing: 2px;
+	font-size: 17px;
 }
 
 table.info,
 table.info tr,
 table.info td {
 	border: 1px solid;
-	width: 300px;
+	width: 400px;
 }
 
 .space {
@@ -48,4 +51,21 @@ table.info td {
 .box2 {
 	margin-left: 15px;
 	margin-bottom: 20px;
+}
+
+.rank {
+	font-size: 16px;
+	text-align: center;
+	letter-spacing: 3px;
+}
+
+.favorite a {
+	text-decoration: none;
+	color: #00f;
+	font-weight: bold;
+}
+
+.favorite a:hover {
+	color: #f03;
+	font-size: 15px;
 }

@@ -13,9 +13,12 @@
 .ramen {
 	width: 200px;
 	height: 200px;
-	margin-bottom: 25px;
 }
 
 body {
 	background: #fcfce6;
+}
+
+div {
+	margin-top: 20px;
 }
