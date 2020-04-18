@@ -63,10 +63,4 @@ public class RamenShopSearchController {
 		}
 		return "ramenShop_search";
 	}
-<<<<<<< HEAD
-	
-	
 }
-=======
-}
->>>>>>> sub
