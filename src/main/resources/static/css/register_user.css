@@ -21,3 +21,10 @@
 	background-position: center;
 	background: url(/img/ramen03.jpg);
 }
+
+.icon {
+	float: right;
+	position: relative;
+	z-index: 2;
+	color: #555;
+}
