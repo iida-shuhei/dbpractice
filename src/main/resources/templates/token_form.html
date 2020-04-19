@@ -8,14 +8,17 @@
 </head>
 <body>
 
-		<!-- login form -->
-		<div class="row">
-			<div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
-				<div class="well">
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">メールをご確認ください</h3>
+			</div>
+			
+			<div class="panel-body">
+				<fieldset>
 					<form method="post" th:action="@{/reset/updatePass}" th:object="${resetPasswordForm}">
-						<fieldset>
-							<legend> メールをご確認ください </legend>
-							<label class="control-label" style="color: red" for="inputError"></label>
+					
+						<label class="control-label" style="color: red" for="inputError"></label>
 							<div class="alert alert-danger" th:if="${errorMessage}">
 								<span th:text="${errorMessage}">お送りしたメールに記載の英数字と異なっています</span>
 							</div>
@@ -27,11 +30,11 @@
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary">パスワードを再設定する</button>
 							</div>
-						</fieldset>
+						
 					</form>
-				</div>
+				</fieldset>
 			</div>
 		</div>
-
+	</div>
 </body>
 </html>

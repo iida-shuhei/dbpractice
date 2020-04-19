@@ -39,7 +39,7 @@
 
 		<section>
 			<div class="card-deck">
-				<div class="row-eq-height">
+				<div class="row row-eq-height">
 					<div class="col-md-3" th:each="review : ${reviewList}">
 						<div class="card ramen">
 							<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}"> 
@@ -59,16 +59,17 @@
 	</main>
 	
 	
-			<!-- pagination -->
-			<div class="pages">
-				<nav class="page-nav">
-					<ul class="pager">
-						<li class="previous" th:if="${start != 0}">
-						<a th:href="@{'/showReview?start='+${start - 8}}">&larr; prev</a></li>
-						<li class="next" th:if="${count > start + 8}">
-						<a th:href="@{'/showReview?start='+${start + 8}}">next &rarr;</a></li>
-					</ul>
-				</nav>
-			</div>
+	<!-- pagination -->
+	<div class="pages">
+		<nav class="page-nav">
+			<ul class="pager">
+				<li class="previous" th:if="${start != 0}">
+				<a th:href="@{'/showReview?start='+${start - 8}}">&larr; prev</a></li>
+				<li class="next" th:if="${count > start + 8}">
+				<a th:href="@{'/showReview?start='+${start + 8}}">next &rarr;</a></li>
+			</ul>
+		</nav>
+	</div>
+	
 </body>
 </html>

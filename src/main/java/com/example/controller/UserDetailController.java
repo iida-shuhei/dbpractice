@@ -122,6 +122,9 @@ public class UserDetailController {
 		};
 		model.addAttribute("totalRamens", totalRamens);
 		
+		Integer total = reviewRepository.countUserReview(loginUser.getUser().getUserId());
+		model.addAttribute("total", total);
+		
 		user = userService.findByUserId(loginUser.getUser().getUserId());
 		model.addAttribute("user", user);
 		return "user_detail";
@@ -187,18 +190,13 @@ public class UserDetailController {
 		user.setUserId(updateUserForm.getUserId());
 		user.setUserName(updateUserForm.getUserName());
 		user.setUserMail(updateUserForm.getUserMail());
-		
-		//パスワードがあれば登録
-		if(!updateUserForm.getPassword().isEmpty()) {
-			user.setPassword(passwordEncoder.encode(updateUserForm.getPassword()));
-		} else {
-			user.setPassword(passwordEncoder.encode(loginUser.getUser().getPassword()));
-		}
+		user.setPassword(passwordEncoder.encode(updateUserForm.getPassword()));
 		
 		//画像があれば登録
 		if(!updateUserForm.getIconImagePath().getOriginalFilename().isEmpty()) {
 			user.setUserIconId(userIcon.getIconId());
-		} else {
+		} 
+		else {
 			user.setUserIconId(loginUser.getUser().getUserIconId());
 		}
 		

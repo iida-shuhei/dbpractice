@@ -112,3 +112,7 @@ div.ramen {
 #logo .logo:hover {
 	font-size: 39px;
 }
+
+.row {
+	margin: 0;
+}

@@ -71,6 +71,14 @@
 								<div class="form-group">
 									<div th:text="${user.userMail}"></div>
 								</div>
+								<div class="form-group">
+									<span th:if="${total}">
+										現在<span th:text="${total}"></span><span>杯食べました</span>
+									</span>
+									<span th:unless="${total}">
+										<span>まだラーメンを食べていません</span>
+									</span>
+								</div>
 								<div class="form-group favorite">
 									<a th:href="@{/favorite/showFavoriteList}">お気に入りリスト</a>
 								</div>
