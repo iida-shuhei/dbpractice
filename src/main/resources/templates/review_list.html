@@ -49,7 +49,7 @@
 					<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}">
 						<input type="hidden" name="userId"> 
 						<span class="card-title" th:text="${review.ramenShop.shopName}"></span><br>
-					</a> post by <span th:text="${review.createdBy}"></span>
+					</a> post by <span th:text="${review.user.userName}"></span>
 				</div>
 				</div>
 			</div>

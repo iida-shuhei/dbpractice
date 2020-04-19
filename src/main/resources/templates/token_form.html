@@ -20,9 +20,9 @@
 								<span th:text="${errorMessage}">お送りしたメールに記載の英数字と異なっています</span>
 							</div>
 							<div class="form-group">
-								<label for="inputPassword">メールに記載の英数字</label>
+								<label for="inputPassword">メールに記載の英数字をご入力ください</label>
 								<label th:errors="*{token}" style="color: red"></label>
-								<input type="text" id="inputPassword" class="form-control" name="token" required>
+								<input type="text" id="inputPassword" class="form-control" name="token" required placeholder="9c3f8158f9h1494b8ddc3j3b71e3q654">
 							</div>
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary">パスワードを再設定する</button>

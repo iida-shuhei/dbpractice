@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.domain.DeletedUser;
 import com.example.domain.LoginUser;
 import com.example.domain.Review;
 import com.example.domain.User;
@@ -24,6 +25,7 @@ import com.example.domain.UserIcon;
 import com.example.domain.UserRank;
 import com.example.form.UpdateUserForm;
 import com.example.repository.ReviewRepository;
+import com.example.repository.UserRepository;
 import com.example.service.UserService;
 
 /**
@@ -38,6 +40,9 @@ public class UserDetailController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	@Autowired
 	private ReviewRepository reviewRepository;
@@ -255,5 +260,31 @@ public class UserDetailController {
 		User user = userService.findByUserId(loginUser.getUser().getUserId());
 		model.addAttribute("user", user);
 		return "user_review_list";
+	}
+	
+	/**
+	 * ユーザーを削除する.
+	 * 
+	 * @param userId ユーザーID
+	 * @param loginUser ログインユーザー
+	 * @return ログアウト
+	 */
+	@RequestMapping("/delete")
+	public String delete(Integer userId, @AuthenticationPrincipal LoginUser loginUser) {
+		User user = new User();
+		user.setUserId(userId);
+		user.setDeletedBy(loginUser.getUser().getUserName());
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		user.setDeletedAt(timestamp);
+		
+		DeletedUser deletedUser = new DeletedUser();
+		deletedUser.setUserId(userId);
+		deletedUser.setUserName(loginUser.getUser().getUserName());
+		deletedUser.setUserMail(loginUser.getUser().getUserMail());
+		deletedUser.setDeletedAt(timestamp);
+		userRepository.insertDeletedUser(deletedUser);
+		
+		userService.delete(user);
+		return "redirect:/logout";
 	}
 }

@@ -101,7 +101,7 @@ public class UserRegisterController {
 			String IPadnPort = "localhost:8080";
 			String from = "rakus.yahoo@gmail.com";
 			String title = "アカウント確認のお願い";
-			String content = userRegisterForm.getUserName() + "さん" +"\n"+"\n"+"以下のリンクにアクセスしてアカウント認証をしてください"+"\n"+"http://"+IPadnPort+"/validate"+"?uuid="+uuid;
+			String content = userRegisterForm.getUserName() + "さん" +"\n"+ "この度はRaaaaLifeにご登録いただきありがとうございます。" + "\n"+"以下のリンクにアクセスしてアカウント認証をしてください"+"\n"+"http://"+IPadnPort+"/validate"+"?uuid="+uuid;
 			
 			SimpleMailMessage msg = new  SimpleMailMessage();
 			msg.setFrom(from);
@@ -121,7 +121,7 @@ public class UserRegisterController {
 	 */
 	@RequestMapping("/validate")
     @CrossOrigin
-    public String validate(@Validated UserRegisterForm userRegisterForm, BindingResult result) {
+    public String validate(UserRegisterForm userRegisterForm) {
 		TmpUser isExist = mailRepository.load(userRegisterForm.getUuid());
 		
 		if(isExist != null) {
@@ -140,6 +140,8 @@ public class UserRegisterController {
 			
 		    userService.insert(user);
 		    mailRepository.delete(userRegisterForm.getUuid());
+		} else {
+			return "error/404";
 		}
 		return "complete";
 	}

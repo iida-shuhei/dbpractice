@@ -29,7 +29,7 @@ $(function(){
 	
 	<div class="container">
 			<img th:src="${user.userIcon.iconImagePath}" style="border-radius: 30%; width:8%" onerror="this.src='/img/user.jpg'"/>
-			<span th:text="${review.createdBy}"></span>
+			<span th:text="${review.user.userName}"></span>
 			<span th:if="${favorite}"><a type="button" id="favorite-btn"><img th:src="@{/img/heart1.png}" class="noheart" style="width:30px; height: 30px"></a></span>
 			<span th:if="${nofavorite}"><a type="button" id="favorite-btn"><img th:src="@{/img/heart1.png}" class="heart" style="width:30px; height: 30px"></a></span>
 		

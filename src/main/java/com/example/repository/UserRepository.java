@@ -2,7 +2,6 @@ package com.example.repository;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -12,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import com.example.domain.DeletedUser;
 import com.example.domain.User;
 import com.example.domain.UserIcon;
 import com.example.domain.UserRank;
@@ -96,7 +96,7 @@ public class UserRepository {
 	 */
 	public User findByUserId(Integer userId) {
 		String sql = "select user_id,"
-				+ "user_name,"
+				+ "coalesce(user_name, '退会済みユーザー') as user_name,"
 				+ "user_mail,"
 				+ "password,"
 				+ "user_icon_id,"
@@ -154,6 +154,28 @@ public class UserRepository {
 	public void updatePass(String userMail, String password) {
 		String sql = "update users set password =:password where user_mail =:userMail";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userMail", userMail).addValue("password", password);
+		template.update(sql, param);
+	}
+	
+	/**
+	 * ユーザーを削除する.
+	 * 
+	 * @param user ユーザー
+	 */
+	public void delete(User user) {
+		String sql = "update users set user_name = null, user_mail = null, user_icon_id = null, deleted_by =:deletedBy, deleted_at =:deletedAt where user_id =:userId";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
+		template.update(sql, param);
+	}
+	
+	/**
+	 * デリートテーブルにユーザーを登録する.
+	 * 
+	 * @param deletedUser デリートユーザー
+	 */
+	public void insertDeletedUser(DeletedUser deletedUser) {
+		String sql = "insert into deleted_users(user_id, user_name, user_mail, deleted_at)values(:userId, :userName, :userMail, :deletedAt)";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(deletedUser);
 		template.update(sql, param);
 	}
 }

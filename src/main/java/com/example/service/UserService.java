@@ -111,4 +111,13 @@ public class UserService {
 	public List<UserRank> findAll() {
 		return userRankRepository.findAll();
 	}
+	
+	/**
+	 * ユーザーを削除する.
+	 * 
+	 * @param user ユーザー
+	 */
+	public void delete(User user) {
+		userRepository.delete(user);
+	}
 }
