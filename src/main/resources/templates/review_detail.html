@@ -18,6 +18,9 @@ $(function(){
 });
 </script>
 <body>
+<header>
+<form th:action="@{/showReview}"><button id="logo"><span class="logo">RaaaaLife</span></button></form>
+</header>
 
 	<form th:action="@{/favorite}" id="favorite" method="post">
 		<input type="hidden" name="reviewId" th:value="${review.reviewId}">
@@ -32,7 +35,7 @@ $(function(){
 		
 		<div class="img">
 			<img th:src="${review.ramenImage.imagePath}" style="width:100%; height: 470px">
-		</div>
+		</div><br>
 		
 		<div class="ramen">
 			<span th:text="${review.ramenName}"></span>
@@ -41,8 +44,8 @@ $(function(){
 		
 		<div class="shopInfo">
 		    <form th:action="@{/ramenShopDetail}" method="post">
-			<input type="hidden" name="shopId" th:value="${review.ramenShop.shopId}"><br>
-			<button class="btn">🍜<span th:text="${review.ramenShop.shopName}"></span></button>
+				<input type="hidden" name="shopId" th:value="${review.ramenShop.shopId}"><br>
+				<button class="btn">🍜<span th:text="${review.ramenShop.shopName}" class="text"></span></button>
 		    </form>
 			🏠<span class="text1" th:text="${review.ramenShop.prefecture}"></span>
 			<span class="text2" th:text="${review.ramenShop.city}"></span>
@@ -57,117 +60,5 @@ $(function(){
 			</form>
 		</div>
 	</div>
-
-<!-- 	<div th:each="monday :${reviewMondayList}"> -->
-<!-- 		<span th:if="${monday.ramenShop.ramenShopTime.noonStartTime}" -->
-<!-- 			th:text="'月曜日 : ' + ${monday.ramenShop.ramenShopTime.noonStartTime} + ' 時 〜'"></span> -->
-<!-- 		<span th:if="${monday.ramenShop.ramenShopTime.noonEndTime}" -->
-<!-- 			th:text="${monday.ramenShop.ramenShopTime.noonEndTime} + '時'"></span> -->
-
-<!-- 		<span th:if="${monday.ramenShop.ramenShopTime.nightStartTime}" -->
-<!-- 			th:text="'月曜日 : ' + ${monday.ramenShop.ramenShopTime.nightStartTime} + ' 時 〜'"></span> -->
-<!-- 		<span th:if="${monday.ramenShop.ramenShopTime.nightEndTime}" -->
-<!-- 			th:text="${monday.ramenShop.ramenShopTime.nightEndTime} + '時'"></span> -->
-
-<!-- 		<span th:if="${monday.ramenShop.ramenShopTime.otherTime}" -->
-<!-- 			th:text="'月曜日 : ' + ${monday.ramenShop.ramenShopTime.otherTime}"></span> -->
-<!-- 	</div> -->
-
-
-<!-- 	<div th:each="tuesday :${reviewTuesdayList}"> -->
-<!-- 		<span th:if="${tuesday.ramenShop.ramenShopTime.noonStartTime}" -->
-<!-- 			th:text="'火曜日 : ' + ${tuesday.ramenShop.ramenShopTime.noonStartTime} + ' 時 〜'"></span> -->
-<!-- 		<span th:if="${tuesday.ramenShop.ramenShopTime.noonEndTime}" -->
-<!-- 			th:text="${tuesday.ramenShop.ramenShopTime.noonEndTime} + '時'"></span> -->
-
-<!-- 		<span th:if="${tuesday.ramenShop.ramenShopTime.nightStartTime}" -->
-<!-- 			th:text="'火曜日 : ' + ${tuesday.ramenShop.ramenShopTime.nightStartTime} + ' 時 〜'"></span> -->
-<!-- 		<span th:if="${tuesday.ramenShop.ramenShopTime.nightEndTime}" -->
-<!-- 			th:text="${tuesday.ramenShop.ramenShopTime.nightEndTime} + '時'"></span> -->
-
-<!-- 		<span th:if="${tuesday.ramenShop.ramenShopTime.otherTime}" -->
-<!-- 			th:text="'火曜日 : ' + ${tuesday.ramenShop.ramenShopTime.otherTime}"></span> -->
-<!-- 	</div> -->
-
-
-<!-- 	<div th:each="wednesday :${reviewWednesdayList}"> -->
-<!-- 		<span th:if="${wednesday.ramenShop.ramenShopTime.noonStartTime}" -->
-<!-- 			th:text="'水曜日 : ' + ${wednesday.ramenShop.ramenShopTime.noonStartTime} + ' 時 〜'"></span> -->
-<!-- 		<span th:if="${wednesday.ramenShop.ramenShopTime.noonEndTime}" -->
-<!-- 			th:text="${wednesday.ramenShop.ramenShopTime.noonEndTime} + '時'"></span> -->
-
-<!-- 		<span th:if="${wednesday.ramenShop.ramenShopTime.nightStartTime}" -->
-<!-- 			th:text="'水曜日 : ' + ${wednesday.ramenShop.ramenShopTime.nightStartTime} + ' 時 〜'"></span> -->
-<!-- 		<span th:if="${wednesday.ramenShop.ramenShopTime.nightEndTime}" -->
-<!-- 			th:text="${wednesday.ramenShop.ramenShopTime.nightEndTime} + '時'"></span> -->
-
-<!-- 		<span th:if="${wednesday.ramenShop.ramenShopTime.otherTime}" -->
-<!-- 			th:text="'水曜日 : ' + ${wednesday.ramenShop.ramenShopTime.otherTime}"></span> -->
-<!-- 	</div> -->
-
-
-<!-- 	<div th:each="thursday :${reviewThursdayList}"> -->
-<!-- 		<span th:if="${thursday.ramenShop.ramenShopTime.noonStartTime}" -->
-<!-- 			th:text="'木曜日 : ' + ${thursday.ramenShop.ramenShopTime.noonStartTime} + ' 時 〜'"></span> -->
-<!-- 		<span th:if="${thursday.ramenShop.ramenShopTime.noonEndTime}" -->
-<!-- 			th:text="${thursday.ramenShop.ramenShopTime.noonEndTime} + '時'"></span> -->
-
-<!-- 		<span th:if="${thursday.ramenShop.ramenShopTime.nightStartTime}" -->
-<!-- 			th:text="'木曜日 : ' + ${thursday.ramenShop.ramenShopTime.nightStartTime} + ' 時 〜'"></span> -->
-<!-- 		<span th:if="${thursday.ramenShop.ramenShopTime.nightEndTime}" -->
-<!-- 			th:text="${thursday.ramenShop.ramenShopTime.nightEndTime} + '時'"></span> -->
-
-<!-- 		<span th:if="${thursday.ramenShop.ramenShopTime.otherTime}" -->
-<!-- 			th:text="'木曜日 : ' + ${thursday.ramenShop.ramenShopTime.otherTime}"></span> -->
-<!-- 	</div> -->
-
-
-<!-- 	<div th:each="friday :${reviewFridayList}"> -->
-<!-- 		<span th:if="${friday.ramenShop.ramenShopTime.noonStartTime}" -->
-<!-- 			th:text="'金曜日 : ' + ${friday.ramenShop.ramenShopTime.noonStartTime} + ' 時 〜'"></span> -->
-<!-- 		<span th:if="${friday.ramenShop.ramenShopTime.noonEndTime}" -->
-<!-- 			th:text="${friday.ramenShop.ramenShopTime.noonEndTime} + '時'"></span> -->
-
-<!-- 		<span th:if="${friday.ramenShop.ramenShopTime.nightStartTime}" -->
-<!-- 			th:text="'金曜日 : ' + ${friday.ramenShop.ramenShopTime.nightStartTime} + ' 時 〜'"></span> -->
-<!-- 		<span th:if="${friday.ramenShop.ramenShopTime.nightEndTime}" -->
-<!-- 			th:text="${friday.ramenShop.ramenShopTime.nightEndTime} + '時'"></span> -->
-
-<!-- 		<span th:if="${friday.ramenShop.ramenShopTime.otherTime}" -->
-<!-- 			th:text="'金曜日 : ' + ${friday.ramenShop.ramenShopTime.otherTime}"></span> -->
-<!-- 	</div> -->
-
-
-<!-- 	<div th:each="saturday :${reviewSaturdayList}"> -->
-<!-- 		<span th:if="${saturday.ramenShop.ramenShopTime.noonStartTime}" -->
-<!-- 			th:text="'土曜日 : ' + ${saturday.ramenShop.ramenShopTime.noonStartTime} + ' 時 〜'"></span> -->
-<!-- 		<span th:if="${saturday.ramenShop.ramenShopTime.noonEndTime}" -->
-<!-- 			th:text="${saturday.ramenShop.ramenShopTime.noonEndTime} + '時'"></span> -->
-
-<!-- 		<span th:if="${saturday.ramenShop.ramenShopTime.nightStartTime}" -->
-<!-- 			th:text="'土曜日 : ' + ${saturday.ramenShop.ramenShopTime.nightStartTime} + ' 時 〜'"></span> -->
-<!-- 		<span th:if="${saturday.ramenShop.ramenShopTime.nightEndTime}" -->
-<!-- 			th:text="${saturday.ramenShop.ramenShopTime.nightEndTime} + '時'"></span> -->
-
-<!-- 		<span th:if="${saturday.ramenShop.ramenShopTime.otherTime}" -->
-<!-- 			th:text="'土曜日 : ' + ${saturday.ramenShop.ramenShopTime.otherTime}"></span> -->
-<!-- 	</div> -->
-
-
-<!-- 	<div th:each="sunday :${reviewSundayList}"> -->
-<!-- 		<span th:if="${sunday.ramenShop.ramenShopTime.noonStartTime}" -->
-<!-- 			th:text="'日曜日 : ' + ${sunday.ramenShop.ramenShopTime.noonStartTime} + ' 時 〜'"></span> -->
-<!-- 		<span th:if="${sunday.ramenShop.ramenShopTime.noonEndTime}" -->
-<!-- 			th:text="${sunday.ramenShop.ramenShopTime.noonEndTime} + '時'"></span> -->
-
-<!-- 		<span th:if="${sunday.ramenShop.ramenShopTime.nightStartTime}" -->
-<!-- 			th:text="'日曜日 : ' + ${sunday.ramenShop.ramenShopTime.nightStartTime} + ' 時 〜'"></span> -->
-<!-- 		<span th:if="${sunday.ramenShop.ramenShopTime.nightEndTime}" -->
-<!-- 			th:text="${sunday.ramenShop.ramenShopTime.nightEndTime} + '時'"></span> -->
-
-<!-- 		<span th:if="${sunday.ramenShop.ramenShopTime.otherTime}" -->
-<!-- 			th:text="'日曜日 : ' + ${sunday.ramenShop.ramenShopTime.otherTime}"></span> -->
-<!-- 	</div> -->
-	
 </body>
 </html>

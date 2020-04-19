@@ -243,7 +243,7 @@ public class ReviewRepository {
 	}
 	
 	/**
-	 * ログインしていないユーザーのレビュー一覧を取得する.
+	 * ユーザーのレビュー一覧を取得する.
 	 * 
 	 * @return 記事
 	 */

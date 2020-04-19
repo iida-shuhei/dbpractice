@@ -4,11 +4,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link th:href="@{/css/japanMap.css}" rel="stylesheet">
 <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+<link th:href="@{/css/404.css}" rel="stylesheet">
 </head>
 <body>
-	<h3>え？？パスが違うけど？？</h3>
-	<img th:src="@{/img/aho.jpg}">
+	<div class="container">
+		<div class="info1">
+			<form th:action="@{/showReview}"><button id="logo"><span class="logo">RaaaaLife</span></button></form><br><br><br>
+			<div class="font">
+				<div>That's <strong>404</strong> Error.</div><br>
+				<div>URL Not Found.</div>
+			</div>
+		</div>
+		
+		<div class="info2">
+			<img th:src="@{/img/404.png}" class="error">
+		</div>
+	</div>
 </body>
 </html>

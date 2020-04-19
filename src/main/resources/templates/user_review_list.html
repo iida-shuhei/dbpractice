@@ -17,8 +17,8 @@
 		<div class="bigInfo">
 			<div class="info">
 				<ul>
-					<li><a th:href="@{/showReview}"><img th:src="@{/img/sign.jpg}" class="sign"></a></li>
-					<li><h2 class="title"><span th:text="${user.userName}"></span>さんのらぁめん記録</h2></li>
+					<li><form th:action="@{/showReview}"><button id="logo"><span class="logo">RaaaaLife</span></button></form></li>
+					<li><h3 class="title"><span th:text="${user.userName}"></span>さんのらぁめん記録</h3></li>
 				</ul>
 			</div>
 			

@@ -4,14 +4,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link th:href="@{/css/japanMap.css}" rel="stylesheet">
 <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+<link th:href="@{/css/500.css}" rel="stylesheet">
 </head>
 <body>
-
-	<h2>そんなコードじゃダメだね！！書き直し！！</h2>
-	<img th:src="@{/img/baka.png}" class="baka">
-
-
+	<div class="container">
+		<div class="info1">
+			<form th:action="@{/showReview}"><button id="logo"><span class="logo">RaaaaLife</span></button></form><br><br><br>
+			<div class="font">
+				<div>That's <strong>500</strong> Error.</div><br>
+				<div>Internal Service Error.</div>
+			</div>
+		</div>
+		
+		<div class="info2">
+			<img th:src="@{/img/500.png}" class="error">
+		</div>
+	</div>
 </body>
 </html>
