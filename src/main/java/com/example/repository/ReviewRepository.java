@@ -19,9 +19,10 @@ import org.springframework.stereotype.Repository;
 import com.example.domain.Comment;
 import com.example.domain.RamenImage;
 import com.example.domain.RamenShop;
-import com.example.domain.RamenShopTime;
 import com.example.domain.Review;
 import com.example.domain.User;
+import com.example.domain.UserIcon;
+import com.example.domain.UserRank;
 
 /**
  * レビューを管理するリポジトリ.
@@ -41,7 +42,7 @@ public class ReviewRepository {
 	 */
 	private static final RowMapper<Review> REVIEW_ROW_MAPPER = (rs,i) -> {
 		Review review = new Review();
-		review.setReviewId(rs.getInt("review_id"));
+		review.setReviewId(rs.getInt("r_review_id"));
 		review.setShopId(rs.getInt("r_shop_id"));
 		review.setUserId(rs.getInt("r_user_id"));
 		review.setRamenName(rs.getString("ramen_name"));
@@ -90,78 +91,19 @@ public class ReviewRepository {
 		user.setVersion(rs.getInt("u_version"));
 		user.setDeletedBy(rs.getString("u_deleted_by"));
 		user.setDeletedAt(rs.getTimestamp("u_deleted_at"));
+		
+		UserIcon userIcon = new UserIcon();
+		userIcon.setIconId(rs.getInt("icon_id"));
+		userIcon.setIconImagePath(rs.getString("icon_image_path"));
+		user.setUserIcon(userIcon);
+		
+		UserRank userRank = new UserRank();
+		userRank.setRankId(rs.getInt("rank_id"));
+		userRank.setUserRank(rs.getString("user_rank"));
+		user.setUserRank(userRank);
+		
 		review.setUser(user);
 				
-		return review;
-	};
-	
-	
-	/**
-	 * 詳細用RowMapper
-	 */
-	private static final RowMapper<Review> REVIEW__DETAIL_ROW_MAPPER = (rs,i) -> {
-		Review review = new Review();
-		review.setReviewId(rs.getInt("review_id"));
-		review.setShopId(rs.getInt("r_shop_id"));
-		review.setUserId(rs.getInt("r_user_id"));
-		review.setRamenName(rs.getString("ramen_name"));
-		review.setRamenPrice(rs.getInt("ramen_price"));
-		review.setRamenImagePathId(rs.getInt("ramen_image_path_id"));
-		review.setCreatedBy(rs.getString("r_created_by"));
-		review.setCreatedAt(rs.getTimestamp("r_created_at"));
-		review.setUpdatedBy(rs.getString("r_updated_by"));
-		review.setUpdatedAt(rs.getTimestamp("r_updated_at"));
-		review.setVersion(rs.getInt("r_version"));
-		review.setDeletedBy(rs.getString("r_deleted_by"));
-		review.setDeletedAt(rs.getTimestamp("r_deleted_at"));
-		
-		RamenImage ramenImage = new RamenImage();
-		ramenImage.setImageId(rs.getInt("image_id"));
-		ramenImage.setImagePath(rs.getString("image_path"));
-		review.setRamenImage(ramenImage);
-		
-		RamenShop ramenShop = new RamenShop();
-		ramenShop.setShopId(rs.getInt("s_shop_id"));
-		ramenShop.setShopName(rs.getString("shop_name"));
-		ramenShop.setZipcode(rs.getString("zipcode"));
-		ramenShop.setPrefecture(rs.getString("prefecture"));
-		ramenShop.setCity(rs.getString("city"));
-		ramenShop.setOther(rs.getString("other"));
-		ramenShop.setHolidays(rs.getString("holidays"));
-		ramenShop.setCreatedBy(rs.getString("s_created_by"));
-		ramenShop.setCreatedAt(rs.getTimestamp("s_created_at"));
-		ramenShop.setUpdatedBy(rs.getString("s_updated_by"));
-		ramenShop.setUpdatedAt(rs.getTimestamp("s_updated_at"));
-		ramenShop.setVersion(rs.getInt("s_version"));
-		ramenShop.setDeletedBy(rs.getString("s_deleted_by"));
-		ramenShop.setDeletedAt(rs.getTimestamp("s_deleted_at"));
-		review.setRamenShop(ramenShop);
-		
-		RamenShopTime ramenShopTime = new RamenShopTime();
-		ramenShopTime.setShopId(rs.getInt("t_shop_id"));
-		ramenShopTime.setDays(rs.getString("days"));
-		ramenShopTime.setNoonStartTime(rs.getString("noon_start_time"));
-		ramenShopTime.setNoonEndTime(rs.getString("noon_end_time"));
-		ramenShopTime.setNightStartTime(rs.getString("night_start_time"));
-		ramenShopTime.setNightEndTime(rs.getString("night_end_time"));
-		ramenShopTime.setOtherTime(rs.getString("other_time"));
-		ramenShop.setRamenShopTime(ramenShopTime);
-		
-		User user = new User();
-		user.setUserId(rs.getInt("u_user_id"));
-		user.setUserName(rs.getString("user_name"));
-		user.setPassword(rs.getString("password"));
-		user.setUserIconId(rs.getInt("user_icon_id"));
-		user.setUserRankId(rs.getInt("user_rank_id"));
-		user.setCreatedBy(rs.getString("u_created_by"));
-		user.setCreatedAt(rs.getTimestamp("u_created_at"));
-		user.setUpdatedBy(rs.getString("u_updated_by"));
-		user.setUpdatedAt(rs.getTimestamp("u_updated_at"));
-		user.setVersion(rs.getInt("u_version"));
-		user.setDeletedBy(rs.getString("u_deleted_by"));
-		user.setDeletedAt(rs.getTimestamp("u_deleted_at"));
-		review.setUser(user);
-		
 		return review;
 	};
 	
@@ -225,6 +167,17 @@ public class ReviewRepository {
 				user.setVersion(rs.getInt("u_version"));
 				user.setDeletedBy(rs.getString("u_deleted_by"));
 				user.setDeletedAt(rs.getTimestamp("u_deleted_at"));
+				
+				UserIcon userIcon = new UserIcon();
+				userIcon.setIconId(rs.getInt("icon_id"));
+				userIcon.setIconImagePath(rs.getString("icon_image_path"));
+				user.setUserIcon(userIcon);
+				
+				UserRank userRank = new UserRank();
+				userRank.setRankId(rs.getInt("rank_id"));
+				userRank.setUserRank(rs.getString("user_rank"));
+				user.setUserRank(userRank);
+				
 				review.setUser(user);
 				
 				commentList = new ArrayList<>();
@@ -234,6 +187,7 @@ public class ReviewRepository {
 			if(rs.getInt("comment_id") != 0) {
 				Comment comment = new Comment();
 				comment.setCommentId(rs.getInt("comment_id"));
+				comment.setUserId(rs.getInt("c_user_id"));
 				comment.setCommentName(rs.getString("comment_name"));
 				comment.setContent(rs.getString("content"));
 				comment.setReviewId(rs.getInt("c_review_id"));
@@ -302,6 +256,7 @@ public class ReviewRepository {
 				"s.deleted_at s_deleted_at,\n" + 
 				"u.user_id u_user_id,\n" + 
 				"user_name,\n" + 
+				"user_mail,\n" + 
 				"password,\n" + 
 				"user_icon_id,\n" + 
 				"user_rank_id,\n" + 
@@ -312,7 +267,7 @@ public class ReviewRepository {
 				"u.version u_version,\n" + 
 				"u.deleted_by u_deleted_by,\n" + 
 				"u.deleted_at u_deleted_at,\n" + 
-				"comment_id, comment_name, content, c.review_id c_review_id\n" + 
+				"icon_id, icon_image_path,rank_id,user_rank\n" + 
 				"from reviews as r\n" + 
 				"left join ramen_images\n" + 
 				"on ramen_image_path_id = image_id\n" +
@@ -320,11 +275,13 @@ public class ReviewRepository {
 				"on r.shop_id = s.shop_id\n" +
 				"left join users as u\n" +
 				"on r.user_id = u.user_id\n" +
-				"left join comments as c\n" +
-				"on r.review_id = c.review_id\n" +
+				"left join user_icons\n " + 
+				"on user_icon_id = icon_id\n " +
+				"left join user_ranks\n " +
+				"on user_rank_id = rank_id\n " +
 				"where r.deleted_by is null and r.deleted_at is null and r.user_id =:userId order by r.review_id desc limit 8 offset :start";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("start", start);
-		return template.query(sql, param, REVIEWS_RESULT_SET_EXTRACTOR);
+		return template.query(sql, param, REVIEW_ROW_MAPPER);
 	}
 	
 	/**
@@ -374,7 +331,7 @@ public class ReviewRepository {
 				"u.version u_version,\n" + 
 				"u.deleted_by u_deleted_by,\n" + 
 				"u.deleted_at u_deleted_at,\n" + 
-				"comment_id, comment_name, content, c.review_id c_review_id\n" + 
+				"icon_id, icon_image_path,rank_id,user_rank\n" + 
 				"from reviews as r\n" + 
 				"left join ramen_images\n" + 
 				"on ramen_image_path_id = image_id\n" +
@@ -382,11 +339,13 @@ public class ReviewRepository {
 				"on r.shop_id = s.shop_id\n" +
 				"left join users as u\n" +
 				"on r.user_id = u.user_id\n" +
-				"left join comments as c\n" +
-				"on r.review_id = c.review_id\n" +
+				"left join user_icons\n " + 
+				"on user_icon_id = icon_id\n " +
+				"left join user_ranks\n " +
+				"on user_rank_id = rank_id\n " +
 				"where r.deleted_by is null and r.deleted_at is null order by r.review_id desc limit 8 offset :start";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("start", start);
-		return template.query(sql, param, REVIEWS_RESULT_SET_EXTRACTOR);
+		return template.query(sql, param, REVIEW_ROW_MAPPER);
 	}
 	
 	/**
@@ -395,7 +354,7 @@ public class ReviewRepository {
 	 * @return 記事
 	 */
 	public List<Review> findFavoriteReview(Integer userId, Integer start) {
-		String sql = "select r.review_id, \n" +
+		String sql = "select r.review_id r_review_id, \n" +
 				"r.shop_id r_shop_id, \n" +
 				"r.user_id r_user_id, \n" +
 				"ramen_name,\n" + 
@@ -437,7 +396,8 @@ public class ReviewRepository {
 				"u.updated_at u_updated_at,\n" + 
 				"u.version u_version,\n" + 
 				"u.deleted_by u_deleted_by,\n" + 
-				"u.deleted_at u_deleted_at\n" + 
+				"u.deleted_at u_deleted_at,\n" + 
+				"icon_id, icon_image_path,rank_id,user_rank\n" + 
 				"from reviews as r\n" + 
 				"left join favorites as f\n" + 
 				"on r.review_id = f.review_id\n" +
@@ -447,6 +407,10 @@ public class ReviewRepository {
 				"on r.shop_id = s.shop_id\n" +
 				"left join users as u\n" +
 				"on r.user_id = u.user_id\n" +
+				"left join user_icons\n " + 
+				"on user_icon_id = icon_id\n " +
+				"left join user_ranks\n " +
+				"on user_rank_id = rank_id\n " +
 				"where r.deleted_by is null and r.deleted_at is null and f.user_id = :userId order by r.review_id desc limit 8 offset :start";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("start", start);
 		return template.query(sql, param, REVIEW_ROW_MAPPER);
@@ -458,8 +422,8 @@ public class ReviewRepository {
 	 * @param reviewId レビューID
 	 * @return レビュー詳細
 	 */
-	public Review load(Integer reviewId) {
-		String sql = "select review_id, \n" +
+	public List<Review> load(Integer reviewId) {
+		String sql = "select r.review_id r_review_id, \n" +
 				"r.shop_id r_shop_id, \n" +
 				"r.user_id r_user_id, \n" +
 				"ramen_name,\n" + 
@@ -488,75 +452,9 @@ public class ReviewRepository {
 				"s.version s_version,\n" + 
 				"s.deleted_by s_deleted_by,\n" + 
 				"s.deleted_at s_deleted_at,\n" + 
-				"u.user_id u_user_id,\n" + 
-				"coalesce(user_name, '退会済みユーザー') as user_name,\n" + 
-				"password,\n" + 
-				"user_icon_id,\n" + 
-				"user_rank_id,\n" + 
-				"u.created_by u_created_by,\n" + 
-				"u.created_at u_created_at,\n" + 
-				"u.updated_by u_updated_by,\n" + 
-				"u.updated_at u_updated_at,\n" + 
-				"u.version u_version,\n" + 
-				"u.deleted_by u_deleted_by,\n" + 
-				"u.deleted_at u_deleted_at\n" + 
-				"from reviews as r\n" + 
-				"left join ramen_images\n" + 
-				"on ramen_image_path_id = image_id\n" +
-				"left join ramen_shops as s\n" + 
-				"on r.shop_id = s.shop_id\n" +
-				"left join users as u\n" +
-				"on r.user_id = u.user_id\n" +  
-				"where review_id =:reviewId";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
-		return template.queryForObject(sql, param, REVIEW_ROW_MAPPER);
-	}
-	
-	/**
-	 * 月曜日の営業時間を表示する.
-	 * 
-	 * @param reviewId レビューID
-	 * @return 月曜日の営業時間
-	 */
-	public List<Review> findByMonday(Integer reviewId) {
-		String sql = "select review_id, \n" +
-				"r.shop_id r_shop_id, \n" +
-				"r.user_id r_user_id, \n" +
-				"ramen_name,\n" + 
-				"ramen_price,\n" + 
-				"ramen_image_path_id,\n" + 
-				"r.created_by r_created_by,\n" + 
-				"r.created_at r_created_at,\n" + 
-				"r.updated_by r_updated_by,\n" + 
-				"r.updated_at r_updated_at,\n" + 
-				"r.version r_version,\n" + 
-				"r.deleted_by r_deleted_by,\n" + 
-				"r.deleted_at r_deleted_at,\n" + 
-				"image_id,\n" + 
-				"image_path,\n" + 
-				"s.shop_id s_shop_id, \n" + 
-				"shop_name, \n" + 
-				"zipcode,\n" + 
-				"prefecture,\n" + 
-				"city,\n" + 
-				"other,\n" + 
-				"holidays,\n" + 
-				"s.created_by s_created_by,\n" + 
-				"s.created_at s_created_at,\n" + 
-				"s.updated_by s_updated_by,\n" + 
-				"s.updated_at s_updated_at,\n" + 
-				"s.version s_version,\n" + 
-				"s.deleted_by s_deleted_by,\n" + 
-				"s.deleted_at s_deleted_at,\n" + 
-				"t.shop_id t_shop_id, \n" + 
-				"days, \n" + 
-				"noon_start_time,\n" + 
-				"noon_end_time,\n" + 
-				"night_start_time,\n" + 
-				"night_end_time,\n" + 
-				"other_time, " +
 				"u.user_id u_user_id,\n" + 
 				"user_name,\n" + 
+				"user_mail,\n" + 
 				"password,\n" + 
 				"user_icon_id,\n" + 
 				"user_rank_id,\n" + 
@@ -566,447 +464,25 @@ public class ReviewRepository {
 				"u.updated_at u_updated_at,\n" + 
 				"u.version u_version,\n" + 
 				"u.deleted_by u_deleted_by,\n" + 
-				"u.deleted_at u_deleted_at\n" + 
+				"u.deleted_at u_deleted_at,\n" + 
+				"icon_id, icon_image_path,rank_id,user_rank,\n" +
+				"comment_id, c.user_id c_user_id, comment_name, content, c.review_id c_review_id\n" + 
 				"from reviews as r\n" + 
 				"left join ramen_images\n" + 
 				"on ramen_image_path_id = image_id\n" +
-				"left join ramen_shops_times as t\n" + 
-				"on r.shop_id = t.shop_id\n" +
 				"left join ramen_shops as s\n" + 
 				"on r.shop_id = s.shop_id\n" +
 				"left join users as u\n" +
 				"on r.user_id = u.user_id\n" +
-				"where review_id =:reviewId\n" +
-				"and days = '月曜日'\n" +
-				"order by noon_start_time,noon_end_time,night_start_time,night_end_time";
+				"left join user_icons\n " + 
+				"on user_icon_id = icon_id\n " +
+				"left join user_ranks\n " +
+				"on user_rank_id = rank_id\n " +
+				"left join comments as c\n" +
+				"on r.review_id = c.review_id\n" +
+				"where r.review_id =:reviewId";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
-		return template.query(sql, param, REVIEW__DETAIL_ROW_MAPPER);
-	}
-	
-	/**
-	 * 火曜日の営業時間を表示する.
-	 * 
-	 * @param reviewId レビューID
-	 * @return 火曜日の営業時間
-	 */
-	public List<Review> findByTuesday(Integer reviewId) {
-		String sql = "select review_id, \n" +
-				"r.shop_id r_shop_id, \n" +
-				"r.user_id r_user_id, \n" +
-				"ramen_name,\n" + 
-				"ramen_price,\n" + 
-				"ramen_image_path_id,\n" + 
-				"r.created_by r_created_by,\n" + 
-				"r.created_at r_created_at,\n" + 
-				"r.updated_by r_updated_by,\n" + 
-				"r.updated_at r_updated_at,\n" + 
-				"r.version r_version,\n" + 
-				"r.deleted_by r_deleted_by,\n" + 
-				"r.deleted_at r_deleted_at,\n" + 
-				"image_id,\n" + 
-				"image_path,\n" + 
-				"s.shop_id s_shop_id, \n" + 
-				"shop_name, \n" + 
-				"zipcode,\n" + 
-				"prefecture,\n" + 
-				"city,\n" + 
-				"other,\n" + 
-				"holidays,\n" + 
-				"s.created_by s_created_by,\n" + 
-				"s.created_at s_created_at,\n" + 
-				"s.updated_by s_updated_by,\n" + 
-				"s.updated_at s_updated_at,\n" + 
-				"s.version s_version,\n" + 
-				"s.deleted_by s_deleted_by,\n" + 
-				"s.deleted_at s_deleted_at,\n" + 
-				"t.shop_id t_shop_id, \n" + 
-				"days, \n" + 
-				"noon_start_time,\n" + 
-				"noon_end_time,\n" + 
-				"night_start_time,\n" + 
-				"night_end_time,\n" + 
-				"other_time, " +
-				"u.user_id u_user_id,\n" + 
-				"user_name,\n" + 
-				"password,\n" + 
-				"user_icon_id,\n" + 
-				"user_rank_id,\n" + 
-				"u.created_by u_created_by,\n" + 
-				"u.created_at u_created_at,\n" + 
-				"u.updated_by u_updated_by,\n" + 
-				"u.updated_at u_updated_at,\n" + 
-				"u.version u_version,\n" + 
-				"u.deleted_by u_deleted_by,\n" + 
-				"u.deleted_at u_deleted_at\n" + 
-				"from reviews as r\n" + 
-				"left join ramen_images\n" + 
-				"on ramen_image_path_id = image_id\n" +
-				"left join ramen_shops_times as t\n" + 
-				"on r.shop_id = t.shop_id\n" +
-				"left join ramen_shops as s\n" + 
-				"on r.shop_id = s.shop_id\n" +
-				"left join users as u\n" +
-				"on r.user_id = u.user_id\n" +
-				"where review_id =:reviewId\n" +
-				"and days = '火曜日'\n" +
-				"order by noon_start_time,noon_end_time,night_start_time,night_end_time";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
-		return template.query(sql, param, REVIEW__DETAIL_ROW_MAPPER);
-	}
-	
-	/**
-	 * 水曜日の営業時間を表示する.
-	 * 
-	 * @param reviewId レビューID
-	 * @return 水曜日の営業時間
-	 */
-	public List<Review> findByWednesday(Integer reviewId) {
-		String sql = "select review_id, \n" +
-				"r.shop_id r_shop_id, \n" +
-				"r.user_id r_user_id, \n" +
-				"ramen_name,\n" + 
-				"ramen_price,\n" + 
-				"ramen_image_path_id,\n" + 
-				"r.created_by r_created_by,\n" + 
-				"r.created_at r_created_at,\n" + 
-				"r.updated_by r_updated_by,\n" + 
-				"r.updated_at r_updated_at,\n" + 
-				"r.version r_version,\n" + 
-				"r.deleted_by r_deleted_by,\n" + 
-				"r.deleted_at r_deleted_at,\n" + 
-				"image_id,\n" + 
-				"image_path,\n" + 
-				"s.shop_id s_shop_id, \n" + 
-				"shop_name, \n" + 
-				"zipcode,\n" + 
-				"prefecture,\n" + 
-				"city,\n" + 
-				"other,\n" + 
-				"holidays,\n" + 
-				"s.created_by s_created_by,\n" + 
-				"s.created_at s_created_at,\n" + 
-				"s.updated_by s_updated_by,\n" + 
-				"s.updated_at s_updated_at,\n" + 
-				"s.version s_version,\n" + 
-				"s.deleted_by s_deleted_by,\n" + 
-				"s.deleted_at s_deleted_at,\n" + 
-				"t.shop_id t_shop_id, \n" + 
-				"days, \n" + 
-				"noon_start_time,\n" + 
-				"noon_end_time,\n" + 
-				"night_start_time,\n" + 
-				"night_end_time,\n" + 
-				"other_time, " +
-				"u.user_id u_user_id,\n" + 
-				"user_name,\n" + 
-				"password,\n" + 
-				"user_icon_id,\n" + 
-				"user_rank_id,\n" + 
-				"u.created_by u_created_by,\n" + 
-				"u.created_at u_created_at,\n" + 
-				"u.updated_by u_updated_by,\n" + 
-				"u.updated_at u_updated_at,\n" + 
-				"u.version u_version,\n" + 
-				"u.deleted_by u_deleted_by,\n" + 
-				"u.deleted_at u_deleted_at\n" + 
-				"from reviews as r\n" + 
-				"left join ramen_images\n" + 
-				"on ramen_image_path_id = image_id\n" +
-				"left join ramen_shops_times as t\n" + 
-				"on r.shop_id = t.shop_id\n" +
-				"left join ramen_shops as s\n" + 
-				"on r.shop_id = s.shop_id\n" +
-				"left join users as u\n" +
-				"on r.user_id = u.user_id\n" +
-				"where review_id =:reviewId\n" +
-				"and days = '水曜日'\n" +
-				"order by noon_start_time,noon_end_time,night_start_time,night_end_time";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
-		return template.query(sql, param, REVIEW__DETAIL_ROW_MAPPER);
-	}
-	
-	/**
-	 * 木曜日の営業時間を表示する.
-	 * 
-	 * @param reviewId レビューID
-	 * @return 木曜日の営業時間
-	 */
-	public List<Review> findByThursday(Integer reviewId) {
-		String sql = "select review_id, \n" +
-				"r.shop_id r_shop_id, \n" +
-				"r.user_id r_user_id, \n" +
-				"ramen_name,\n" + 
-				"ramen_price,\n" + 
-				"ramen_image_path_id,\n" + 
-				"r.created_by r_created_by,\n" + 
-				"r.created_at r_created_at,\n" + 
-				"r.updated_by r_updated_by,\n" + 
-				"r.updated_at r_updated_at,\n" + 
-				"r.version r_version,\n" + 
-				"r.deleted_by r_deleted_by,\n" + 
-				"r.deleted_at r_deleted_at,\n" + 
-				"image_id,\n" + 
-				"image_path,\n" + 
-				"s.shop_id s_shop_id, \n" + 
-				"shop_name, \n" + 
-				"zipcode,\n" + 
-				"prefecture,\n" + 
-				"city,\n" + 
-				"other,\n" + 
-				"holidays,\n" + 
-				"s.created_by s_created_by,\n" + 
-				"s.created_at s_created_at,\n" + 
-				"s.updated_by s_updated_by,\n" + 
-				"s.updated_at s_updated_at,\n" + 
-				"s.version s_version,\n" + 
-				"s.deleted_by s_deleted_by,\n" + 
-				"s.deleted_at s_deleted_at,\n" + 
-				"t.shop_id t_shop_id, \n" + 
-				"days, \n" + 
-				"noon_start_time,\n" + 
-				"noon_end_time,\n" + 
-				"night_start_time,\n" + 
-				"night_end_time,\n" + 
-				"other_time, " +
-				"u.user_id u_user_id,\n" + 
-				"user_name,\n" + 
-				"password,\n" + 
-				"user_icon_id,\n" + 
-				"user_rank_id,\n" + 
-				"u.created_by u_created_by,\n" + 
-				"u.created_at u_created_at,\n" + 
-				"u.updated_by u_updated_by,\n" + 
-				"u.updated_at u_updated_at,\n" + 
-				"u.version u_version,\n" + 
-				"u.deleted_by u_deleted_by,\n" + 
-				"u.deleted_at u_deleted_at\n" + 
-				"from reviews as r\n" + 
-				"left join ramen_images\n" + 
-				"on ramen_image_path_id = image_id\n" +
-				"left join ramen_shops_times as t\n" + 
-				"on r.shop_id = t.shop_id\n" +
-				"left join ramen_shops as s\n" + 
-				"on r.shop_id = s.shop_id\n" +
-				"left join users as u\n" +
-				"on r.user_id = u.user_id\n" +
-				"where review_id =:reviewId\n" +
-				"and days = '木曜日'\n" +
-				"order by noon_start_time,noon_end_time,night_start_time,night_end_time";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
-		return template.query(sql, param, REVIEW__DETAIL_ROW_MAPPER);
-	}
-	
-	/**
-	 * 金曜日の営業時間を表示する.
-	 * 
-	 * @param reviewId レビューID
-	 * @return 金曜日の営業時間
-	 */
-	public List<Review> findByFriday(Integer reviewId) {
-		String sql = "select review_id, \n" +
-				"r.shop_id r_shop_id, \n" +
-				"r.user_id r_user_id, \n" +
-				"ramen_name,\n" + 
-				"ramen_price,\n" + 
-				"ramen_image_path_id,\n" + 
-				"r.created_by r_created_by,\n" + 
-				"r.created_at r_created_at,\n" + 
-				"r.updated_by r_updated_by,\n" + 
-				"r.updated_at r_updated_at,\n" + 
-				"r.version r_version,\n" + 
-				"r.deleted_by r_deleted_by,\n" + 
-				"r.deleted_at r_deleted_at,\n" + 
-				"image_id,\n" + 
-				"image_path,\n" + 
-				"s.shop_id s_shop_id, \n" + 
-				"shop_name, \n" + 
-				"zipcode,\n" + 
-				"prefecture,\n" + 
-				"city,\n" + 
-				"other,\n" + 
-				"holidays,\n" + 
-				"s.created_by s_created_by,\n" + 
-				"s.created_at s_created_at,\n" + 
-				"s.updated_by s_updated_by,\n" + 
-				"s.updated_at s_updated_at,\n" + 
-				"s.version s_version,\n" + 
-				"s.deleted_by s_deleted_by,\n" + 
-				"s.deleted_at s_deleted_at,\n" + 
-				"t.shop_id t_shop_id, \n" + 
-				"days, \n" + 
-				"noon_start_time,\n" + 
-				"noon_end_time,\n" + 
-				"night_start_time,\n" + 
-				"night_end_time,\n" + 
-				"other_time, " +
-				"u.user_id u_user_id,\n" + 
-				"user_name,\n" + 
-				"password,\n" + 
-				"user_icon_id,\n" + 
-				"user_rank_id,\n" + 
-				"u.created_by u_created_by,\n" + 
-				"u.created_at u_created_at,\n" + 
-				"u.updated_by u_updated_by,\n" + 
-				"u.updated_at u_updated_at,\n" + 
-				"u.version u_version,\n" + 
-				"u.deleted_by u_deleted_by,\n" + 
-				"u.deleted_at u_deleted_at\n" + 
-				"from reviews as r\n" + 
-				"left join ramen_images\n" + 
-				"on ramen_image_path_id = image_id\n" +
-				"left join ramen_shops_times as t\n" + 
-				"on r.shop_id = t.shop_id\n" +
-				"left join ramen_shops as s\n" + 
-				"on r.shop_id = s.shop_id\n" +
-				"left join users as u\n" +
-				"on r.user_id = u.user_id\n" +
-				"where review_id =:reviewId\n" +
-				"and days = '金曜日'\n" +
-				"order by noon_start_time,noon_end_time,night_start_time,night_end_time";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
-		return template.query(sql, param, REVIEW__DETAIL_ROW_MAPPER);
-	}
-	
-	/**
-	 * 土曜日の営業時間を表示する.
-	 * 
-	 * @param reviewId レビューID
-	 * @return 土曜日の営業時間
-	 */
-	public List<Review> findBySaturday(Integer reviewId) {
-		String sql = "select review_id, \n" +
-				"r.shop_id r_shop_id, \n" +
-				"r.user_id r_user_id, \n" +
-				"ramen_name,\n" + 
-				"ramen_price,\n" + 
-				"ramen_image_path_id,\n" + 
-				"r.created_by r_created_by,\n" + 
-				"r.created_at r_created_at,\n" + 
-				"r.updated_by r_updated_by,\n" + 
-				"r.updated_at r_updated_at,\n" + 
-				"r.version r_version,\n" + 
-				"r.deleted_by r_deleted_by,\n" + 
-				"r.deleted_at r_deleted_at,\n" + 
-				"image_id,\n" + 
-				"image_path,\n" + 
-				"s.shop_id s_shop_id, \n" + 
-				"shop_name, \n" + 
-				"zipcode,\n" + 
-				"prefecture,\n" + 
-				"city,\n" + 
-				"other,\n" + 
-				"holidays,\n" + 
-				"s.created_by s_created_by,\n" + 
-				"s.created_at s_created_at,\n" + 
-				"s.updated_by s_updated_by,\n" + 
-				"s.updated_at s_updated_at,\n" + 
-				"s.version s_version,\n" + 
-				"s.deleted_by s_deleted_by,\n" + 
-				"s.deleted_at s_deleted_at,\n" + 
-				"t.shop_id t_shop_id, \n" + 
-				"days, \n" + 
-				"noon_start_time,\n" + 
-				"noon_end_time,\n" + 
-				"night_start_time,\n" + 
-				"night_end_time,\n" + 
-				"other_time, " +
-				"u.user_id u_user_id,\n" + 
-				"user_name,\n" + 
-				"password,\n" + 
-				"user_icon_id,\n" + 
-				"user_rank_id,\n" + 
-				"u.created_by u_created_by,\n" + 
-				"u.created_at u_created_at,\n" + 
-				"u.updated_by u_updated_by,\n" + 
-				"u.updated_at u_updated_at,\n" + 
-				"u.version u_version,\n" + 
-				"u.deleted_by u_deleted_by,\n" + 
-				"u.deleted_at u_deleted_at\n" + 
-				"from reviews as r\n" + 
-				"left join ramen_images\n" + 
-				"on ramen_image_path_id = image_id\n" +
-				"left join ramen_shops_times as t\n" + 
-				"on r.shop_id = t.shop_id\n" +
-				"left join ramen_shops as s\n" + 
-				"on r.shop_id = s.shop_id\n" +
-				"left join users as u\n" +
-				"on r.user_id = u.user_id\n" +
-				"where review_id =:reviewId\n" +
-				"and days = '土曜日'\n" +
-				"order by noon_start_time,noon_end_time,night_start_time,night_end_time";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
-		return template.query(sql, param, REVIEW__DETAIL_ROW_MAPPER);
-	}
-	
-	/**
-	 * 日曜日の営業時間を表示する.
-	 * 
-	 * @param reviewId レビューID
-	 * @return 日曜日の営業時間
-	 */
-	public List<Review> findBySunday(Integer reviewId) {
-		String sql = "select review_id, \n" +
-				"r.shop_id r_shop_id, \n" +
-				"r.user_id r_user_id, \n" +
-				"ramen_name,\n" + 
-				"ramen_price,\n" + 
-				"ramen_image_path_id,\n" + 
-				"r.created_by r_created_by,\n" + 
-				"r.created_at r_created_at,\n" + 
-				"r.updated_by r_updated_by,\n" + 
-				"r.updated_at r_updated_at,\n" + 
-				"r.version r_version,\n" + 
-				"r.deleted_by r_deleted_by,\n" + 
-				"r.deleted_at r_deleted_at,\n" + 
-				"image_id,\n" + 
-				"image_path,\n" + 
-				"s.shop_id s_shop_id, \n" + 
-				"shop_name, \n" + 
-				"zipcode,\n" + 
-				"prefecture,\n" + 
-				"city,\n" + 
-				"other,\n" + 
-				"holidays,\n" + 
-				"s.created_by s_created_by,\n" + 
-				"s.created_at s_created_at,\n" + 
-				"s.updated_by s_updated_by,\n" + 
-				"s.updated_at s_updated_at,\n" + 
-				"s.version s_version,\n" + 
-				"s.deleted_by s_deleted_by,\n" + 
-				"s.deleted_at s_deleted_at,\n" + 
-				"t.shop_id t_shop_id, \n" + 
-				"days, \n" + 
-				"noon_start_time,\n" + 
-				"noon_end_time,\n" + 
-				"night_start_time,\n" + 
-				"night_end_time,\n" + 
-				"other_time, " +
-				"u.user_id u_user_id,\n" + 
-				"user_name,\n" + 
-				"password,\n" + 
-				"user_icon_id,\n" + 
-				"user_rank_id,\n" + 
-				"u.created_by u_created_by,\n" + 
-				"u.created_at u_created_at,\n" + 
-				"u.updated_by u_updated_by,\n" + 
-				"u.updated_at u_updated_at,\n" + 
-				"u.version u_version,\n" + 
-				"u.deleted_by u_deleted_by,\n" + 
-				"u.deleted_at u_deleted_at\n" + 
-				"from reviews as r\n" + 
-				"left join ramen_images\n" + 
-				"on ramen_image_path_id = image_id\n" +
-				"left join ramen_shops_times as t\n" + 
-				"on r.shop_id = t.shop_id\n" +
-				"left join ramen_shops as s\n" + 
-				"on r.shop_id = s.shop_id\n" +
-				"left join users as u\n" +
-				"on r.user_id = u.user_id\n" +
-				"where review_id =:reviewId\n" +
-				"and days = '日曜日'\n" +
-				"order by noon_start_time,noon_end_time,night_start_time,night_end_time";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
-		return template.query(sql, param, REVIEW__DETAIL_ROW_MAPPER);
+		return template.query(sql, param, REVIEWS_RESULT_SET_EXTRACTOR);
 	}
 	
 	/**

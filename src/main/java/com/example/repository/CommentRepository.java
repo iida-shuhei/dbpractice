@@ -11,6 +11,8 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.example.domain.Comment;
+import com.example.domain.User;
+import com.example.domain.UserIcon;
 
 /**
  * コメントを管理するリポジトリ.
@@ -27,9 +29,32 @@ public class CommentRepository {
 	private static final RowMapper<Comment> COMMENT_ROW_MAPPER = (rs,i) -> {
 		Comment comment = new Comment();
 		comment.setCommentId(rs.getInt("comment_id"));
+		comment.setUserId(rs.getInt("c_user_id"));
 		comment.setCommentName(rs.getString("comment_name"));
 		comment.setContent(rs.getString("content"));
 		comment.setReviewId(rs.getInt("review_id"));
+		
+		User user = new User();
+		user.setUserId(rs.getInt("u_user_id"));
+		user.setUserName(rs.getString("user_name"));
+		user.setUserMail(rs.getString("user_mail"));
+		user.setPassword(rs.getString("password"));
+		user.setUserIconId(rs.getInt("user_icon_id"));
+		user.setUserRankId(rs.getInt("user_rank_id"));
+		user.setCreatedBy(rs.getString("created_by"));
+		user.setCreatedAt(rs.getTimestamp("created_at"));
+		user.setUpdatedBy(rs.getString("updated_by"));
+		user.setUpdatedAt(rs.getTimestamp("updated_at"));
+		user.setVersion(rs.getInt("version"));
+		user.setDeletedBy(rs.getString("deleted_by"));
+		user.setDeletedAt(rs.getTimestamp("deleted_at"));
+		
+		UserIcon userIcon = new UserIcon();
+		userIcon.setIconId(rs.getInt("icon_id"));
+		userIcon.setIconImagePath(rs.getString("icon_image_path"));
+		user.setUserIcon(userIcon);
+		
+		comment.setUser(user);
 		return comment;
 	};
 	
@@ -40,7 +65,35 @@ public class CommentRepository {
 	 * @return コメント
 	 */
 	public List<Comment> findByReviewId(Integer reviewId){
-		String sql = "select comment_id,comment_name,content,review_id from comments where review_id =:reviewId order by comment_id";
+		String sql = "select \n" + 
+				"comment_id,\n" + 
+				"c.user_id c_user_id,\n" + 
+				"comment_name,\n" + 
+				"content,\n" + 
+				"review_id,\n" + 
+				"u.user_id u_user_id,\n" + 
+				"user_name,\n" + 
+				"user_mail,\n" + 
+				"password,\n" + 
+				"user_icon_id, \n" + 
+				"user_rank_id,\n" + 
+				"created_by, \n" + 
+				"created_at,\n" + 
+				"updated_by,\n" + 
+				"updated_at,\n" + 
+				"version,\n" + 
+				"deleted_by,\n" + 
+				"deleted_at,\n" + 
+				"icon_id, icon_image_path,rank_id,user_rank\n" + 
+				"from comments as c\n" + 
+				"left join users as u\n" + 
+				"on c.user_id = u.user_id\n" + 
+				"left join user_icons\n" + 
+				"on user_icon_id = icon_id\n" + 
+				"left join user_ranks\n" + 
+				"on user_rank_id = rank_id\n" + 
+				"where review_id =:reviewId \n" + 
+				"order by comment_id desc;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
 		return template.query(sql, param,COMMENT_ROW_MAPPER);
 	}
@@ -51,7 +104,7 @@ public class CommentRepository {
 	 * @param comment コメント
 	 */
 	public void insert(Comment comment) {
-		String sql = "insert into comments(comment_name,content,review_id)values(:commentName,:content,:reviewId)";
+		String sql = "insert into comments(comment_name,user_id, content,review_id)values(:commentName,:userId,:content,:reviewId)";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(comment);
 		template.update(sql, param);
 	}

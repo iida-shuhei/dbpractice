@@ -37,12 +37,12 @@ $(function(){
 		<div class="small">
 			<div class="top">
 				<div class="icon">
-					<img th:src="${user.userIcon.iconImagePath}" style="border-radius: 30%; width:14%" onerror="this.src='/img/user.jpg'"/>
+					<img th:src="${review.user.userIcon.iconImagePath}" style="border-radius: 30%; width:14%" onerror="this.src='/img/user.jpg'"/>
 					<span th:text="${review.user.userName}" style="font-size: 16px;"></span>
 				</div>
 				
 				<div class="ramen">
-					🍜<span th:text="${review.ramenName}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					🍜<span th:text="${review.ramenName}"></span><br>
 					💰<span th:text="${review.ramenPrice}"></span><span>円</span>
 				    <form th:action="@{/ramenShopDetail}" method="post">
 						<input type="hidden" name="shopId" th:value="${review.ramenShop.shopId}">
@@ -53,8 +53,9 @@ $(function(){
 				<hr>
 			
 			<div class="comment">
+			コメント
 				<div th:each="comment:${review.commentList}">
-					<img th:src="${user.userIcon.iconImagePath}" style="border-radius: 30%; width:8%" onerror="this.src='/img/user.jpg'"/><strong><span th:text="${comment.commentName}"></span></strong> 
+					<img th:src="${comment.user.userIcon.iconImagePath}" style="border-radius: 30%; width:8%" onerror="this.src='/img/user.jpg'"/><strong><span th:text="${comment.commentName}"></span></strong> 
 					&nbsp;&nbsp;<span th:text="${comment.content}" class="form"></span><br>
 				</div>
 			</div>

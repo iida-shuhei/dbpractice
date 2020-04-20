@@ -108,38 +108,6 @@ public class RamenShopRepository {
 		return ramenShop;
 	}
 
-	/**
-	 * ラーメン店をすべて検索.
-	 * 
-	 * @return ラーメン店の情報.
-	 */
-//	public List<RamenShop> findAll() {
-//		String sql = "select s.shop_id s_shop_id, \n" + 
-//				"shop_name, \n" + 
-//				"zipcode,\n" + 
-//				"prefecture,\n" + 
-//				"city,\n" + 
-//				"other,\n" + 
-//				"holidays,\n" + 
-//				"s.created_by s_created_by,\n" + 
-//				"s.created_at s_created_at,\n" + 
-//				"s.updated_by s_updated_by,\n" + 
-//				"s.updated_at s_updated_at,\n" + 
-//				"s.version s_version,\n" + 
-//				"s.deleted_by s_deleted_by,\n" + 
-//				"s.deleted_at s_deleted_at,\n" + 
-//				"t.shop_id t_shop_id, \n" + 
-//				"days, \n" + 
-//				"noon_start_time,\n" + 
-//				"noon_end_time,\n" + 
-//				"night_start_time,\n" + 
-//				"night_end_time,\n" + 
-//				"other_time " + 
-//				"from ramen_shops as s\n" + 
-//				"left join ramen_shops_times as t\n" + 
-//				"on s.shop_id = t.shop_id";
-//		return template.query(sql, RAMEN_SHOP_ROW_MAPPER);
-//	}
 
 	/**
 	 * ラーメン店をすべて検索.

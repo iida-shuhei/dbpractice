@@ -63,7 +63,7 @@ public class ShowReviewController {
 	public String index(Integer start, Model model,@AuthenticationPrincipal LoginUser loginUser) {
 		// Maxページ数を求める
 		Integer count = reviewRepository.countAllReview(loginUser.getUser().getUserId());
-
+		
 		//何番目から表示するかを求める
 		if (start == null) {
 			start = 0;

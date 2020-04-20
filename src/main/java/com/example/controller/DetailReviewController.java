@@ -55,25 +55,27 @@ public class DetailReviewController {
 	 */
 	@RequestMapping("")
 	public String load(Integer reviewId, Model model,@AuthenticationPrincipal LoginUser loginUser) {
-		Review review = reviewService.load(reviewId);
-		List<Comment> commentList = commentRepository.findByReviewId(reviewId);
-		review.setCommentList(commentList);
+		List<Review> reviewList = reviewService.load(reviewId);
+		for(Review review : reviewList) {
+			List<Comment> commentList = commentRepository.findByReviewId(reviewId);
+			review.setCommentList(commentList);
+			model.addAttribute("review", review);
+		}
 				
-		List<Review> reviewMondayList = reviewService.findByMonday(reviewId);
-		List<Review> reviewTuesdayList = reviewService.findByTuesday(reviewId);
-		List<Review> reviewWednesdayList = reviewService.findByWednesday(reviewId);
-		List<Review> reviewThursdayList = reviewService.findByThursday(reviewId);
-		List<Review> reviewFridayList = reviewService.findByFriday(reviewId);
-		List<Review> reviewSaturdayList = reviewService.findBySaturday(reviewId);
-		List<Review> reviewSundayList = reviewService.findBySunday(reviewId);
-		model.addAttribute("review", review);
-		model.addAttribute("reviewMondayList", reviewMondayList);
-		model.addAttribute("reviewTuesdayList", reviewTuesdayList);
-		model.addAttribute("reviewWednesdayList", reviewWednesdayList);
-		model.addAttribute("reviewThursdayList", reviewThursdayList);
-		model.addAttribute("reviewFridayList", reviewFridayList);
-		model.addAttribute("reviewSaturdayList", reviewSaturdayList); 
-		model.addAttribute("reviewSundayList", reviewSundayList);
+//		List<Review> reviewMondayList = reviewService.findByMonday(reviewId);
+//		List<Review> reviewTuesdayList = reviewService.findByTuesday(reviewId);
+//		List<Review> reviewWednesdayList = reviewService.findByWednesday(reviewId);
+//		List<Review> reviewThursdayList = reviewService.findByThursday(reviewId);
+//		List<Review> reviewFridayList = reviewService.findByFriday(reviewId);
+//		List<Review> reviewSaturdayList = reviewService.findBySaturday(reviewId);
+//		List<Review> reviewSundayList = reviewService.findBySunday(reviewId);
+//		model.addAttribute("reviewMondayList", reviewMondayList);
+//		model.addAttribute("reviewTuesdayList", reviewTuesdayList);
+//		model.addAttribute("reviewWednesdayList", reviewWednesdayList);
+//		model.addAttribute("reviewThursdayList", reviewThursdayList);
+//		model.addAttribute("reviewFridayList", reviewFridayList);
+//		model.addAttribute("reviewSaturdayList", reviewSaturdayList); 
+//		model.addAttribute("reviewSundayList", reviewSundayList);
 		
 		List<Favorite> favoriteList = favoriteRepository.findByUserIdAndReviewId(loginUser.getUser().getUserId(), reviewId);
 		if(favoriteList.size() == 0) {
@@ -118,6 +120,7 @@ public class DetailReviewController {
 	public String insert(CommentForm commentForm, Integer reviewId, @AuthenticationPrincipal LoginUser loginUser) {
 		Comment comment = new Comment();
 		comment.setCommentName(loginUser.getUser().getUserName());
+		comment.setUserId(loginUser.getUser().getUserId());
 		comment.setContent(commentForm.getContent());
 		comment.setReviewId(commentForm.getReviewId());
 		commentRepository.insert(comment);

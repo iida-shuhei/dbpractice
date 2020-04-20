@@ -44,10 +44,5 @@ public class RamenShopDetailController {
 		model.addAttribute("detailSundayList",detailSundayList);
 		
 		return "ramenShop_detail";
-		
-		
-		
 	}
-	
-
 }

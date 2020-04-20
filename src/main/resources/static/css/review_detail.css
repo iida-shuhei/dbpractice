@@ -80,11 +80,13 @@ header {
 
 .btn {
 	padding: 0;
-	letter-spacing: 0.2em;
+	letter-spacing: 0.1em;
 }
 
 .icon {
-	padding-top: 20px;
+	padding-top: 34px;
+	padding-left: 10px;
+	width: 280px;
 }
 
 .container {
@@ -96,7 +98,7 @@ header {
 .comment {
 	font-size: 14px;
 	overflow: scroll;
-	height: 240px;
+	height: 230px;
 }
 
 .content {

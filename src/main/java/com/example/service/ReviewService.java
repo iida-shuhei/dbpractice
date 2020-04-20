@@ -28,32 +28,15 @@ public class ReviewService {
 	 * @param reviewId レビューID
 	 * @return レビュー詳細
 	 */
-	public Review load(Integer reviewId) {
+	public List<Review> load(Integer reviewId) {
 		return reviewRepository.load(reviewId);
 	}
 	
-	public List<Review> findByMonday(Integer reviewId) {
-		return reviewRepository.findByMonday(reviewId);
-	}
-	public List<Review> findByTuesday(Integer reviewId) {
-		return reviewRepository.findByTuesday(reviewId);
-	}
-	public List<Review> findByWednesday(Integer reviewId) {
-		return reviewRepository.findByWednesday(reviewId);
-	}
-	public List<Review> findByThursday(Integer reviewId) {
-		return reviewRepository.findByThursday(reviewId);
-	}
-	public List<Review> findByFriday(Integer reviewId) {
-		return reviewRepository.findByFriday(reviewId);
-	}
-	public List<Review> findBySaturday(Integer reviewId) {
-		return reviewRepository.findBySaturday(reviewId);
-	}
-	public List<Review> findBySunday(Integer reviewId) {
-		return reviewRepository.findBySunday(reviewId);
-	}
-	
+	/**
+	 * レビューを削除する.
+	 * 
+	 * @param review　レビュー
+	 */
 	public void delete(Review review) {
 		reviewRepository.delete(review);
 	}
