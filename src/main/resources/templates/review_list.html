@@ -10,55 +10,47 @@
 <link rel="shortcut icon" href="http://www.iconj.com/ico/p/3/p354m72bm2.ico" type="image/x-icon" />
 </head>
 <body>
-	<header>
-		<div class="top">
-			<p>このサイトは<span th:text="${user.userName}"></span>さんが食べたラーメンを記録していくものです。食べたものを記録して、みんなと記録を共有しましょう。</p>
-		</div>
-		
+<header>
+	<div class="head">
 		<div class="bigInfo">
-			<div class="info">
-				<ul>
-					<li><form th:action="@{/showReview}"><button id="logo"><span class="logo">RaaaaLife</span></button></form></li>
-					<li><h3 class="title">みんなのらぁめん記録</h3></li>
-				</ul>
-			</div>
-			
-			<div class="smallInfo">
-				<ul>
-					<li><img th:src="${user.userIcon.iconImagePath}" class="img" onerror="this.src='/img/user.jpg'"/></li>
-					<li><a type="button" th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}"><span th:text="${user.userName}"></span></a></li>
-					<li><a th:href="@{/review/toInsert}">投稿</a></li>
-					<li><a th:href="@{/logout}">ログアウト</a></li>
-				</ul>
-			</div>
+			<form th:action="@{/showReview}">
+				<button id="logo"><span class="logo">RaaaaLife...</span></button>
+			</form>
 		</div>
+		<div class="smallInfo">
+			<ul>
+				<li><img th:src="${user.userIcon.iconImagePath}" class="img" onerror="this.src='/img/user.jpg'"/></li>
+				<li><a type="button" th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}"><span th:text="${user.userName}"></span></a></li>
+				<li><a th:href="@{/review/toInsert}">投稿</a></li>
+				<li><a th:href="@{/logout}">ログアウト</a></li>
+			</ul>
+		</div>
+	</div>
+</header>
 
-		<div class="top"></div>
-	</header>
+<main>
+	<div th:text="${message}" style="font-size: 20px; text-align: center;"></div>
 
-	<main>
-		<div th:text="${message}" style="font-size: 20px; text-align: center;"></div>
-
-		<section>
-			<div class="card-deck">
-				<div class="row row-eq-height">
-					<div class="col-md-3" th:each="review : ${reviewList}">
-						<div class="card ramen">
-							<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}"> 
-							<input type="hidden" name="userId"> 
-							<img class="card-img-top img-fluid row-eq-height photo" th:src="${review.ramenImage.imagePath}"></a>
-							<div class="card-body px-2 py-3 text-center">
-								<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}">
-									<input type="hidden" name="userId"> 
-									<span class="card-title" th:text="${review.ramenShop.shopName}"></span><br>
-								</a> post by <span th:text="${review.user.userName}"></span>
-							</div>
+	<section>
+		<div class="card-deck">
+			<div class="row row-eq-height">
+				<div class="col-md-3" th:each="review : ${reviewList}">
+					<div class="card ramen">
+						<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}"> 
+						<input type="hidden" name="userId"> 
+						<img class="card-img-top img-fluid row-eq-height photo" th:src="${review.ramenImage.imagePath}"></a>
+						<div class="card-body px-2 py-3 text-center">
+							<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}">
+								<input type="hidden" name="userId"> 
+								<span class="card-title" th:text="${review.ramenShop.shopName}"></span><br>
+							</a> post by <span th:text="${review.user.userName}"></span>
 						</div>
 					</div>
 				</div>
 			</div>
-		</section>
-	</main>
+		</div>
+	</section>
+</main>
 	
 	
 	<!-- pagination -->

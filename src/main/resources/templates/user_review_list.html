@@ -11,31 +11,23 @@
 </head>
 <body>
 
-	<header>
-		<div class="top">
-			<p>ここは<span th:text="${user.userName}"></span>さんが食べたラーメンを記録しているページです。</p>
-		</div>
-
+<header>
+	<div class="head">
 		<div class="bigInfo">
-			<div class="info">
-				<ul>
-					<li><form th:action="@{/showReview}"><button id="logo"><span class="logo">RaaaaLife</span></button></form></li>
-					<li><h3 class="title"><span th:text="${user.userName}"></span>さんのらぁめん記録</h3></li>
-				</ul>
-			</div>
-			
-			<div class="smallInfo">
-				<ul>
-					<li><img th:src="${user.userIcon.iconImagePath}" class="img" onerror="this.src='/img/user.jpg'"/></li>
-					<li><a type="button" th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}"><span th:text="${user.userName}"></span></a></li>
-					<li><a th:href="@{/review/toInsert}">投稿</a></li>
-					<li><a th:href="@{/logout}">ログアウト</a></li>
-				</ul>
-			</div>
+			<form th:action="@{/showReview}">
+				<button id="logo"><span class="logo">RaaaaLife...</span></button>
+			</form>
 		</div>
-		
-		<div class="top"></div>
-	</header>
+		<div class="smallInfo">
+			<ul>
+				<li><img th:src="${user.userIcon.iconImagePath}" class="img" onerror="this.src='/img/user.jpg'"/></li>
+				<li><a type="button" th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}"><span th:text="${user.userName}"></span></a></li>
+				<li><a th:href="@{/review/toInsert}">投稿</a></li>
+				<li><a th:href="@{/logout}">ログアウト</a></li>
+			</ul>
+		</div>
+	</div>
+</header>
 	
 	<div th:text="${message}" style="font-size: 20px; text-align: center;"></div>
 

@@ -19,11 +19,13 @@ import com.example.domain.LoginUser;
 import com.example.domain.RamenImage;
 import com.example.domain.RamenShop;
 import com.example.domain.Review;
+import com.example.domain.User;
 import com.example.form.ReviewRegisterForm;
 import com.example.repository.RamenImageRepository;
 import com.example.repository.RamenShopTimeRepository;
 import com.example.repository.ReviewRepository;
 import com.example.service.RamenShopService;
+import com.example.service.UserService;
 
 /**
  * レビューを登録するコントローラー.
@@ -37,6 +39,9 @@ public class ReviewRegisterController {
 	
 	@Autowired
 	private ReviewRepository reviewRepository;
+	
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	public RamenImageRepository ramenImageRepository;
@@ -58,11 +63,14 @@ public class ReviewRegisterController {
 	 * @return 記事投稿画面
 	 */
 	@RequestMapping("/toInsert")
-	public String toInsert(Integer shopId, Model model) {
+	public String toInsert(Integer shopId, Model model, @AuthenticationPrincipal LoginUser loginUser) {
 		if(shopId != null) {
 			RamenShop ramenShop = ramenShopService.load(shopId);
 			model.addAttribute("ramenShop", ramenShop);
 		}
+		
+		User user = userService.findByUserId(loginUser.getUser().getUserId());
+		model.addAttribute("user", user);
 		return "register_review";
 	}
 	
@@ -91,7 +99,7 @@ public class ReviewRegisterController {
 		}
 
 		if (result.hasErrors()) {
-			return toInsert(reviewRegisterForm.getShopId(),model);
+			return toInsert(reviewRegisterForm.getShopId(),model, loginUser);
 		}
 
 		RamenImage ramenImage = new RamenImage();

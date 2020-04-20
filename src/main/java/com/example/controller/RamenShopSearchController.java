@@ -3,13 +3,17 @@ package com.example.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.LoginUser;
 import com.example.domain.RamenShop;
+import com.example.domain.User;
 import com.example.repository.RamenShopRepository;
 import com.example.service.RamenShopService;
+import com.example.service.UserService;
 
 /**
  * ラーメン店舗を管理するコントローラー.
@@ -27,6 +31,9 @@ public class RamenShopSearchController {
 	@Autowired
 	private RamenShopService ramenShopService;
 	
+	@Autowired
+	private UserService userService;
+	
 	/**
 	 * トップページを表示.
 	 * 
@@ -34,12 +41,15 @@ public class RamenShopSearchController {
 	 * @return トップページ情報
 	 */
 	@RequestMapping("")
-	public String index(Model model) {
+	public String index(Model model, @AuthenticationPrincipal LoginUser loginUser) {
 		List<RamenShop> ramenShopList = ramenShopRepository.findAll();
 		model.addAttribute("ramenShopList", ramenShopList);
 	    //オートコンプリート機能 
 		StringBuilder autoComplete = ramenShopService.getAutoComplete(ramenShopList);
 		model.addAttribute("autoComplete", autoComplete);
+		
+		User user = userService.findByUserId(loginUser.getUser().getUserId());
+		model.addAttribute("user", user);
 		return "ramenShop_search";
 	}
 	

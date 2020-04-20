@@ -9,41 +9,49 @@
 <link rel="shortcut icon" href="http://www.iconj.com/ico/p/3/p354m72bm2.ico" type="image/x-icon" />
 </head>
 <body>
+<header>
+	<div class="head">
+		<div class="login">
+			<form th:action="@{/showReview}">
+				<button id="logo"><span class="logo">RaaaaLife...</span></button>
+			</form>
+		</div>
+	</div>
+</header>
+
 <div class="box">
 	<div class="container">
-		<div class="vertical-offset-100">
-			<div class="col-md-4 col-md-offset-4">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">ログイン</h3>
-					</div>
-					<div class="panel-body">
-						<fieldset>
-							<form th:action="@{/doLogin}" method="post">
-								<div class="alert alert-danger" th:if="${errorMessage}">
-									<p th:text="${errorMessage}" style="color: red"></p>
-								</div>
-								<div class="form-group">
-									<input class="form-control" placeholder="メールアドレス" name="email"
-										type="email">
-								</div>
-								<div class="form-group">
-									<input class="form-control" placeholder="パスワード"
-										name="password" type="password">
-								</div>
-								<input class="btn btn-success btn-block" type="submit"
-									value="ログイン">
-							</form><br>
-							<form th:action="@{/toRegister}" method="post">
-								<button class="btn-block btn btn-primary">新規登録はこちら</button>
-							</form><br>
-							<div class="text-center">
-								<a th:href="@{/reset}">パスワードを忘れてしまった場合</a>
-							</div>
-						</fieldset>
-					</div>
-				</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">ログイン</h3>
 			</div>
+			
+			<div class="panel-body">
+				<fieldset>
+					<form th:action="@{/doLogin}" method="post">
+						<div class="alert alert-danger" th:if="${errorMessage}">
+							<p th:text="${errorMessage}" style="color: red"></p>
+						</div>
+						<div class="form-group">
+							<input class="form-control" placeholder="メールアドレス" name="email"
+								type="email">
+						</div>
+						<div class="form-group">
+							<input class="form-control" placeholder="パスワード"
+								name="password" type="password">
+						</div>
+						<input class="btn btn-success btn-block" type="submit"
+							value="ログイン">
+					</form><br>
+					<form th:action="@{/toRegister}" method="post">
+						<button class="btn-block btn btn-primary">新規登録はこちら</button>
+					</form><br>
+					<div class="text-center">
+						<a th:href="@{/reset}">パスワードを忘れてしまった場合</a>
+					</div>
+				</fieldset>
+			</div>
+			
 		</div>
 	</div>
 </div>
