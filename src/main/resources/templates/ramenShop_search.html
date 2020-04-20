@@ -53,11 +53,13 @@ $(function(){
 										style="color: red">もしここになければ新規登録してください</small>
 
 									<form th:action="@{/review/toInsert}" method="post">
+									<div class="shopList">
 										<div th:each="ramenShop : ${ramenShopList}">
 											<input type="radio" name="shopId"
 												th:text="${ramenShop.shopName}"
 												th:value="${ramenShop.shopId}">
 										</div>
+									</div>
 										<br>
 										<div class="form-group">
 											<input class="btn btn-success btn-block" type="submit"

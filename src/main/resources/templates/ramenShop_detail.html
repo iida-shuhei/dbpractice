@@ -3,12 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link th:href="@{/css/shop_detail.css}" rel="stylesheet">
 </head>
 <body>
-
-   店舗名 <span th:text="${ramenShop.shopName}"></span><br>
-   郵便番号：<span th:text="${ramenShop.zipcode}"></span><br>
-   住所：<span th:text="${ramenShop.prefecture}"></span><span th:text="${ramenShop.city}"></span><span th:text="${ramenShop.other}"></span><br>
+　　<ul>
+		<li><form th:action="@{/showReview}"><button id="logo"><span class="logo">RaaaaLife</span></button></form></li>
+					
+	</ul>
+   <section class="site-width" >
+      <h2 class="shop">店舗情報</h2>
+     <section class="panel">
+   店舗名 <span th:text="${ramenShop.shopName}" > </span><br>
+   郵便番号：<span th:text="${ramenShop.zipcode}" ></span><br>
+   住所：<span th:text="${ramenShop.prefecture}" ></span><span th:text="${ramenShop.city}"></span><span th:text="${ramenShop.other}"></span><br>
    休日：<span th:text="${ramenShop.holidays}"></span><br><br>
    
    営業時間：<br>
@@ -122,6 +129,9 @@
 		<span th:if="${sunday.ramenShopTime.otherTime}"
 			th:text="'日曜日 : ' + ${sunday.ramenShopTime.otherTime}"></span>
 	</div>
+	
+     </section>
+   </section>
     
    
    
