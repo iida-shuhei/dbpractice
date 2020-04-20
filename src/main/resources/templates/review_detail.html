@@ -28,56 +28,64 @@ $(function(){
 		<input type="hidden" name="reviewId" th:value="${review.reviewId}">
 	</form>
 	
-	<div class="box">
-		<div class="container">
-				<img th:src="${user.userIcon.iconImagePath}" style="border-radius: 30%; width:8%" onerror="this.src='/img/user.jpg'"/>
-				<span th:text="${review.user.userName}"></span>
+<div class="box">
+
+	<div class="container">
+	
+		<img th:src="${review.ramenImage.imagePath}" class="img">
+		
+		<div class="small">
+			<div class="top">
+				<div class="icon">
+					<img th:src="${user.userIcon.iconImagePath}" style="border-radius: 30%; width:14%" onerror="this.src='/img/user.jpg'"/>
+					<span th:text="${review.user.userName}" style="font-size: 16px;"></span>
+				</div>
+				
+				<div class="ramen">
+					🍜<span th:text="${review.ramenName}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					💰<span th:text="${review.ramenPrice}"></span><span>円</span>
+				    <form th:action="@{/ramenShopDetail}" method="post">
+						<input type="hidden" name="shopId" th:value="${review.ramenShop.shopId}">
+						<button class="btn">🏠<span th:text="${review.ramenShop.shopName}" class="text"></span></button>
+				    </form>
+				</div>
+			</div>
+				<hr>
+			
+			<div class="comment">
+				<div th:each="comment:${review.commentList}">
+					<img th:src="${user.userIcon.iconImagePath}" style="border-radius: 30%; width:8%" onerror="this.src='/img/user.jpg'"/><strong><span th:text="${comment.commentName}"></span></strong> 
+					&nbsp;&nbsp;<span th:text="${comment.content}" class="form"></span><br>
+				</div>
+			</div>
+				
+			<div class="post">
+				<hr>
 				<span th:if="${favorite}"><a type="button" id="favorite-btn"><img th:src="@{/img/heart1.png}" class="noheart" style="width:30px; height: 30px"></a></span>
 				<span th:if="${nofavorite}"><a type="button" id="favorite-btn"><img th:src="@{/img/heart1.png}" class="heart" style="width:30px; height: 30px"></a></span>
-			
-			<div class="img">
-				<img th:src="${review.ramenImage.imagePath}" style="width:100%; height: 470px">
-			</div><br>
-			
-			<div class="ramen">
-				<span th:text="${review.ramenName}"></span>
-				<span th:text="${review.ramenPrice}"></span><span>円</span>
-			</div>
-			
-			<div class="shopInfo">
-			    <form th:action="@{/ramenShopDetail}" method="post">
-					<input type="hidden" name="shopId" th:value="${review.ramenShop.shopId}"><br>
-					<button class="btn">🍜<span th:text="${review.ramenShop.shopName}" class="text"></span></button>
-			    </form>
-				🏠<span class="text1" th:text="${review.ramenShop.prefecture}"></span>
-				<span class="text2" th:text="${review.ramenShop.city}"></span>
-				<span class="text3" th:text="${review.ramenShop.other}"></span>
-			</div>
-			
-			<input type="hidden" id="userId" th:value="${user.userId}">
-			<div class="del">
-				<form th:action="@{/detail/delete}" method="post">
-					<button class="btn" id="del">削除</button>
-				<input type="hidden" id="reviewUserId" th:value="${review.userId}" name="userId">
-				<input type="hidden" id="reviewId" th:value="${review.reviewId}" name="reviewId">
+				<br><br>
+				
+				<form th:action="@{/detail/register}" method="post">
+					<input type="hidden" name="reviewId" th:value="${review.reviewId}">
+					<input type="text" name="content" placeholder="コメントを追加..." class="form-control" required>
+					<button>投稿</button>
 				</form>
-			</div>
-		</div>
-		
-		<div>
-			<div th:each="comment:${review.commentList}">
-				<img th:src="${user.userIcon.iconImagePath}" style="border-radius: 30%; width:4%" onerror="this.src='/img/user.jpg'"/><span th:text="${comment.commentName}"></span><br> 
-				<span th:text="${comment.content}"></span><br>
+				
+				<input type="hidden" id="userId" th:value="${user.userId}">
+				<div class="del">
+					<form th:action="@{/detail/delete}" method="post">
+						<button class="btn" id="del">削除</button>
+					<input type="hidden" id="reviewUserId" th:value="${review.userId}" name="userId">
+					<input type="hidden" id="reviewId" th:value="${review.reviewId}" name="reviewId">
+					</form>
+				</div>
 			</div>
 			
-			<form th:action="@{/detail/register}" method="post">
-				<input type="hidden" name="reviewId" th:value="${review.reviewId}">
-				<textarea name="content" rows="2" cols="23"></textarea>
-				<br>
-				<button>コメント投稿</button>
-			</form>
 		</div>
-	</div>	
 	
+	</div>
+		
+</div>	
+
 </body>
 </html>

@@ -1,21 +1,7 @@
 @charset "UTF-8";
 
-.container {
-	border: 2px solid;
-	margin: 0 auto;
-	padding: 0;
-	width: 630px;
-}
-
-.shopInfo {
-	text-align: center;
-	margin: 0 auto;
-	letter-spacing: 5px;
-	font-size: 16px;
-}
-
 .text {
-	font-size: 16px;
+	font-size: 14px;
 }
 
 .btn:hover {
@@ -24,7 +10,8 @@
 }
 
 .img {
-	text-align: center;
+	width:650px; 
+	height: 500px;
 }
 
 .del {
@@ -41,7 +28,8 @@
 }
 
 .ramen {
-	text-align: center;
+	font-size: 14px;
+	padding-top: 20px;
 }
 
 .heart:hover {
@@ -84,4 +72,54 @@
 
 header {
 	padding: 20px 20px 0;
+}
+
+.box {
+	width: 100%;
+}
+
+.btn {
+	padding: 0;
+	letter-spacing: 0.2em;
+}
+
+.icon {
+	padding-top: 20px;
+}
+
+.container {
+	display: flex;
+	padding: 0;
+	margin: 40px auto;
+}
+
+.comment {
+	font-size: 14px;
+	overflow: scroll;
+	height: 240px;
+}
+
+.content {
+	display: flex;
+}
+
+.top {
+	display:flex;
+}
+
+.small {
+	position: relative;
+	border: 1px solid;
+	width: 520px;
+}
+
+.post {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+
+.form {
+	overflow-wrap: break-word;
+	word-wrap: break-word;
 }
