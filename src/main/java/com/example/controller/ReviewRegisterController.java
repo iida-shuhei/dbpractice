@@ -127,11 +127,11 @@ public class ReviewRegisterController {
 		review.setUserId(loginUser.getUser().getUserId());
 		review.setRamenName(reviewRegisterForm.getRamenName());
 		review.setRamenPrice(Integer.parseInt(reviewRegisterForm.getRamenPrice()));
+		review.setComments(reviewRegisterForm.getComments());
 		review.setRamenImagePathId(ramenImage.getImageId());
 		review.setCreatedBy(loginUser.getUser().getUserName());
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		review.setCreatedAt(timestamp);
-		
 		
 		reviewRepository.insert(review);
 		return "redirect:/showReview";

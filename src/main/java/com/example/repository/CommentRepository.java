@@ -93,7 +93,7 @@ public class CommentRepository {
 				"left join user_ranks\n" + 
 				"on user_rank_id = rank_id\n" + 
 				"where review_id =:reviewId \n" + 
-				"order by comment_id desc;";
+				"order by comment_id;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
 		return template.query(sql, param,COMMENT_ROW_MAPPER);
 	}

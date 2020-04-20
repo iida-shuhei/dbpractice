@@ -13,6 +13,7 @@ public class ReviewRegisterForm {
 	private String ramenName;
 	@NotBlank(message = "価格を入力してください")
 	private String ramenPrice;
+	private String comments;
 	private Integer ramenImagePathId;
 
 	// RamenImage
@@ -51,6 +52,14 @@ public class ReviewRegisterForm {
 		this.ramenPrice = ramenPrice;
 	}
 
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
 	public Integer getRamenImagePathId() {
 		return ramenImagePathId;
 	}
@@ -67,5 +76,4 @@ public class ReviewRegisterForm {
 		this.ramenImage = ramenImage;
 	}
 
-	
 }

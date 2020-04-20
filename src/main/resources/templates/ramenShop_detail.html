@@ -18,8 +18,8 @@
 		</div>
 		<div class="smallInfo">
 			<ul>
-				<li><img th:src="${user.userIcon.iconImagePath}" class="img" onerror="this.src='/img/user.jpg'"/></li>
-				<li><a type="button" th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}"><span th:text="${user.userName}"></span></a></li>
+				<li><a type="button" th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}"><span th:text="${user.userName}"></span>&nbsp;
+				<img th:src="${user.userIcon.iconImagePath}" class="img" onerror="this.src='/img/user.jpg'"/></a></li>
 				<li><a th:href="@{/review/toInsert}">投稿</a></li>
 				<li><a th:href="@{/logout}">ログアウト</a></li>
 			</ul>

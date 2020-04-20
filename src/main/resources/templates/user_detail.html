@@ -8,6 +8,9 @@
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <link rel="shortcut icon" href="http://example.com/favicon.ico" type="image/vnd.microsoft.icon">
 <link rel="shortcut icon" href="http://www.iconj.com/ico/p/3/p354m72bm2.ico" type="image/x-icon" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
 </head>
 <body>
 <header>
@@ -19,8 +22,8 @@
 		</div>
 		<div class="smallInfo">
 			<ul>
-				<li><img th:src="${user.userIcon.iconImagePath}" class="img" onerror="this.src='/img/user.jpg'"/></li>
-				<li><a type="button" th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}"><span th:text="${user.userName}"></span></a></li>
+				<li><a type="button" th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}"><span th:text="${user.userName}"></span>&nbsp;
+				<img th:src="${user.userIcon.iconImagePath}" class="img" onerror="this.src='/img/user.jpg'"/></a></li>
 				<li><a th:href="@{/review/toInsert}">投稿</a></li>
 				<li><a th:href="@{/logout}">ログアウト</a></li>
 			</ul>
@@ -39,7 +42,7 @@
 				<div class="dai">
 					<div class="box1">
 						<div class="form-group">
-							<img th:src="${user.userIcon.iconImagePath}" style="border-radius: 30%;width: 100px; height: 100px;" onerror="this.src='/img/user.jpg'" class="img"/>
+							<a th:href="${user.userIcon.iconImagePath}" data-lightbox="group"><img th:src="${user.userIcon.iconImagePath}" onerror="this.src='/img/user.jpg'" class="icon"/></a>
 						</div>
 					</div>
 					<div class="box2">

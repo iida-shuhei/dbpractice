@@ -21,8 +21,8 @@
 		</div>
 		<div class="smallInfo">
 			<ul>
-				<li><img th:src="${user.userIcon.iconImagePath}" class="img" onerror="this.src='/img/user.jpg'"/></li>
-				<li><a type="button" th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}"><span th:text="${user.userName}"></span></a></li>
+				<li><a type="button" th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}"><span th:text="${user.userName}"></span>&nbsp;
+				<img th:src="${user.userIcon.iconImagePath}" class="img" onerror="this.src='/img/user.jpg'"/></a></li>
 				<li><a th:href="@{/review/toInsert}">投稿</a></li>
 				<li><a th:href="@{/logout}">ログアウト</a></li>
 			</ul>
@@ -87,7 +87,7 @@
 										<div class="modal-header">
 											<h5 class="modal-title" id="exampleModalLongTitle">ラーメン店舗営業時間</h5>
 										</div>
-										<div class="modal-body">
+										<div class="modal-body tab">
 
 											<label><input type="checkbox" value="月曜日"
 												id="monday">月曜日</label>

@@ -9,8 +9,11 @@
 }
 
 .img {
-	border-radius: 30%;
+	border-radius: 50%;
 	width: 40px;
+	height: 40px;
+	border: 3px double;
+	border-color: white;
 }
 
 .smallInfo ul li a {
@@ -139,6 +142,7 @@
 	font-size: 14px;
 	overflow: scroll;
 	height: 230px;
+	padding-left: 10px;
 }
 
 .content {

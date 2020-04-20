@@ -29,8 +29,8 @@ $(function(){
 		</div>
 		<div class="smallInfo">
 			<ul>
-				<li><img th:src="${user.userIcon.iconImagePath}" class="img" onerror="this.src='/img/user.jpg'"/></li>
-				<li><a type="button" th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}"><span th:text="${user.userName}"></span></a></li>
+				<li><a type="button" th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}"><span th:text="${user.userName}"></span>&nbsp;
+				<img th:src="${user.userIcon.iconImagePath}" class="img" onerror="this.src='/img/user.jpg'"/></a></li>
 				<li><a th:href="@{/review/toInsert}">投稿</a></li>
 				<li><a th:href="@{/logout}">ログアウト</a></li>
 			</ul>
@@ -51,7 +51,7 @@ $(function(){
 		<div class="small">
 			<div class="top">
 				<div class="icon">
-					<img th:src="${review.user.userIcon.iconImagePath}" style="border-radius: 30%; width:14%" onerror="this.src='/img/user.jpg'"/>
+					<img th:src="${review.user.userIcon.iconImagePath}" style="border-radius: 50%; width:15%; height: 40px; border:3px double;" onerror="this.src='/img/user.jpg'"/>
 					<span th:text="${review.user.userName}" style="font-size: 16px;"></span>
 				</div>
 				
@@ -67,10 +67,11 @@ $(function(){
 				<hr>
 			
 			<div class="comment">
-			コメント
+				<img th:src="${review.user.userIcon.iconImagePath}" style="border-radius: 50%; width:8%; height: 40px;border:3px double;" onerror="this.src='/img/user.jpg'"/><strong><span th:text="${review.user.userName}"></span></strong> 
+				&nbsp;&nbsp;<span th:text="${review.comments}" class="form"></span><br><small></small>
 				<div th:each="comment:${review.commentList}">
-					<img th:src="${comment.user.userIcon.iconImagePath}" style="border-radius: 30%; width:8%" onerror="this.src='/img/user.jpg'"/><strong><span th:text="${comment.user.userName}"></span></strong> 
-					&nbsp;&nbsp;<span th:text="${comment.content}" class="form"></span><br>
+					<img th:src="${comment.user.userIcon.iconImagePath}" style="border-radius: 50%; width:8%; height: 40px;border:3px double;" onerror="this.src='/img/user.jpg'"/><strong><span th:text="${comment.user.userName}"></span></strong> 
+					&nbsp;&nbsp;<span th:text="${comment.content}" class="form"></span><br><small></small>
 				</div>
 			</div>
 				

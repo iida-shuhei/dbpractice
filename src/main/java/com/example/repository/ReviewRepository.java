@@ -47,6 +47,7 @@ public class ReviewRepository {
 		review.setUserId(rs.getInt("r_user_id"));
 		review.setRamenName(rs.getString("ramen_name"));
 		review.setRamenPrice(rs.getInt("ramen_price"));
+		review.setComments(rs.getString("comments"));
 		review.setRamenImagePathId(rs.getInt("ramen_image_path_id"));
 		review.setCreatedBy(rs.getString("r_created_by"));
 		review.setCreatedAt(rs.getTimestamp("r_created_at"));
@@ -123,6 +124,7 @@ public class ReviewRepository {
 				review.setUserId(rs.getInt("r_user_id"));
 				review.setRamenName(rs.getString("ramen_name"));
 				review.setRamenPrice(rs.getInt("ramen_price"));
+				review.setComments(rs.getString("comments"));
 				review.setRamenImagePathId(rs.getInt("ramen_image_path_id"));
 				review.setCreatedBy(rs.getString("r_created_by"));
 				review.setCreatedAt(rs.getTimestamp("r_created_at"));
@@ -230,6 +232,7 @@ public class ReviewRepository {
 				"r.user_id r_user_id, \n" +
 				"ramen_name,\n" + 
 				"ramen_price,\n" + 
+				"comments,\n" + 
 				"ramen_image_path_id,\n" + 
 				"r.created_by r_created_by,\n" + 
 				"r.created_at r_created_at,\n" + 
@@ -294,7 +297,8 @@ public class ReviewRepository {
 				"r.shop_id r_shop_id, \n" +
 				"r.user_id r_user_id, \n" +
 				"ramen_name,\n" + 
-				"ramen_price,\n" + 
+				"ramen_price,\n" +
+				"comments,\n" + 
 				"ramen_image_path_id,\n" + 
 				"r.created_by r_created_by,\n" + 
 				"r.created_at r_created_at,\n" + 
@@ -360,6 +364,7 @@ public class ReviewRepository {
 				"r.user_id r_user_id, \n" +
 				"ramen_name,\n" + 
 				"ramen_price,\n" + 
+				"comments,\n" + 
 				"ramen_image_path_id,\n" + 
 				"r.created_by r_created_by,\n" + 
 				"r.created_at r_created_at,\n" + 
@@ -430,6 +435,7 @@ public class ReviewRepository {
 				"r.user_id r_user_id, \n" +
 				"ramen_name,\n" + 
 				"ramen_price,\n" + 
+				"comments,\n" + 
 				"ramen_image_path_id,\n" + 
 				"r.created_by r_created_by,\n" + 
 				"r.created_at r_created_at,\n" + 

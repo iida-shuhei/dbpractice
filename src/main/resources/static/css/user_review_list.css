@@ -61,8 +61,11 @@ div.ramen {
 }
 
 .img {
-	border-radius: 30%;
+	border-radius: 50%;
 	width: 40px;
+	border: 3px double;
+	border-color: white;
+	height: 40px;
 }
 
 .smallInfo ul li a {
