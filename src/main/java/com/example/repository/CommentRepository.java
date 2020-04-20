@@ -72,7 +72,7 @@ public class CommentRepository {
 				"content,\n" + 
 				"review_id,\n" + 
 				"u.user_id u_user_id,\n" + 
-				"user_name,\n" + 
+				"coalesce(user_name, '退会済みユーザー') as user_name,\n" + 
 				"user_mail,\n" + 
 				"password,\n" + 
 				"user_icon_id, \n" + 

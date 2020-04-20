@@ -321,6 +321,7 @@ public class ReviewRepository {
 				"s.deleted_at s_deleted_at,\n" + 
 				"u.user_id u_user_id,\n" + 
 				"coalesce(user_name, '退会済みユーザー') as user_name,\n" + 
+				"user_mail,\n" + 
 				"password,\n" + 
 				"user_icon_id,\n" + 
 				"user_rank_id,\n" + 
@@ -387,6 +388,7 @@ public class ReviewRepository {
 				"s.deleted_at s_deleted_at,\n" + 
 				"u.user_id u_user_id,\n" + 
 				"coalesce(user_name, '退会済みユーザー') as user_name,\n" + 
+				"user_mail,\n" + 
 				"password,\n" + 
 				"user_icon_id,\n" + 
 				"user_rank_id,\n" + 
@@ -453,7 +455,7 @@ public class ReviewRepository {
 				"s.deleted_by s_deleted_by,\n" + 
 				"s.deleted_at s_deleted_at,\n" + 
 				"u.user_id u_user_id,\n" + 
-				"user_name,\n" + 
+				"coalesce(user_name, '退会済みユーザー') as user_name,\n" + 
 				"user_mail,\n" + 
 				"password,\n" + 
 				"user_icon_id,\n" + 

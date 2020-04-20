@@ -57,7 +57,7 @@ $(function(){
 				
 				<div class="ramen">
 					🍜<span th:text="${review.ramenName}"></span><br>
-					💰<span th:text="${review.ramenPrice}"></span><span>円</span>
+					💰<span th:text="${#numbers.formatInteger(review.ramenPrice,1,'COMMA')}"></span><span>円</span>
 				    <form th:action="@{/ramenShopDetail}" method="post">
 						<input type="hidden" name="shopId" th:value="${review.ramenShop.shopId}">
 						<button class="btn">🏠<span th:text="${review.ramenShop.shopName}" class="text"></span></button>
@@ -69,7 +69,7 @@ $(function(){
 			<div class="comment">
 			コメント
 				<div th:each="comment:${review.commentList}">
-					<img th:src="${comment.user.userIcon.iconImagePath}" style="border-radius: 30%; width:8%" onerror="this.src='/img/user.jpg'"/><strong><span th:text="${comment.commentName}"></span></strong> 
+					<img th:src="${comment.user.userIcon.iconImagePath}" style="border-radius: 30%; width:8%" onerror="this.src='/img/user.jpg'"/><strong><span th:text="${comment.user.userName}"></span></strong> 
 					&nbsp;&nbsp;<span th:text="${comment.content}" class="form"></span><br>
 				</div>
 			</div>
