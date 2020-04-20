@@ -27,3 +27,10 @@
 header {
 	padding: 20px;
 }
+
+.shopList{
+	overflow : scroll;
+	height: 50px;
+	
+	
+}
