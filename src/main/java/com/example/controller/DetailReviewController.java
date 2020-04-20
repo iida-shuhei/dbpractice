@@ -9,11 +9,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.Comment;
 import com.example.domain.Favorite;
 import com.example.domain.LoginUser;
 import com.example.domain.Review;
 import com.example.domain.User;
+import com.example.form.CommentForm;
+import com.example.repository.CommentRepository;
 import com.example.repository.FavoriteRepository;
+import com.example.repository.ReviewRepository;
 import com.example.service.ReviewService;
 import com.example.service.UserService;
 
@@ -31,10 +35,16 @@ public class DetailReviewController {
 	private ReviewService reviewService;
 	
 	@Autowired
+	public ReviewRepository reviewRepository;
+	
+	@Autowired
 	private UserService userService;
 	
 	@Autowired
 	private FavoriteRepository favoriteRepository;
+	
+	@Autowired
+	private CommentRepository commentRepository;
 	
 	/**
 	 * レビューIDからレビュー詳細を表示する.
@@ -46,6 +56,9 @@ public class DetailReviewController {
 	@RequestMapping("")
 	public String load(Integer reviewId, Model model,@AuthenticationPrincipal LoginUser loginUser) {
 		Review review = reviewService.load(reviewId);
+		List<Comment> commentList = commentRepository.findByReviewId(reviewId);
+		review.setCommentList(commentList);
+				
 		List<Review> reviewMondayList = reviewService.findByMonday(reviewId);
 		List<Review> reviewTuesdayList = reviewService.findByTuesday(reviewId);
 		List<Review> reviewWednesdayList = reviewService.findByWednesday(reviewId);
@@ -60,7 +73,7 @@ public class DetailReviewController {
 		model.addAttribute("reviewThursdayList", reviewThursdayList);
 		model.addAttribute("reviewFridayList", reviewFridayList);
 		model.addAttribute("reviewSaturdayList", reviewSaturdayList); 
-		model.addAttribute("reviewSundayList", reviewSundayList); 
+		model.addAttribute("reviewSundayList", reviewSundayList);
 		
 		List<Favorite> favoriteList = favoriteRepository.findByUserIdAndReviewId(loginUser.getUser().getUserId(), reviewId);
 		if(favoriteList.size() == 0) {
@@ -91,6 +104,23 @@ public class DetailReviewController {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		review.setDeletedAt(timestamp);
 		reviewService.delete(review);
+		commentRepository.deleteByReviewId(reviewId);
 		return "redirect:/userDetail/toUserReviewList";
+	}
+	
+	/**
+	 * コメントを登録する.
+	 * 
+	 * @param commentForm コメントフォーム
+	 * @return トップページへリダイレクト
+	 */
+	@RequestMapping("/register")
+	public String insert(CommentForm commentForm, Integer reviewId, @AuthenticationPrincipal LoginUser loginUser) {
+		Comment comment = new Comment();
+		comment.setCommentName(loginUser.getUser().getUserName());
+		comment.setContent(commentForm.getContent());
+		comment.setReviewId(commentForm.getReviewId());
+		commentRepository.insert(comment);
+		return "redirect:/detail?reviewId=" + reviewId;
 	}
 }

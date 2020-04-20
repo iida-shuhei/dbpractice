@@ -9,11 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.Comment;
 import com.example.domain.LoginUser;
 import com.example.domain.RamenShop;
 import com.example.domain.Review;
 import com.example.domain.User;
 import com.example.form.ReviewRegisterForm;
+import com.example.repository.CommentRepository;
 import com.example.repository.ReviewRepository;
 import com.example.service.RamenShopService;
 import com.example.service.UserService;
@@ -36,6 +38,10 @@ public class ShowReviewController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private CommentRepository commentRepository;
+
 	
 	/**
 	 * 入力値を受け取るフォーム.
@@ -66,6 +72,10 @@ public class ShowReviewController {
 		List<Review> reviewList = reviewRepository.findAll(start);
 		if(reviewList.isEmpty()) {
 			model.addAttribute("message", "誰も投稿していないようだ…");
+		}
+		for(Review review : reviewList) {
+			List<Comment> commentList = commentRepository.findByReviewId(review.getReviewId());
+			review.setCommentList(commentList);
 		}
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("start", start);

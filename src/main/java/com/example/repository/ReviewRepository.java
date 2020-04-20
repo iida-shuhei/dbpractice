@@ -1,11 +1,13 @@
 package com.example.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -14,6 +16,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import com.example.domain.Comment;
 import com.example.domain.RamenImage;
 import com.example.domain.RamenShop;
 import com.example.domain.RamenShopTime;
@@ -162,6 +165,85 @@ public class ReviewRepository {
 		return review;
 	};
 	
+	//RESULTSETEXTRACTOR
+	private static final ResultSetExtractor<List<Review>> REVIEWS_RESULT_SET_EXTRACTOR = (rs) -> {
+		List<Review> reviewList = new ArrayList<>();
+		List<Comment> commentList = null;
+		int preId = 0;
+		
+		while(rs.next()) {
+			int nowId = rs.getInt("r_review_id");
+			
+			if(nowId != preId) {
+				Review review = new Review();
+				review.setReviewId(nowId);
+				review.setShopId(rs.getInt("r_shop_id"));
+				review.setUserId(rs.getInt("r_user_id"));
+				review.setRamenName(rs.getString("ramen_name"));
+				review.setRamenPrice(rs.getInt("ramen_price"));
+				review.setRamenImagePathId(rs.getInt("ramen_image_path_id"));
+				review.setCreatedBy(rs.getString("r_created_by"));
+				review.setCreatedAt(rs.getTimestamp("r_created_at"));
+				review.setUpdatedBy(rs.getString("r_updated_by"));
+				review.setUpdatedAt(rs.getTimestamp("r_updated_at"));
+				review.setVersion(rs.getInt("r_version"));
+				review.setDeletedBy(rs.getString("r_deleted_by"));
+				review.setDeletedAt(rs.getTimestamp("r_deleted_at"));
+				
+				RamenImage ramenImage = new RamenImage();
+				ramenImage.setImageId(rs.getInt("image_id"));
+				ramenImage.setImagePath(rs.getString("image_path"));
+				review.setRamenImage(ramenImage);
+				
+				RamenShop ramenShop = new RamenShop();
+				ramenShop.setShopId(rs.getInt("s_shop_id"));
+				ramenShop.setShopName(rs.getString("shop_name"));
+				ramenShop.setZipcode(rs.getString("zipcode"));
+				ramenShop.setPrefecture(rs.getString("prefecture"));
+				ramenShop.setCity(rs.getString("city"));
+				ramenShop.setOther(rs.getString("other"));
+				ramenShop.setHolidays(rs.getString("holidays"));
+				ramenShop.setCreatedBy(rs.getString("s_created_by"));
+				ramenShop.setCreatedAt(rs.getTimestamp("s_created_at"));
+				ramenShop.setUpdatedBy(rs.getString("s_updated_by"));
+				ramenShop.setUpdatedAt(rs.getTimestamp("s_updated_at"));
+				ramenShop.setVersion(rs.getInt("s_version"));
+				ramenShop.setDeletedBy(rs.getString("s_deleted_by"));
+				ramenShop.setDeletedAt(rs.getTimestamp("s_deleted_at"));
+				review.setRamenShop(ramenShop);
+				
+				User user = new User();
+				user.setUserId(rs.getInt("u_user_id"));
+				user.setUserName(rs.getString("user_name"));
+				user.setPassword(rs.getString("password"));
+				user.setUserIconId(rs.getInt("user_icon_id"));
+				user.setUserRankId(rs.getInt("user_rank_id"));
+				user.setCreatedBy(rs.getString("u_created_by"));
+				user.setCreatedAt(rs.getTimestamp("u_created_at"));
+				user.setUpdatedBy(rs.getString("u_updated_by"));
+				user.setUpdatedAt(rs.getTimestamp("u_updated_at"));
+				user.setVersion(rs.getInt("u_version"));
+				user.setDeletedBy(rs.getString("u_deleted_by"));
+				user.setDeletedAt(rs.getTimestamp("u_deleted_at"));
+				review.setUser(user);
+				
+				commentList = new ArrayList<>();
+				review.setCommentList(commentList);
+				reviewList.add(review);
+			}
+			if(rs.getInt("comment_id") != 0) {
+				Comment comment = new Comment();
+				comment.setCommentId(rs.getInt("comment_id"));
+				comment.setCommentName(rs.getString("comment_name"));
+				comment.setContent(rs.getString("content"));
+				comment.setReviewId(rs.getInt("c_review_id"));
+				commentList.add(comment);
+			}
+			preId = nowId;
+		}
+		return reviewList;
+	};
+	
 	private SimpleJdbcInsert insert;
 	@PostConstruct
 	public void init() {
@@ -189,7 +271,7 @@ public class ReviewRepository {
 	 * @return 記事
 	 */
 	public List<Review> findByLoginUser(Integer userId, Integer start) {
-		String sql = "select review_id, \n" +
+		String sql = "select r.review_id r_review_id, \n" +
 				"r.shop_id r_shop_id, \n" +
 				"r.user_id r_user_id, \n" +
 				"ramen_name,\n" + 
@@ -229,7 +311,8 @@ public class ReviewRepository {
 				"u.updated_at u_updated_at,\n" + 
 				"u.version u_version,\n" + 
 				"u.deleted_by u_deleted_by,\n" + 
-				"u.deleted_at u_deleted_at\n" + 
+				"u.deleted_at u_deleted_at,\n" + 
+				"comment_id, comment_name, content, c.review_id c_review_id\n" + 
 				"from reviews as r\n" + 
 				"left join ramen_images\n" + 
 				"on ramen_image_path_id = image_id\n" +
@@ -237,9 +320,11 @@ public class ReviewRepository {
 				"on r.shop_id = s.shop_id\n" +
 				"left join users as u\n" +
 				"on r.user_id = u.user_id\n" +
-				"where r.deleted_by is null and r.deleted_at is null and r.user_id =:userId order by review_id desc limit 8 offset :start";
+				"left join comments as c\n" +
+				"on r.review_id = c.review_id\n" +
+				"where r.deleted_by is null and r.deleted_at is null and r.user_id =:userId order by r.review_id desc limit 8 offset :start";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("start", start);
-		return template.query(sql, param, REVIEW_ROW_MAPPER);
+		return template.query(sql, param, REVIEWS_RESULT_SET_EXTRACTOR);
 	}
 	
 	/**
@@ -248,7 +333,7 @@ public class ReviewRepository {
 	 * @return 記事
 	 */
 	public List<Review> findAll(Integer start) {
-		String sql = "select review_id, \n" +
+		String sql = "select r.review_id r_review_id, \n" +
 				"r.shop_id r_shop_id, \n" +
 				"r.user_id r_user_id, \n" +
 				"ramen_name,\n" + 
@@ -288,7 +373,8 @@ public class ReviewRepository {
 				"u.updated_at u_updated_at,\n" + 
 				"u.version u_version,\n" + 
 				"u.deleted_by u_deleted_by,\n" + 
-				"u.deleted_at u_deleted_at\n" + 
+				"u.deleted_at u_deleted_at,\n" + 
+				"comment_id, comment_name, content, c.review_id c_review_id\n" + 
 				"from reviews as r\n" + 
 				"left join ramen_images\n" + 
 				"on ramen_image_path_id = image_id\n" +
@@ -296,9 +382,11 @@ public class ReviewRepository {
 				"on r.shop_id = s.shop_id\n" +
 				"left join users as u\n" +
 				"on r.user_id = u.user_id\n" +
-				"where r.deleted_by is null and r.deleted_at is null order by review_id desc limit 8 offset :start";
+				"left join comments as c\n" +
+				"on r.review_id = c.review_id\n" +
+				"where r.deleted_by is null and r.deleted_at is null order by r.review_id desc limit 8 offset :start";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("start", start);
-		return template.query(sql, param, REVIEW_ROW_MAPPER);
+		return template.query(sql, param, REVIEWS_RESULT_SET_EXTRACTOR);
 	}
 	
 	/**
