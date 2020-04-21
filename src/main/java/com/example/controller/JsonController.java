@@ -26,6 +26,8 @@ public class JsonController {
 	 */
 	@RequestMapping("/good")
 	public List<Good> update(Integer userId,Integer reviewId,Model model){
+		System.out.println("userId="+userId);
+		System.out.println("reviewId="+reviewId);
 		List<Good> goodList = goodRepository.findByUserIdAndReviewId(userId,reviewId);
 			
 			
@@ -54,6 +56,8 @@ public class JsonController {
 		model.addAttribute("good",good);
 		return good;
 	}
+	
+	
 		
 	}
 

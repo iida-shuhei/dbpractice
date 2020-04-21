@@ -18,7 +18,7 @@ $(function() {
 		}
 	});
 	//いいねボタン
-	$("#review").on('click',function(){
+	$("#good").on('click',function(){
 		var reviewId = $('#review').val();
 		var userId = $('#user').val();
 		
