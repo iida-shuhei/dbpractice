@@ -17,6 +17,7 @@ import com.example.domain.User;
 import com.example.form.CommentForm;
 import com.example.repository.CommentRepository;
 import com.example.repository.FavoriteRepository;
+import com.example.repository.GoodRepository;
 import com.example.repository.ReviewRepository;
 import com.example.service.ReviewService;
 import com.example.service.UserService;
@@ -124,6 +125,16 @@ public class DetailReviewController {
 		comment.setContent(commentForm.getContent());
 		comment.setReviewId(commentForm.getReviewId());
 		commentRepository.insert(comment);
-		return "redirect:/detail?reviewId=" + reviewId;
+		return "redirect:/detail?revi"
+				+ "ewId=" + reviewId;
+	}
+	
+	@Autowired
+	private GoodRepository goodRepository;
+	
+	
+	public String addGood(Integer userId,Integer reviewId,Model model,@AuthenticationPrincipal LoginUser loginUser) {
+		goodRepository.insert(userId,reviewId);
+		return load(reviewId, model, loginUser);
 	}
 }
