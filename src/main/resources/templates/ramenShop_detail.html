@@ -2,18 +2,35 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link th:href="@{/css/shop_detail.css}" rel="stylesheet">
+<title>ラーメン店舗詳細</title>
+<link rel="shortcut icon" href="http://example.com/favicon.ico" type="image/vnd.microsoft.icon">
+<link rel="shortcut icon" href="http://www.iconj.com/ico/p/3/p354m72bm2.ico" type="image/x-icon" />
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+<link th:href="@{/css/ramenShop_detail.css}" rel="stylesheet">
 </head>
 <body>
-　　<ul>
-		<li><form th:action="@{/showReview}"><button id="logo"><span class="logo">RaaaaLife</span></button></form></li>
-					
-	</ul>
+<header>
+	<div class="head">
+		<div class="bigInfo">
+			<form th:action="@{/showReview}">
+				<button id="logo"><span class="logo">RaaaaLife...</span></button>
+			</form>
+		</div>
+		<div class="smallInfo">
+			<ul>
+				<li><a type="button" th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}"><span th:text="${user.userName}"></span>&nbsp;
+				<img th:src="${user.userIcon.iconImagePath}" class="img" onerror="this.src='/img/user.jpg'"/></a></li>
+				<li><a th:href="@{/review/toInsert}">投稿</a></li>
+				<li><a th:href="@{/logout}">ログアウト</a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+
    <section class="site-width" >
       <h2 class="shop">店舗情報</h2>
      <section class="panel">
-   店舗名 <span th:text="${ramenShop.shopName}" > </span><br>
+   店舗名：<span th:text="${ramenShop.shopName}" > </span><br>
    郵便番号：<span th:text="${ramenShop.zipcode}" ></span><br>
    住所：<span th:text="${ramenShop.prefecture}" ></span><span th:text="${ramenShop.city}"></span><span th:text="${ramenShop.other}"></span><br>
    休日：<span th:text="${ramenShop.holidays}"></span><br><br>

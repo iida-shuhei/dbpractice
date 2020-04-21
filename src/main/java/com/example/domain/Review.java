@@ -10,6 +10,7 @@ public class Review {
 	private Integer userId;
 	private String ramenName;
 	private Integer ramenPrice;
+	private String comments;
 	private Integer ramenImagePathId;
 	private RamenShop ramenShop;
 	private RamenImage ramenImage;
@@ -63,6 +64,14 @@ public class Review {
 
 	public void setRamenPrice(Integer ramenPrice) {
 		this.ramenPrice = ramenPrice;
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 
 	public Integer getRamenImagePathId() {

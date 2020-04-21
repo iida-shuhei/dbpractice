@@ -2,12 +2,14 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>レビュー詳細</title>
 <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
 <link th:href="@{/css/review_detail.css}" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" th:src="@{/js/review_detail.js}"></script>
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+<link rel="shortcut icon" href="http://example.com/favicon.ico" type="image/vnd.microsoft.icon">
+<link rel="shortcut icon" href="http://www.iconj.com/ico/p/3/p354m72bm2.ico" type="image/x-icon" />
 </head>
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
@@ -19,9 +21,21 @@ $(function(){
 </script>
 <body>
 <header>
-<form th:action="@{/showReview}">
-	<button id="logo"><span class="logo">RaaaaLife</span></button>
-</form>
+	<div class="head">
+		<div class="bigInfo">
+			<form th:action="@{/showReview}">
+				<button id="logo"><span class="logo">RaaaaLife...</span></button>
+			</form>
+		</div>
+		<div class="smallInfo">
+			<ul>
+				<li><a type="button" th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}"><span th:text="${user.userName}"></span>&nbsp;
+				<img th:src="${user.userIcon.iconImagePath}" class="img" onerror="this.src='/img/user.jpg'"/></a></li>
+				<li><a th:href="@{/review/toInsert}">投稿</a></li>
+				<li><a th:href="@{/logout}">ログアウト</a></li>
+			</ul>
+		</div>
+	</div>
 </header>
 
 	<form th:action="@{/favorite}" id="favorite" method="post">
@@ -32,18 +46,18 @@ $(function(){
 
 	<div class="container">
 	
-		<img th:src="${review.ramenImage.imagePath}" class="img">
+		<img th:src="${review.ramenImage.imagePath}" class="postImg">
 		
 		<div class="small">
 			<div class="top">
 				<div class="icon">
-					<img th:src="${review.user.userIcon.iconImagePath}" style="border-radius: 30%; width:14%" onerror="this.src='/img/user.jpg'"/>
+					<img th:src="${review.user.userIcon.iconImagePath}" style="border-radius: 50%; width:15%; height: 40px; border:3px double;" onerror="this.src='/img/user.jpg'"/>
 					<span th:text="${review.user.userName}" style="font-size: 16px;"></span>
 				</div>
 				
 				<div class="ramen">
 					🍜<span th:text="${review.ramenName}"></span><br>
-					💰<span th:text="${review.ramenPrice}"></span><span>円</span>
+					💰<span th:text="${#numbers.formatInteger(review.ramenPrice,1,'COMMA')}"></span><span>円</span>
 				    <form th:action="@{/ramenShopDetail}" method="post">
 						<input type="hidden" name="shopId" th:value="${review.ramenShop.shopId}">
 						<button class="btn">🏠<span th:text="${review.ramenShop.shopName}" class="text"></span></button>
@@ -53,10 +67,11 @@ $(function(){
 				<hr>
 			
 			<div class="comment">
-			コメント
+				<img th:src="${review.user.userIcon.iconImagePath}" style="border-radius: 50%; width:8%; height: 40px;border:3px double;" onerror="this.src='/img/user.jpg'"/><strong><span th:text="${review.user.userName}"></span></strong> 
+				&nbsp;&nbsp;<span th:text="${review.comments}" class="form"></span><br><small></small>
 				<div th:each="comment:${review.commentList}">
-					<img th:src="${comment.user.userIcon.iconImagePath}" style="border-radius: 30%; width:8%" onerror="this.src='/img/user.jpg'"/><strong><span th:text="${comment.commentName}"></span></strong> 
-					&nbsp;&nbsp;<span th:text="${comment.content}" class="form"></span><br>
+					<img th:src="${comment.user.userIcon.iconImagePath}" style="border-radius: 50%; width:8%; height: 40px;border:3px double;" onerror="this.src='/img/user.jpg'"/><strong><span th:text="${comment.user.userName}"></span></strong> 
+					&nbsp;&nbsp;<span th:text="${comment.content}" class="form"></span><br><small></small>
 				</div>
 			</div>
 				

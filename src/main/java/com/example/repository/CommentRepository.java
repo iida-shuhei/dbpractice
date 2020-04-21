@@ -72,7 +72,7 @@ public class CommentRepository {
 				"content,\n" + 
 				"review_id,\n" + 
 				"u.user_id u_user_id,\n" + 
-				"user_name,\n" + 
+				"coalesce(user_name, '退会済みユーザー') as user_name,\n" + 
 				"user_mail,\n" + 
 				"password,\n" + 
 				"user_icon_id, \n" + 
@@ -93,7 +93,7 @@ public class CommentRepository {
 				"left join user_ranks\n" + 
 				"on user_rank_id = rank_id\n" + 
 				"where review_id =:reviewId \n" + 
-				"order by comment_id desc;";
+				"order by comment_id;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
 		return template.query(sql, param,COMMENT_ROW_MAPPER);
 	}
