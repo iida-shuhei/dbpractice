@@ -261,6 +261,44 @@ public class UserDetailController {
 	}
 	
 	/**
+	 * ログインしていないユーザーのラーメン記録を表示.
+	 * 
+	 * @param model     モデル
+	 * @param loginUser ログインユーザー
+	 * @return ユーザーのラーメン記録
+	 */
+	@RequestMapping("/toNotUserReviewList")
+	public String toNotUserReviewList(Integer userId, Integer start, @AuthenticationPrincipal LoginUser loginUser, Model model) {
+		
+		if(userId == loginUser.getUser().getUserId()) {
+			return "redirect:/userDetail/toUserReviewList";
+		}
+		
+		// Maxページ数を求める
+		Integer count = reviewRepository.countUserReview(userId);
+		
+		// 何番目から表示するかを求める
+		if (start == null) {
+			start = 0;
+		};
+		
+		List<Review> reviewList = reviewRepository.findByLoginUser(userId,start);
+		if (reviewList.isEmpty()) {
+			model.addAttribute("message", "ラーメン記録はまだありません");
+		}
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("start", start);
+		model.addAttribute("count", count);
+		
+		User user = userService.findByUserId(loginUser.getUser().getUserId());
+		model.addAttribute("user", user);
+		
+		User notUser = userService.findByUserId(userId);
+		model.addAttribute("notUser", notUser);
+		return "notuser_review_list";
+	}
+	
+	/**
 	 * ユーザーを削除する.
 	 * 
 	 * @param userId ユーザーID
@@ -284,5 +322,84 @@ public class UserDetailController {
 		
 		userService.delete(user);
 		return "redirect:/logout";
+	}
+	
+	/**
+	 * ログインしていないユーザー詳細を表示する.
+	 * 
+	 * @param loginUser ログインユーザー
+	 * @param model モデル
+	 * @return ユーザー詳細
+	 */
+	@RequestMapping("/toNotUserDetail")
+	public String toNotUserDetail(Integer userId, Model model, @AuthenticationPrincipal LoginUser loginUser) {
+		
+		if(userId == loginUser.getUser().getUserId()) {
+			return "redirect:/userDetail/toDetail";
+		}
+		
+		User user = new User();
+		User notUser = new User();
+		Integer rankId = 0;
+		Integer countReview = userService.countUserReview(userId);
+		if(countReview >= 0 && countReview <= 5) {
+			rankId = 1;
+		} else if(countReview >= 6 && countReview <= 10) {
+			rankId = 2;
+		} else if(countReview >= 11 && countReview <= 15) {
+			rankId = 3;
+		} else if(countReview >= 16 && countReview <= 20) {
+			rankId = 4;
+		} else if(countReview >= 21 && countReview <= 25) {
+			rankId = 5;
+		} else if(countReview >= 26 && countReview <= 30) {
+			rankId = 6;
+		} else if(countReview >= 31 && countReview <= 30) {
+			rankId = 7;
+		} else if(countReview >= 41 && countReview <= 50) {
+			rankId = 8;
+		} else if(countReview >= 51 && countReview <= 60) {
+			rankId = 9;
+		} else if(countReview >= 61 && countReview <= 70) {
+			rankId = 10;
+		} else if(countReview >= 71 && countReview <= 80) {
+			rankId = 11;
+		} else if(countReview >= 81 && countReview <= 90) {
+			rankId = 12;
+		} else if(countReview >= 91 && countReview <= 100) {
+			rankId = 13;
+		} else if(countReview >= 111 && countReview <= 130) {
+			rankId = 14;
+		} else if(countReview >= 131 && countReview <= 150) {
+			rankId = 15;
+		} else if(countReview >= 151 && countReview <= 180) {
+			rankId = 16;
+		} else if(countReview >= 181 && countReview <= 210) {
+			rankId = 17;
+		} else if(countReview >= 211 && countReview <= 240) {
+			rankId = 18;
+		} else {
+			rankId = 19;
+		}
+		userService.updateUserRank(userId, rankId);
+		
+		List<UserRank> userRankList = userService.findAll();
+		model.addAttribute("userRankList", userRankList);
+		
+		String totalRamens [] = {
+				"０〜５杯","６〜１０杯","１１〜１５杯","１６〜２０杯","２１〜２５杯","２６〜３０杯","３１〜４０杯","４１〜５０杯","５１〜６０杯","６１〜７０杯",
+				"７１〜８０杯","８１〜９０杯","９１〜１１０杯","１１１〜１３０杯","１３１〜１５０杯","１５１〜１８０杯","１８１〜２１０杯","２１１〜２４０杯","２４１〜杯"
+		};
+		model.addAttribute("totalRamens", totalRamens);
+		
+		Integer total = reviewRepository.countUserReview(userId);
+		model.addAttribute("total", total);
+		
+		notUser = userService.findByUserId(userId);
+		model.addAttribute("notUser", notUser);
+		
+		user = userService.findByUserId(loginUser.getUser().getUserId());
+		model.addAttribute("user", user);
+		return "not_user_detail";
 	}
 }

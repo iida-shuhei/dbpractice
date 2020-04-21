@@ -161,19 +161,36 @@ public class RamenShopRepository {
 	 * @return
 	 */
 	public List<RamenShop> findByMonday(Integer shopId) {
-		String sql = "select s.shop_id s_shop_id," + "shop_name," + "zipcode," + "prefecture,city," + "other,holidays,"
-				+ "s.created_by s_created_by," + "s.created_at s_created_at," + "s.updated_by s_updated_by,"
-				+ "s.updated_at s_updated_at," + "s.version s_version," + "s.deleted_by s_deleted_by,"
-				+ "s.deleted_at s_deleted_at," + "t.shop_id t_shop_id," + "ramen_shop_time_id," + "days,"
-				+ "noon_start_time," + "noon_end_time," + "night_start_time," + "night_end_time," + "other_time"
-				+ " from ramen_shops as s  LEFT JOIN ramen_shops_times t ON s.shop_id = t.shop_id"
-				+ " where t.shop_id =:shopId" + " and days = '月曜日' ";
+		String sql = "select s.shop_id s_shop_id," + 
+					"shop_name," + 
+					"zipcode," + 
+					"prefecture," + 
+					"city," + 
+					"other," + 
+					"holidays," +
+					"s.created_by s_created_by," + 
+					"s.created_at s_created_at," + 
+					"s.updated_by s_updated_by," + 
+					"s.updated_at s_updated_at," + 
+					"s.version s_version," + 
+					"s.deleted_by s_deleted_by," + 
+					"s.deleted_at s_deleted_at," + 
+					"t.shop_id t_shop_id," + 
+					"ramen_shop_time_id," + 
+					"days," + 
+					"noon_start_time," + 
+					"noon_end_time," + 
+					"night_start_time," + 
+					"night_end_time," + 
+					"other_time" + 
+					" from ramen_shops as s  LEFT JOIN ramen_shops_times t ON s.shop_id = t.shop_id" + 
+					" where t.shop_id =:shopId" + " and days = '月曜日' order by noon_start_time";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("shopId", shopId);
 		return template.query(sql, param, RAMEN_SHOP_ROW_MAPPER);
 	}
 
 	/**
-	 * shopIdでramen_shopテーブルとramen_shops_timesテーブルを結合して、店舗情報と月曜日の営業時間を検索する.
+	 * shopIdでramen_shopテーブルとramen_shops_timesテーブルを結合して、店舗情報と火曜日の営業時間を検索する.
 	 * @param shopId 
 	 * @return 
 	 */
@@ -181,8 +198,11 @@ public class RamenShopRepository {
 	 String sql = "select s.shop_id s_shop_id,"+
 			 "shop_name,"+
 			 "zipcode,"+
-			 "prefecture,city,"+
-			 "other,holidays,"+
+			 "prefecture," + 
+			 "city,"+
+			 "other," +
+			 "holidays," +
+			 "holidays,"+
 			 "s.created_by s_created_by,"+
 			 "s.created_at s_created_at,"+
 			 "s.updated_by s_updated_by,"+
@@ -200,7 +220,7 @@ public class RamenShopRepository {
 			 "other_time"+ 
 			 " from ramen_shops as s  LEFT JOIN ramen_shops_times t ON s.shop_id = t.shop_id"+ 
 			 " where t.shop_id =:shopId" +
-			 " and days = '火曜日' ";
+			 " and days = '火曜日' order by noon_start_time";
 	 SqlParameterSource param = new MapSqlParameterSource().addValue("shopId", shopId);
 	 return template.query(sql, param,RAMEN_SHOP_ROW_MAPPER);
 	}
@@ -214,8 +234,11 @@ public class RamenShopRepository {
 	 String sql = "select s.shop_id s_shop_id,"+
 			 "shop_name,"+
 			 "zipcode,"+
-			 "prefecture,city,"+
-			 "other,holidays,"+
+			 "prefecture," + 
+			 "city,"+
+			 "other," +
+			 "holidays," +
+			 "holidays,"+
 			 "s.created_by s_created_by,"+
 			 "s.created_at s_created_at,"+
 			 "s.updated_by s_updated_by,"+
@@ -233,7 +256,7 @@ public class RamenShopRepository {
 			 "other_time"+ 
 			 " from ramen_shops as s  LEFT JOIN ramen_shops_times t ON s.shop_id = t.shop_id"+ 
 			 " where t.shop_id =:shopId" +
-			 " and days = '水曜日' ";
+			 " and days = '水曜日' order by noon_start_time";
 	 SqlParameterSource param = new MapSqlParameterSource().addValue("shopId", shopId);
 	 return template.query(sql, param,RAMEN_SHOP_ROW_MAPPER);
 	}
@@ -247,8 +270,10 @@ public class RamenShopRepository {
 	 String sql = "select s.shop_id s_shop_id,"+
 			 "shop_name,"+
 			 "zipcode,"+
-			 "prefecture,city,"+
-			 "other,holidays,"+
+			 "prefecture," + 
+			 "city,"+
+			 "other," + 
+			 "holidays," +
 			 "s.created_by s_created_by,"+
 			 "s.created_at s_created_at,"+
 			 "s.updated_by s_updated_by,"+
@@ -266,7 +291,7 @@ public class RamenShopRepository {
 			 "other_time"+ 
 			 " from ramen_shops as s  LEFT JOIN ramen_shops_times t ON s.shop_id = t.shop_id"+ 
 			 " where t.shop_id =:shopId" +
-			 " and days = '木曜日' ";
+			 " and days = '木曜日' order by noon_start_time";
 	 SqlParameterSource param = new MapSqlParameterSource().addValue("shopId", shopId);
 	 return template.query(sql, param,RAMEN_SHOP_ROW_MAPPER);
 	}
@@ -280,8 +305,11 @@ public class RamenShopRepository {
 	 String sql = "select s.shop_id s_shop_id,"+
 			 "shop_name,"+
 			 "zipcode,"+
-			 "prefecture,city,"+
-			 "other,holidays,"+
+			 "prefecture," + 
+			 "city,"+
+			 "other," +
+			 "holidays," +
+			 "holidays,"+
 			 "s.created_by s_created_by,"+
 			 "s.created_at s_created_at,"+
 			 "s.updated_by s_updated_by,"+
@@ -299,7 +327,7 @@ public class RamenShopRepository {
 			 "other_time"+ 
 			 " from ramen_shops as s  LEFT JOIN ramen_shops_times t ON s.shop_id = t.shop_id"+ 
 			 " where t.shop_id =:shopId" +
-			 " and days = '金曜日' ";
+			 " and days = '金曜日' order by noon_start_time";
 	 SqlParameterSource param = new MapSqlParameterSource().addValue("shopId", shopId);
 	 return template.query(sql, param,RAMEN_SHOP_ROW_MAPPER);
 	}
@@ -313,8 +341,10 @@ public class RamenShopRepository {
 	 String sql = "select s.shop_id s_shop_id,"+
 			 "shop_name,"+
 			 "zipcode,"+
-			 "prefecture,city,"+
-			 "other,holidays,"+
+			 "prefecture," + 
+			 "city,"+
+			 "other," + 
+			 "holidays," +
 			 "s.created_by s_created_by,"+
 			 "s.created_at s_created_at,"+
 			 "s.updated_by s_updated_by,"+
@@ -332,7 +362,7 @@ public class RamenShopRepository {
 			 "other_time"+ 
 			 " from ramen_shops as s  LEFT JOIN ramen_shops_times t ON s.shop_id = t.shop_id"+ 
 			 " where t.shop_id =:shopId" +
-			 " and days = '土曜日' ";
+			 " and days = '土曜日' order by noon_start_time";
 	 SqlParameterSource param = new MapSqlParameterSource().addValue("shopId", shopId);
 	 return template.query(sql, param,RAMEN_SHOP_ROW_MAPPER);
 	}
@@ -346,8 +376,10 @@ public class RamenShopRepository {
 	 String sql = "select s.shop_id s_shop_id,"+
 			 "shop_name,"+
 			 "zipcode,"+
-			 "prefecture,city,"+
-			 "other,holidays,"+
+			 "prefecture," + 
+			 "city,"+
+			 "other," +
+			 "holidays,"+
 			 "s.created_by s_created_by,"+
 			 "s.created_at s_created_at,"+
 			 "s.updated_by s_updated_by,"+
@@ -365,7 +397,7 @@ public class RamenShopRepository {
 			 "other_time"+ 
 			 " from ramen_shops as s  LEFT JOIN ramen_shops_times t ON s.shop_id = t.shop_id"+ 
 			 " where t.shop_id =:shopId" +
-			 " and days = '日曜日' ";
+			 " and days = '日曜日' order by noon_start_time";
 	 SqlParameterSource param = new MapSqlParameterSource().addValue("shopId", shopId);
 	 return template.query(sql, param,RAMEN_SHOP_ROW_MAPPER);
 	}

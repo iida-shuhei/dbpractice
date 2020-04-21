@@ -23,7 +23,7 @@
 }
 
 .smallInfo ul li a:hover {
-	font-size: 17px;
+	font-size: 16.5px;
 }
 
 .login {
@@ -48,7 +48,7 @@
 }
 
 #logo .logo:hover {
-	font-size: 39px;
+	font-size: 39.5px;
 }
 
 .row {
@@ -94,7 +94,14 @@
 	background-color: transparent;
     border: none;
     outline: none;
-    appearance: none;
+    box-shadow: none;
+}
+
+.btn {
+	background: none;
+	background-color: transparent;
+    border: none;
+    outline: none;
     box-shadow: none;
 }
 
