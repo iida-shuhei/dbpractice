@@ -68,24 +68,8 @@ public class DetailReviewController {
 
 		}
 
-//		List<Review> reviewMondayList = reviewService.findByMonday(reviewId);
-//		List<Review> reviewTuesdayList = reviewService.findByTuesday(reviewId);
-//		List<Review> reviewWednesdayList = reviewService.findByWednesday(reviewId);
-//		List<Review> reviewThursdayList = reviewService.findByThursday(reviewId);
-//		List<Review> reviewFridayList = reviewService.findByFriday(reviewId);
-//		List<Review> reviewSaturdayList = reviewService.findBySaturday(reviewId);
-//		List<Review> reviewSundayList = reviewService.findBySunday(reviewId);
-//		model.addAttribute("reviewMondayList", reviewMondayList);
-//		model.addAttribute("reviewTuesdayList", reviewTuesdayList);
-//		model.addAttribute("reviewWednesdayList", reviewWednesdayList);
-//		model.addAttribute("reviewThursdayList", reviewThursdayList);
-//		model.addAttribute("reviewFridayList", reviewFridayList);
-//		model.addAttribute("reviewSaturdayList", reviewSaturdayList); 
-//		model.addAttribute("reviewSundayList", reviewSundayList);
-
-		List<Favorite> favoriteList = favoriteRepository.findByUserIdAndReviewId(loginUser.getUser().getUserId(),
-				reviewId);
-		if (favoriteList.size() == 0) {
+		List<Favorite> favoriteList = favoriteRepository.findByUserIdAndReviewId(loginUser.getUser().getUserId(), reviewId);
+		if(favoriteList.size() == 0) {
 			model.addAttribute("favorite", "favorite");
 		} else {
 			model.addAttribute("nofavorite", "nofavorite");
@@ -133,6 +117,4 @@ public class DetailReviewController {
 		commentRepository.insert(comment);
 		return "redirect:/detail?revi" + "ewId=" + reviewId;
 	}
-
-	
 }

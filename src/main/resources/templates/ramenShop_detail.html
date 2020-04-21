@@ -27,132 +27,167 @@
 	</div>
 </header>
 
-   <section class="site-width" >
-      <h2 class="shop">店舗情報</h2>
-     <section class="panel">
-   店舗名：<span th:text="${ramenShop.shopName}" > </span><br>
-   郵便番号：<span th:text="${ramenShop.zipcode}" ></span><br>
-   住所：<span th:text="${ramenShop.prefecture}" ></span><span th:text="${ramenShop.city}"></span><span th:text="${ramenShop.other}"></span><br>
-   休日：<span th:text="${ramenShop.holidays}"></span><br><br>
-   
-   営業時間：<br>
-   <div th:each="monday :${detailMondayList}"> 
-		<span th:if="${monday.ramenShopTime.noonStartTime}" 
-			th:text="'月曜日 : ' + ${monday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
-		<span th:if="${monday.ramenShopTime.noonEndTime}"
-			th:text="${monday.ramenShopTime.noonEndTime} + '時'"></span>
-
-		<span th:if="${monday.ramenShopTime.nightStartTime}"
-			th:text="'月曜日 : ' + ${monday.ramenShopTime.nightStartTime} + ' 時 〜'"></span>
-		<span th:if="${monday.ramenShopTime.nightEndTime}"
-			th:text="${monday.ramenShopTime.nightEndTime} + '時'"></span>
-
-		<span th:if="${monday.ramenShopTime.otherTime}"
-			th:text="'月曜日 : ' + ${monday.ramenShopTime.otherTime}"></span>
+<div class="box">
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">店舗情報</h3>
+			</div>
+			<div class="panel-body">
+				<fieldset>
+					<div class="form-group">
+						店舗名 : <span th:text="${ramenShop.shopName}" > </span>
+					</div>
+					<div class="form-group">
+						住　所 : 〒<span th:text="${ramenShop.zipcode}"></span>&nbsp;&nbsp;&nbsp;<span th:text="${ramenShop.prefecture}" ></span><span th:text="${ramenShop.city}"></span><span th:text="${ramenShop.other}"></span>
+					</div>
+					<div class="form-group" th:if="${ramenShop.holidays != ''}">
+						休　日 : <span th:text="${ramenShop.holidays}"></span>
+					</div>
+					<div class="form-group" th:if="${ramenShop.holidays == ''}">
+						休　日 : なし
+					</div>
+					
+					<div class="form-group form">
+					
+					<div class="form-group time">
+						営業時間 : 
+					</div>
+						
+						<div class="form-group">
+							<div th:each="monday :${detailMondayList}" class="space1"> 
+								<div th:if="${monday.ramenShopTime.noonStartTime}">
+									<div th:if="${monday.ramenShopTime.nightStartTime}">
+										<span th:text="'月曜日 : ' + ${monday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
+										<span th:text="${monday.ramenShopTime.noonEndTime} + '時'"></span>,
+										<span th:text="${monday.ramenShopTime.nightStartTime} + ' 時 〜'"></span>
+										<span th:text="${monday.ramenShopTime.nightEndTime} + '時'"></span>
+									</div>
+									<div th:unless="${monday.ramenShopTime.nightStartTime}">
+										<span th:text="'月曜日 : ' + ${monday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
+										<span th:text="${monday.ramenShopTime.noonEndTime} + '時'"></span>
+									</div>
+								</div>
+								<div th:if="${monday.ramenShopTime.otherTime}">
+									<span th:text="'月曜日 : ' + ${monday.ramenShopTime.otherTime}"></span>
+								</div>
+							</div>
+						
+							<div th:each="tuesday :${detailTuesdayList}"> 
+								<div th:if="${tuesday.ramenShopTime.noonStartTime}" class="space2">
+									<div th:if="${tuesday.ramenShopTime.nightStartTime}">
+										<span th:text="'火曜日 : ' + ${tuesday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
+										<span th:text="${tuesday.ramenShopTime.noonEndTime} + '時'"></span>,
+										<span th:text="${tuesday.ramenShopTime.nightStartTime} + ' 時 〜'"></span>
+										<span th:text="${tuesday.ramenShopTime.nightEndTime} + '時'"></span>
+									</div>
+									<div th:unless="${tuesday.ramenShopTime.nightStartTime}">
+										<span th:text="'火曜日 : ' + ${tuesday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
+										<span th:text="${tuesday.ramenShopTime.noonEndTime} + '時'"></span>
+									</div>
+								</div>
+								<div th:if="${tuesday.ramenShopTime.otherTime}">
+									<span th:text="'火曜日 : ' + ${tuesday.ramenShopTime.otherTime}"></span>
+								</div>
+							</div>
+						
+							<div th:each="wednesday :${detailWednesdayList}"> 
+								<div th:if="${wednesday.ramenShopTime.noonStartTime}" class="space3">
+									<div th:if="${wednesday.ramenShopTime.nightStartTime}">
+										<span th:text="'水曜日 : ' + ${wednesday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
+										<span th:text="${wednesday.ramenShopTime.noonEndTime} + '時'"></span>,
+										<span th:text="${wednesday.ramenShopTime.nightStartTime} + ' 時 〜'"></span>
+										<span th:text="${wednesday.ramenShopTime.nightEndTime} + '時'"></span>
+									</div>
+									<div th:unless="${wednesday.ramenShopTime.nightStartTime}">
+										<span th:text="'水曜日 : ' + ${wednesday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
+										<span th:text="${wednesday.ramenShopTime.noonEndTime} + '時'"></span>
+									</div>
+								</div>
+								<div th:if="${wednesday.ramenShopTime.otherTime}">
+									<span th:text="'水曜日 : ' + ${wednesday.ramenShopTime.otherTime}"></span>
+								</div>
+							</div>
+						
+							<div th:each="thursday :${detailThursdayList}"> 
+							<div th:if="${thursday.ramenShopTime.noonStartTime}" class="space4">
+								<div th:if="${thursday.ramenShopTime.nightStartTime}">
+									<span th:text="'木曜日 : ' + ${thursday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
+									<span th:text="${thursday.ramenShopTime.noonEndTime} + '時'"></span>,
+									<span th:text="${thursday.ramenShopTime.nightStartTime} + ' 時 〜'"></span>
+									<span th:text="${thursday.ramenShopTime.nightEndTime} + '時'"></span>
+								</div>
+								<div th:unless="${thursday.ramenShopTime.nightStartTime}">
+									<span th:text="'木曜日 : ' + ${thursday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
+									<span th:text="${thursday.ramenShopTime.noonEndTime} + '時'"></span>
+								</div>
+							</div>
+								<div th:if="${thursday.ramenShopTime.otherTime}">
+									<span th:text="'木曜日 : ' + ${thursday.ramenShopTime.otherTime}"></span>
+								</div>
+							</div>
+						
+							<div th:each="friday :${detailFridayList}"> 
+								<div th:if="${friday.ramenShopTime.noonStartTime}" class="space5">
+									<div th:if="${friday.ramenShopTime.nightStartTime}">
+										<span th:text="'金曜日 : ' + ${friday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
+										<span th:text="${friday.ramenShopTime.noonEndTime} + '時'"></span>,
+										<span th:text="${friday.ramenShopTime.nightStartTime} + ' 時 〜'"></span>
+										<span th:text="${friday.ramenShopTime.nightEndTime} + '時'"></span>
+									</div>
+									<div th:unless="${friday.ramenShopTime.nightStartTime}">
+										<span th:text="'金曜日 : ' + ${friday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
+										<span th:text="${friday.ramenShopTime.noonEndTime} + '時'"></span>
+									</div>
+								</div>
+								<div th:if="${friday.ramenShopTime.otherTime}">
+									<span th:text="'金曜日 : ' + ${friday.ramenShopTime.otherTime}"></span>
+								</div>
+							</div>
+						
+							<div th:each="saturday :${detailSaturdayList}" class="space6"> 
+								<div th:if="${saturday.ramenShopTime.noonStartTime}">
+									<div th:if="${saturday.ramenShopTime.nightStartTime}">
+										<span th:text="'土曜日 : ' + ${saturday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
+										<span th:text="${saturday.ramenShopTime.noonEndTime} + '時'"></span>,
+										<span th:text="${saturday.ramenShopTime.nightStartTime} + ' 時 〜'"></span>
+										<span th:text="${saturday.ramenShopTime.nightEndTime} + '時'"></span>
+									</div>
+									<div th:unless="${saturday.ramenShopTime.nightStartTime}">
+										<span th:text="'土曜日 : ' + ${saturday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
+										<span th:text="${saturday.ramenShopTime.noonEndTime} + '時'"></span>
+									</div>
+								</div>
+								<div th:if="${saturday.ramenShopTime.otherTime}">
+									<span th:text="'土曜日 : ' + ${saturday.ramenShopTime.otherTime}"></span>
+								</div>
+							</div>
+						
+							<div th:each="sunday :${detailSundayList}"> 
+								<div th:if="${sunday.ramenShopTime.noonStartTime}">
+									<div th:if="${sunday.ramenShopTime.nightStartTime}">
+										<span th:text="'日曜日 : ' + ${sunday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
+										<span th:text="${sunday.ramenShopTime.noonEndTime} + '時'"></span>,
+										<span th:text="${sunday.ramenShopTime.nightStartTime} + ' 時 〜'"></span>
+										<span th:text="${sunday.ramenShopTime.nightEndTime} + '時'"></span>
+									</div>
+									<div th:unless="${sunday.ramenShopTime.nightStartTime}">
+										<span th:text="'日曜日 : ' + ${sunday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
+										<span th:text="${sunday.ramenShopTime.noonEndTime} + '時'"></span>
+									</div>
+								</div>
+								<div th:if="${sunday.ramenShopTime.otherTime}">
+									<span th:text="'日曜日 : ' + ${sunday.ramenShopTime.otherTime}"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</fieldset>
+			</div>
+		</div>
 	</div>
-
-
-	<div th:each="tuesday :${detailTuesdayList}">
-		<span th:if="${tuesday.ramenShopTime.noonStartTime}"
-			th:text="'火曜日 : ' + ${tuesday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
-		<span th:if="${tuesday.ramenShopTime.noonEndTime}"
-			th:text="${tuesday.ramenShopTime.noonEndTime} + '時'"></span>
-
-		<span th:if="${tuesday.ramenShopTime.nightStartTime}"
-			th:text="'火曜日 : ' + ${tuesday.ramenShopTime.nightStartTime} + ' 時 〜'"></span>
-		<span th:if="${tuesday.ramenShopTime.nightEndTime}"
-			th:text="${tuesday.ramenShopTime.nightEndTime} + '時'"></span>
-
-		<span th:if="${tuesday.ramenShopTime.otherTime}"
-			th:text="'火曜日 : ' + ${tuesday.ramenShopTime.otherTime}"></span>
-	</div>
-
-
-	<div th:each="wednesday :${detailWednesdayList}">
-		<span th:if="${wednesday.ramenShopTime.noonStartTime}"
-			th:text="'水曜日 : ' + ${wednesday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
-		<span th:if="${wednesday.ramenShopTime.noonEndTime}"
-			th:text="${wednesday.ramenShopTime.noonEndTime} + '時'"></span>
-
-		<span th:if="${wednesday.ramenShopTime.nightStartTime}"
-			th:text="'水曜日 : ' + ${wednesday.ramenShopTime.nightStartTime} + ' 時 〜'"></span>
-		<span th:if="${wednesday.ramenShopTime.nightEndTime}"
-			th:text="${wednesday.ramenShopTime.nightEndTime} + '時'"></span>
-
-		<span th:if="${wednesday.ramenShopTime.otherTime}"
-			th:text="'水曜日 : ' + ${wednesday.ramenShopTime.otherTime}"></span>
-	</div>
-
-
-	<div th:each="thursday :${detailThursdayList}">
-		<span th:if="${thursday.ramenShopTime.noonStartTime}"
-			th:text="'木曜日 : ' + ${thursday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
-		<span th:if="${thursday.ramenShopTime.noonEndTime}"
-			th:text="${thursday.ramenShopTime.noonEndTime} + '時'"></span>
-
-		<span th:if="${thursday.ramenShopTime.nightStartTime}"
-			th:text="'木曜日 : ' + ${thursday.ramenShopTime.nightStartTime} + ' 時 〜'"></span>
-		<span th:if="${thursday.ramenShopTime.nightEndTime}"
-			th:text="${thursday.ramenShopTime.nightEndTime} + '時'"></span>
-
-		<span th:if="${thursday.ramenShopTime.otherTime}"
-			th:text="'木曜日 : ' + ${thursday.ramenShopTime.otherTime}"></span>
-	</div>
-
-
-	<div th:each="friday :${detailFridayList}">
-		<span th:if="${friday.ramenShopTime.noonStartTime}"
-			th:text="'金曜日 : ' + ${friday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
-		<span th:if="${friday.ramenShopTime.noonEndTime}"
-			th:text="${friday.ramenShopTime.noonEndTime} + '時'"></span>
-
-		<span th:if="${friday.ramenShopTime.nightStartTime}"
-			th:text="'金曜日 : ' + ${friday.ramenShopTime.nightStartTime} + ' 時 〜'"></span>
-		<span th:if="${friday.ramenShopTime.nightEndTime}"
-			th:text="${friday.ramenShopTime.nightEndTime} + '時'"></span>
-
-		<span th:if="${friday.ramenShopTime.otherTime}"
-			th:text="'金曜日 : ' + ${friday.ramenShopTime.otherTime}"></span>
-	</div>
-
-
-	<div th:each="saturday :${detailSaturdayList}">
-		<span th:if="${saturday.ramenShopTime.noonStartTime}"
-			th:text="'土曜日 : ' + ${saturday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
-		<span th:if="${saturday.ramenShopTime.noonEndTime}"
-			th:text="${saturday.ramenShopTime.noonEndTime} + '時'"></span>
-
-		<span th:if="${saturday.ramenShopTime.nightStartTime}"
-			th:text="'土曜日 : ' + ${saturday.ramenShopTime.nightStartTime} + ' 時 〜'"></span>
-		<span th:if="${saturday.ramenShopTime.nightEndTime}"
-			th:text="${saturday.ramenShopTime.nightEndTime} + '時'"></span>
-
-		<span th:if="${saturday.ramenShopTime.otherTime}"
-			th:text="'土曜日 : ' + ${saturday.ramenShopTime.otherTime}"></span>
-	</div>
-
-
-	<div th:each="sunday :${detailSundayList}">
-		<span th:if="${sunday.ramenShopTime.noonStartTime}"
-			th:text="'日曜日 : ' + ${sunday.ramenShopTime.noonStartTime} + ' 時 〜'"></span>
-		<span th:if="${sunday.ramenShopTime.noonEndTime}"
-			th:text="${sunday.ramenShopTime.noonEndTime} + '時'"></span>
-
-		<span th:if="${sunday.ramenShopTime.nightStartTime}"
-			th:text="'日曜日 : ' + ${sunday.ramenShopTime.nightStartTime} + ' 時 〜'"></span>
-		<span th:if="${sunday.ramenShopTime.nightEndTime}"
-			th:text="${sunday.ramenShopTime.nightEndTime} + '時'"></span>
-
-		<span th:if="${sunday.ramenShopTime.otherTime}"
-			th:text="'日曜日 : ' + ${sunday.ramenShopTime.otherTime}"></span>
-	</div>
-	
-     </section>
-   </section>
-    
-   
-   
-    
+</div>
 
 </body>
 </html>

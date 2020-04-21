@@ -88,7 +88,7 @@ shop_id serial primary key
 , prefecture varchar(4) not null
 , city varchar(100) not null
 , other varchar(100)
-, holidays text not null
+, holidays text default null
  , created_by varchar(50) not null
  , created_at date default null
  , updated_by varchar(50) default null
