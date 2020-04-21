@@ -67,7 +67,7 @@ $(function(){
 			<div class="comment">
 				<a th:href="@{'/userDetail/toNotUserDetail?userId=' + ${review.user.userId}}"><img th:src="${review.user.userIcon.iconImagePath}" style="border-radius: 50%; width:8%; height: 40px;border:3px double;" onerror="this.src='/img/user.jpg'"/>&nbsp;<strong><span th:text="${review.user.userName}"></span></strong></a> 
 				&nbsp;&nbsp;<span th:text="${review.comments}" class="form"></span><br><small></small>
-				<div th:each="comment:${review.commentList}">
+				<div th:each="comment:${review.commen&nbsp;">
 					<img th:src="${comment.user.userIcon.iconImagePath}" style="border-radius: 50%; width:8%; height: 40px;border:3px double;" onerror="this.src='/img/user.jpg'"/><strong><span th:text="${comment.user.userName}"></span></strong> 
 					&nbsp;&nbsp;<span th:text="${comment.content}" class="form"></span><br><small></small>
 				</div>
@@ -76,7 +76,7 @@ $(function(){
 			<div class="post">
 			<hr> 
 			<div class="goodFavo">
-				<div >
+				<div>
 				<ul>
 				 <li>
 				  <span th:if="${favorite}"><a type="button" id="favorite-btn"><img th:src="@{/img/heart1.png}" class="noheart" style="width:40px; height: 40px"></a></span>

@@ -61,7 +61,7 @@
 									<p th:text="${ramenPrice}" style="color: red"></p>
 								</div>
 								<input type="number" name="ramenPrice" class="form-control"
-									id="price" th:field="*{ramenPrice}" placeholder="値段（800）">
+									id="price" th:field="*{ramenPrice}" placeholder="値段（800）" pattern="^[0-24]+$">
 							</div>
 							
 							<div class="form-group">
