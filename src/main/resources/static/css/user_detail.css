@@ -99,6 +99,10 @@ table.info td {
 	height: 40px;
 }
 
+.smallInfo ul li a:hover {
+	font-size: 17px;
+}
+
 .head {
 	background-color: rgba(0,0,0,0.8);
 	width: 100%;
@@ -116,6 +120,10 @@ table.info td {
 
 .container {
 	width: 450px;
+}
+
+.smallInfo ul li a:hover {
+	font-size: 17px;
 }
 
 .icon {

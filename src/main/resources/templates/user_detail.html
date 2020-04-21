@@ -41,8 +41,11 @@
 				<fieldset>
 				<div class="dai">
 					<div class="box1">
-						<div class="form-group">
+						<div class="form-group" th:if="${user.userIcon.iconImagePath}">
 							<a th:href="${user.userIcon.iconImagePath}" data-lightbox="group"><img th:src="${user.userIcon.iconImagePath}" onerror="this.src='/img/user.jpg'" class="icon"/></a>
+						</div>
+						<div class="form-group" th:unless="${user.userIcon.iconImagePath}">
+							<img th:src="${user.userIcon.iconImagePath}" onerror="this.src='/img/user.jpg'" class="icon"/>
 						</div>
 					</div>
 					<div class="box2">

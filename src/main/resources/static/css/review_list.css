@@ -101,3 +101,7 @@ div.ramen {
 	position: absolute;
 	right: 0;
 }
+
+.col {
+	padding-bottom: 10px;
+}

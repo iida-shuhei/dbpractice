@@ -79,8 +79,6 @@ public class FavoriteController {
 		model.addAttribute("start", start);
 		model.addAttribute("count", count);
 		
-		System.err.println(reviewList.size());
-		
 		User user = userService.findByUserId(loginUser.getUser().getUserId());
 		model.addAttribute("user", user);
 		return "favorite_list";

@@ -35,20 +35,20 @@
 		<section>
 			<div class="card-deck">
 				<div class="row row-eq-height">
-					<div class="col-sm-6 col-md-3" th:each="review : ${reviewList}">
-				<div class="card ramen">
-					<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}"> 
-					<input type="hidden" name="userId"> 
-					<img class="card-img-top img-fluid row-eq-height photo" th:src="${review.ramenImage.imagePath}"></a>
-					<div class="card-body px-2 py-3 text-center">
-					<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}">
-						<input type="hidden" name="userId"> 
-						<span class="card-title" th:text="${review.ramenShop.shopName}"></span><br>
-					</a> post by <span th:text="${review.user.userName}"></span>
+					<div class="col-sm-6 col-md-3 col" th:each="review : ${reviewList}">
+						<div class="card ramen">
+							<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}"> 
+							<input type="hidden" name="userId"> 
+							<img class="card-img-top img-fluid row-eq-height photo" th:src="${review.ramenImage.imagePath}"></a>
+							<div class="card-body px-2 py-3 text-center">
+								<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}">
+								<input type="hidden" name="userId"> 
+								<span class="card-title" th:text="${review.ramenShop.shopName}"></span><br>
+								</a> post by <span th:text="${review.user.userName}"></span>
+							</div>
+						</div>
+					</div>
 				</div>
-				</div>
-			</div>
-			</div>
 			</div>
 		</section>
 	</main>

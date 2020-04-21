@@ -33,6 +33,10 @@
 	font-weight: normal;
 }
 
+.smallInfo ul li a:hover {
+	font-size: 17px;
+}
+
 .smallInfo ul li a {
 	text-decoration: none;
 	color: white;

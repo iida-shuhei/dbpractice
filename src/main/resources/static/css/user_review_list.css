@@ -10,7 +10,7 @@ img.photo {
 
 div.ramen {
 	display: inline-block;
-	max-width: 100%;
+	max-width: 90%;
 	height: auto;
 	padding: 4px;
 	line-height: 1.42857143;
@@ -18,7 +18,11 @@ div.ramen {
 	border: 1px solid #ddd;
 	border-radius: 4px;
 	transition: all .2s ease-in-out;
-	margin: 20px;
+	margin: 10px;
+}
+
+.col {
+	padding-bottom: 10px;
 }
 
 .title {

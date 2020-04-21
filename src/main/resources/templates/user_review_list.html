@@ -31,9 +31,10 @@
 	
 	<div th:text="${message}" style="font-size: 20px; text-align: center;"></div>
 
+<section>
 	<div class="card-deck">
 		<div class="row row-eq-height">
-			<div class="col-sm-6 col-md-3" th:each="review : ${reviewList}">
+			<div class="col-sm-6 col-md-3 col" th:each="review : ${reviewList}">
 				<div class="card ramen">
 					<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}"> 
 					<img class="card-img-top img-fluid row-eq-height photo" th:src="${review.ramenImage.imagePath}"></a>
@@ -45,7 +46,7 @@
 			</div>
 		</div>
 	</div>
-
+</section>
 	<!-- pagination -->
 	<div class="pages">
 		<nav class="page-nav">
