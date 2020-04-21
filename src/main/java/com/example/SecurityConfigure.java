@@ -67,6 +67,9 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter{
 			.logoutSuccessUrl("/")//ログアウト後に遷移させるパス
 			.deleteCookies("JSESSIONID")//ログアウト後Cookieに保存されているセッションIDを削除
 			.invalidateHttpSession(true);//true:ログアウト後セッションを無効にする
+		
+		//ajaxを使えるようにする.
+				http.csrf().ignoringAntMatchers("/good","/countGood");
 	}
 	
 	@Override

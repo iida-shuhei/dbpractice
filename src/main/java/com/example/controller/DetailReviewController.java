@@ -34,35 +34,40 @@ public class DetailReviewController {
 
 	@Autowired
 	private ReviewService reviewService;
-	
+
 	@Autowired
 	public ReviewRepository reviewRepository;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private FavoriteRepository favoriteRepository;
-	
+
 	@Autowired
 	private CommentRepository commentRepository;
-	
+
+	@Autowired
+	private GoodRepository goodRepository;
+
 	/**
 	 * レビューIDからレビュー詳細を表示する.
 	 * 
 	 * @param reviewId レビューID
-	 * @param model モデル
+	 * @param model    モデル
 	 * @return レビュー詳細画面
 	 */
 	@RequestMapping("")
-	public String load(Integer reviewId, Model model,@AuthenticationPrincipal LoginUser loginUser) {
+	public String load(Integer reviewId, Model model, @AuthenticationPrincipal LoginUser loginUser) {
 		List<Review> reviewList = reviewService.load(reviewId);
-		for(Review review : reviewList) {
+		for (Review review : reviewList) {
 			List<Comment> commentList = commentRepository.findByReviewId(reviewId);
 			review.setCommentList(commentList);
 			model.addAttribute("review", review);
+			model.addAttribute("good",goodRepository.good(reviewId));
+
 		}
-				
+
 //		List<Review> reviewMondayList = reviewService.findByMonday(reviewId);
 //		List<Review> reviewTuesdayList = reviewService.findByTuesday(reviewId);
 //		List<Review> reviewWednesdayList = reviewService.findByWednesday(reviewId);
@@ -77,26 +82,27 @@ public class DetailReviewController {
 //		model.addAttribute("reviewFridayList", reviewFridayList);
 //		model.addAttribute("reviewSaturdayList", reviewSaturdayList); 
 //		model.addAttribute("reviewSundayList", reviewSundayList);
-		
-		List<Favorite> favoriteList = favoriteRepository.findByUserIdAndReviewId(loginUser.getUser().getUserId(), reviewId);
-		if(favoriteList.size() == 0) {
+
+		List<Favorite> favoriteList = favoriteRepository.findByUserIdAndReviewId(loginUser.getUser().getUserId(),
+				reviewId);
+		if (favoriteList.size() == 0) {
 			model.addAttribute("favorite", "favorite");
 		} else {
 			model.addAttribute("nofavorite", "nofavorite");
 		}
-		
+
 		User user = userService.findByUserId(loginUser.getUser().getUserId());
 		model.addAttribute("user", user);
 		return "review_detail";
 	}
-	
+
 	/**
 	 * レビューID、ユーザーIDからレビューを削除する.
 	 * 
-	 * @param reviewId レビューID
-	 * @param userId ユーザーID
+	 * @param reviewId  レビューID
+	 * @param userId    ユーザーID
 	 * @param loginUser ログインユーザー
-	 * @return 
+	 * @return
 	 */
 	@RequestMapping("/delete")
 	public String delete(Integer reviewId, Integer userId, @AuthenticationPrincipal LoginUser loginUser) {
@@ -110,7 +116,7 @@ public class DetailReviewController {
 		commentRepository.deleteByReviewId(reviewId);
 		return "redirect:/userDetail/toUserReviewList";
 	}
-	
+
 	/**
 	 * コメントを登録する.
 	 * 
@@ -125,16 +131,8 @@ public class DetailReviewController {
 		comment.setContent(commentForm.getContent());
 		comment.setReviewId(commentForm.getReviewId());
 		commentRepository.insert(comment);
-		return "redirect:/detail?revi"
-				+ "ewId=" + reviewId;
+		return "redirect:/detail?revi" + "ewId=" + reviewId;
 	}
+
 	
-	@Autowired
-	private GoodRepository goodRepository;
-	
-	
-	public String addGood(Integer userId,Integer reviewId,Model model,@AuthenticationPrincipal LoginUser loginUser) {
-		goodRepository.insert(userId,reviewId);
-		return load(reviewId, model, loginUser);
-	}
 }

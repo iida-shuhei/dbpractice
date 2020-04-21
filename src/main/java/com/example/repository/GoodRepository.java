@@ -64,7 +64,7 @@ public class GoodRepository {
 	 * @return グッドリスト
 	 */
 	public List<Good> findByUserIdAndReviewId(Integer userId,Integer reviewId)	{
-		String sql = "SELECT id ,user_id,article_id FROM goods WHERE user_id = :userId AND review_id = :reviewId";
+		String sql = "SELECT id ,user_id,review_id FROM goods WHERE user_id = :userId AND review_id = :reviewId";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("reviewId", reviewId);
 		return template.query(sql,param,GOOD_ROW_MAPPER);
 	}
@@ -75,7 +75,7 @@ public class GoodRepository {
 	 * @return
 	 */
 	public Integer good(Integer reviewId) {
-		String sql = "select count(*) from goods where review_id = :reviwId";
+		String sql = "select count(*) from goods where review_id = :reviewId";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("reviewId", reviewId);
 		return template.queryForObject(sql, param, Integer.class);
 	}

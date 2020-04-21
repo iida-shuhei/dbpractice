@@ -37,6 +37,23 @@ public class JsonController {
 	    }
 	    return goodList;
 		}
+	
+	
+	/**
+	 * いいね数を返す.
+	 * @param reviewId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/countGood")
+	public Integer good(Integer reviewId,Model model) {
+		Integer good = goodRepository.good(reviewId);
+		if(good == null) {
+			good= 0;
+		}
+		model.addAttribute("good",good);
+		return good;
+	}
 		
 	}
 
