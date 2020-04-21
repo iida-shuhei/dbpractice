@@ -16,7 +16,6 @@ public class JsonController {
 	@Autowired
 	private GoodRepository goodRepository;
 
-	
 	/**
 	 * いいねを返す.
 	 * @param userId
@@ -26,20 +25,14 @@ public class JsonController {
 	 */
 	@RequestMapping("/good")
 	public List<Good> update(Integer userId,Integer reviewId,Model model){
-		System.out.println("userId="+userId);
-		System.out.println("reviewId="+reviewId);
 		List<Good> goodList = goodRepository.findByUserIdAndReviewId(userId,reviewId);
-			
-			
 	    if(goodList.size() == 0) {
 	    	goodRepository.insert(userId, reviewId);
-	    	
 	    }else {
 	    	goodRepository.delete(userId, reviewId);
 	    }
 	    return goodList;
-		}
-	
+	}
 	
 	/**
 	 * いいね数を返す.
@@ -56,9 +49,4 @@ public class JsonController {
 		model.addAttribute("good",good);
 		return good;
 	}
-	
-	
-		
-	}
-
-
+}
