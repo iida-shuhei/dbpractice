@@ -1,20 +1,19 @@
 package com.example.repository;
 
-import javax.annotation.PostConstruct;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import com.example.domain.DeletedUser;
 import com.example.domain.User;
 import com.example.domain.UserIcon;
-import com.example.domain.UserMail;
 import com.example.domain.UserRank;
 
 /**
@@ -29,19 +28,14 @@ public class UserRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 	
-	//Insert時に自動採番されたIDを取得する
-	private SimpleJdbcInsert insert;
-	@PostConstruct
-	public void init() {
-		SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert((JdbcTemplate)template.getJdbcOperations());
-		SimpleJdbcInsert withTableName = simpleJdbcInsert.withTableName("users");
-		insert = withTableName.usingGeneratedKeyColumns("user_id");
-	}
+	//rowMapper破壊神
+	private RowMapper<User> rowMapper = new BeanPropertyRowMapper<User>(User.class);
 	
 	private static final RowMapper<User> USER_ROW_MAPPER = (rs,i) -> {
 		User user = new User();
-		user.setUserId(rs.getInt("u_user_id"));
+		user.setUserId(rs.getInt("user_id"));
 		user.setUserName(rs.getString("user_name"));
+		user.setUserMail(rs.getString("user_mail"));
 		user.setPassword(rs.getString("password"));
 		user.setUserIconId(rs.getInt("user_icon_id"));
 		user.setUserRankId(rs.getInt("user_rank_id"));
@@ -53,20 +47,14 @@ public class UserRepository {
 		user.setDeletedBy(rs.getString("deleted_by"));
 		user.setDeletedAt(rs.getTimestamp("deleted_at"));
 		
-		UserMail userMail = new UserMail();
-		userMail.setUserId(rs.getInt("m_user_id"));
-		userMail.setMailTypeId(rs.getInt("mail_type_id"));
-		userMail.setMailAddress(rs.getString("mail_address"));
-		user.setUserMail(userMail);
-		
 		UserIcon userIcon = new UserIcon();
 		userIcon.setIconId(rs.getInt("icon_id"));
 		userIcon.setIconImagePath(rs.getString("icon_image_path"));
 		user.setUserIcon(userIcon);
 		
 		UserRank userRank = new UserRank();
-		userRank.setRankId(rs.getInt("r_rank_id"));
-		userRank.setRank(rs.getString("user_rank"));
+		userRank.setRankId(rs.getInt("rank_id"));
+		userRank.setUserRank(rs.getString("user_rank"));
 		user.setUserRank(userRank);
 		return user;
 	};
@@ -77,49 +65,117 @@ public class UserRepository {
 	 * @param user ユーザー
 	 * @return ユーザー情報
 	 */
-	public User insert(User user) {
+	public void insert(User user) {
+		String sql = "insert into users(user_name,user_mail,password,user_icon_id,user_rank_id,created_by,created_at,updated_by,updated_at,deleted_by,deleted_at,version)values(:userName,:userMail,:password,:userIconId,:userRankId,:createdBy,:createdAt,:updatedBy,:updatedAt,:deletedBy,:deletedAt,:version)";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
-		Number key = insert.executeAndReturnKey(param);
-		user.setUserId(key.intValue());
-		return user;
+		template.update(sql, param);
 	}
 	
 	/**
-	 * ユーザーIDとランクIDからユーザー詳細を検索する.
+	 * メールアドレスからユーザー情報を検索する.
 	 * 
-	 * @param user_id ユーザーID
-	 * @param rank_id ランクID
+	 * @param userMail メールアドレス
+	 * @return ユーザー情報
+	 */
+	public User findByUserMail(String userMail) {
+		String sql = "select user_id,user_name,user_mail,password,user_icon_id,user_rank_id,created_by,created_at,updated_by,updated_at,deleted_by,deleted_at,version from users where user_mail =:userMail";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userMail", userMail);
+		List<User> userList = template.query(sql, param,rowMapper);
+		if(userList.isEmpty()) {
+			return null;
+		} else {
+			return userList.get(0);
+		}
+	}
+	
+	/**
+	 * ユーザーIDからユーザー詳細を検索する.
+	 * 
+	 * @param userId userId
 	 * @return ユーザー詳細
 	 */
-	public User load(Integer userId) {
-		String sql = "select u.user_id u_user_id,\n" + 
-				"user_name, \n" + 
-				"password,\n" + 
-				"user_icon_id,\n" + 
-				"user_rank_id,\n" + 
-				"created_by,\n" + 
-				"created_at,\n" + 
-				"updated_by,\n" + 
-				"updated_at,\n" + 
-				"version,\n" + 
-				"deleted_by,\n" + 
-				"deleted_at,\n" + 
-				"m.user_id m_user_id,\n" + 
-				"mail_type_id,\n" + 
-				"mail_address,\n" + 
-				"icon_id,\n" + 
-				"icon_image_path,\n" + 
-				"r.rank_id r_rank_id,\n" + 
-				"user_rank\n" + 
-				"from users as u\n" + 
-				"left join user_mails as m\n" + 
-				"on u.user_id = m.user_id\n" + 
-				"left join user_icons as i\n" + 
-				"on u.user_icon_id = i.icon_id\n" + 
-				"left join user_ranks as r\n" + 
-				"on u.user_rank_id = r.rank_id\n" + 
-				"where u.user_id =:userId;";
+	public User findByUserId(Integer userId) {
+		String sql = "select user_id,"
+				+ "coalesce(user_name, '退会済みユーザー') as user_name,"
+				+ "user_mail,"
+				+ "password,"
+				+ "user_icon_id,"
+				+ "user_rank_id,"
+				+ "created_by,"
+				+ "created_at,"
+				+ "updated_by,"
+				+ "updated_at,"
+				+ "deleted_by,"
+				+ "deleted_at,"
+				+ "version,"
+				+ "icon_id,"
+				+ "icon_image_path,"
+				+ "rank_id,"
+				+ "user_rank "
+				+ "from users "
+				+ "left join user_icons "
+				+ "on user_icon_id = icon_id "
+				+ "left join user_ranks "
+				+ "on user_rank_id = rank_id "
+				+ "where user_id =:userId;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
 		return template.queryForObject(sql, param, USER_ROW_MAPPER);
+	}
+	
+	/**
+	 * ユーザー情報を更新する.
+	 * 
+	 * @param user ユーザー
+	 */
+	public void update(User user) {
+		String sql = "update users set user_name =:userName, user_mail =:userMail, password =:password, user_icon_id =:userIconId, updated_by =:updatedBy, updated_at =:updatedAt,version = version + 1 where user_id =:userId";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
+		template.update(sql, param);
+	}
+	
+	/**
+	 * ユーザーIDからランクIDを更新する
+	 * 
+	 * @param userId ユーザーID
+	 * @param userRankId ランクID
+	 */
+	public void updateUserRank(Integer userId, Integer userRankId) {
+		String sql = "update users set user_rank_id =:userRankId where user_id =:userId";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("userRankId", userRankId);
+		template.update(sql, param);
+	}
+	
+	/**
+	 * メールからパスワードを変更する.
+	 * 
+	 * @param userMail ユーザーメール
+	 * @param password パスワード
+	 */
+	public void updatePass(String userMail, String password) {
+		String sql = "update users set password =:password where user_mail =:userMail";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userMail", userMail).addValue("password", password);
+		template.update(sql, param);
+	}
+	
+	/**
+	 * ユーザーを削除する.
+	 * 
+	 * @param user ユーザー
+	 */
+	public void delete(User user) {
+		String sql = "update users set user_name = null, user_mail = null, user_icon_id = null, deleted_by =:deletedBy, deleted_at =:deletedAt where user_id =:userId";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
+		template.update(sql, param);
+	}
+	
+	/**
+	 * デリートテーブルにユーザーを登録する.
+	 * 
+	 * @param deletedUser デリートユーザー
+	 */
+	public void insertDeletedUser(DeletedUser deletedUser) {
+		String sql = "insert into deleted_users(user_id, user_name, user_mail, deleted_at)values(:userId, :userName, :userMail, :deletedAt)";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(deletedUser);
+		template.update(sql, param);
 	}
 }

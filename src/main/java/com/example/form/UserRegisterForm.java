@@ -2,16 +2,24 @@ package com.example.form;
 
 import java.sql.Timestamp;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 public class UserRegisterForm {
 
 	private Integer userId;
+	@NotBlank(message = "名前を入力してください")
 	private String userName;
-	private Integer mailTypeId;
-	private String mailAddress;
+	@NotBlank(message = "メールアドレスを入力してください")
+	@Email(message = "アドレスが不正です")
+	private String userMail;
+	@NotBlank(message = "パスワードを入力してください")
 	private String password;
+	@NotBlank(message = "確認用パスワードを入力してください")
+	private String confirmationPassword;
 	private String createdBy;
 	private Timestamp createdAt;
-	private Integer version;
+	private String uuid;
 
 	public Integer getUserId() {
 		return userId;
@@ -29,20 +37,12 @@ public class UserRegisterForm {
 		this.userName = userName;
 	}
 
-	public Integer getMailTypeId() {
-		return mailTypeId;
+	public String getUserMail() {
+		return userMail;
 	}
 
-	public void setMailTypeId(Integer mailTypeId) {
-		this.mailTypeId = mailTypeId;
-	}
-
-	public String getMailAddress() {
-		return mailAddress;
-	}
-
-	public void setMailAddress(String mailAddress) {
-		this.mailAddress = mailAddress;
+	public void setUserMail(String userMail) {
+		this.userMail = userMail;
 	}
 
 	public String getPassword() {
@@ -51,6 +51,14 @@ public class UserRegisterForm {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getConfirmationPassword() {
+		return confirmationPassword;
+	}
+
+	public void setConfirmationPassword(String confirmationPassword) {
+		this.confirmationPassword = confirmationPassword;
 	}
 
 	public String getCreatedBy() {
@@ -69,19 +77,19 @@ public class UserRegisterForm {
 		this.createdAt = createdAt;
 	}
 
-	public Integer getVersion() {
-		return version;
+	public String getUuid() {
+		return uuid;
 	}
 
-	public void setVersion(Integer version) {
-		this.version = version;
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	@Override
 	public String toString() {
-		return "UserRegisterForm [userId=" + userId + ", userName=" + userName + ", mailTypeId=" + mailTypeId
-				+ ", mailAddress=" + mailAddress + ", password=" + password + ", createdBy=" + createdBy
-				+ ", createdAt=" + createdAt + ", version=" + version + "]";
+		return "UserRegisterForm [userId=" + userId + ", userName=" + userName + ", userMail=" + userMail
+				+ ", password=" + password + ", confirmationPassword=" + confirmationPassword + ", createdBy="
+				+ createdBy + ", createdAt=" + createdAt + ", uuid=" + uuid + "]";
 	}
 
 }

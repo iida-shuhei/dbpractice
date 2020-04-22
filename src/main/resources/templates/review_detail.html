@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>レビュー詳細</title>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+<link th:href="@{/css/review_detail.css}" rel="stylesheet">
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+
+<script>
+$(function(){
+	$("#favorite-btn").on("click",function(){
+		$("#favorite").submit();
+	});
+});
+</script>
+<body>
+<header>
+	<div class="head">
+		<div class="bigInfo">
+			<form th:action="@{/showReview}">
+				<button id="logo"><span class="logo">RaaaaLife...</span></button>
+			</form>
+		</div>
+		<div class="smallInfo">
+			<ul>
+				<li><a type="button" th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}"><span th:text="${user.userName}"></span>&nbsp;
+				<img th:src="${user.userIcon.iconImagePath}" class="img" onerror="this.src='/img/user.jpg'"/></a></li>
+				<li><a th:href="@{/review/toInsert}">投稿</a></li>
+				<li><a th:href="@{/logout}">ログアウト</a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+
+	<form th:action="@{/favorite}" id="favorite" method="post">
+		<input type="hidden" name="reviewId" th:value="${review.reviewId}">
+	</form>
+	
+<div class="container">
+	<div class="ramen1">
+		<img th:src="${review.ramenImage.imagePath}" class="ramenImg">
+	</div>
+		
+	<div class="small">
+	
+		<div class="top">
+			<div class="icon">
+				<a th:href="@{'/userDetail/toNotUserDetail?userId=' + ${review.user.userId}}"><img th:src="${review.user.userIcon.iconImagePath}" class="iconImg" onerror="this.src='/img/user.jpg'"/> 
+				<span th:text="${review.user.userName}" style="font-size: 16px;"></span></a>
+			</div>
+			
+			<div class="ramen">
+				🍜<span th:text="${review.ramenName}"></span><br>
+				💰<span th:text="${#numbers.formatInteger(review.ramenPrice,1,'COMMA')}"></span><span>円</span><br>
+				<a th:href="@{'/ramenShopDetail?shopId=' + ${review.ramenShop.shopId}}">🏠<span th:text="${review.ramenShop.shopName}" class="text"></span></a>
+			</div>
+		</div>
+			<hr>
+		
+		<div class="comment">
+			<a th:href="@{'/userDetail/toNotUserDetail?userId=' + ${review.user.userId}}"><img th:src="${review.user.userIcon.iconImagePath}" class="commentImg" onerror="this.src='/img/user.jpg'"/>&nbsp;<strong><span th:text="${review.user.userName}"></span></strong></a> 
+			&nbsp;&nbsp;<span th:text="${review.comments}" class="form"></span><br><small></small>
+			<div th:each="comment:${review.commentList}">
+			<a th:href="@{'/userDetail/toNotUserDetail?userId=' + ${comment.user.userId}}"><img th:src="${comment.user.userIcon.iconImagePath}" class="commentImg" onerror="this.src='/img/user.jpg'"/><strong><span th:text="${comment.user.userName}"></span></strong> </a>
+				&nbsp;&nbsp;<span th:text="${comment.content}" class="form"></span><br><small></small>
+			</div>
+		</div>
+			<hr>
+		<div class="post">
+			</div>
+			
+				<div class="goodFavo">
+						<ul>
+					 		<li>
+							<!-- お気に入りボタン -->
+							  <span th:if="${favorite}"><a type="button" id="favorite-btn"><img th:src="@{/img/heart1.png}" class="noheart" style="width:40px; height: 40px"></a></span>
+							  <span th:if="${nofavorite}"><a type="button" id="favorite-btn"><img th:src="@{/img/heart1.png}" class="heart" style="width:40px; height: 40px"></a></span>
+					 		</li>
+							<!-- いいねボタン -->
+							 <li>
+								<button id="good" ><img th:src="@{/img/good.png}" class="good" style="width:30px; height: 30px" ></button>
+								<input type="hidden" th:value="${user.userId}" id="user">
+								<input type="hidden" th:value="${review.reviewId}" id="review">
+								<span th:text="${good}" id="textGood"></span><span>いいね!</span>
+							 </li>
+							<!-- 削除ボタン -->
+							 <li>
+							 	<div style="display:inline-flex">
+								 <form th:action="@{/detail/delete}" method="post">
+									<button class="btn1" id="del">削除</button>
+									<input type="hidden" id="reviewUserId" th:value="${review.userId}" name="userId">
+									<input type="hidden" id="reviewId" th:value="${review.reviewId}" name="reviewId">
+								</form>
+								</div>
+							 </li>
+						</ul>
+						<form th:action="@{/detail/register}" method="post">
+							<input type="hidden" name="reviewId" th:value="${review.reviewId}">
+							<input type="text" name="content" placeholder="コメントを追加..." class="push" required>
+							<button class="btn btn-primary">投稿</button>
+						</form>
+						
+						<input type="hidden" id="userId" th:value="${user.userId}">
+							
+					</div>
+				</div>
+			</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" th:src="@{/js/review_detail.js}"></script>
+
+</body>
+</html>

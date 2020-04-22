@@ -1,0 +1,272 @@
+@charset "UTF-8";
+
+body{
+	background-image: url(../img/background2.jpg);
+	background-size :cover;
+}
+
+.smallInfo ul li {
+	display: inline-block;
+	margin-right: 2em;
+	font-size: 14px;
+	font-family: sans-serif;
+	font-weight: normal;
+}
+
+.img {
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	border: 3px double;
+	border-color: white;
+}
+
+.smallInfo ul li a {
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+}
+
+.smallInfo ul li a:hover {
+	font-size: 16.5px;
+}
+
+.login {
+	margin: 0 auto;
+}
+
+.logo {
+	font-family: 'Bradley Hand',sans-serif;
+	font-size: 40px;
+	letter-spacing: 0.1em;
+	color: white;
+}
+
+#logo {
+	cursor: pointer;
+	background: none;
+	background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
+    appearance: none;
+}
+
+#logo .logo:hover {
+	font-size: 39.5px;
+}
+
+.row {
+	margin: 0;
+}
+
+.head {
+	background-color: rgba(0,0,0,0.8);
+	width: 100%;
+	height: 100px;
+	justify-content: center;
+	position: relative;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.smallInfo {
+	text-align: center;
+}
+
+.container {
+	margin-top: 50px;
+	padding: 0;
+	width: 100%;
+}
+
+.ramen1 {
+	text-align: center;
+}
+
+.ramenImg {
+	width: 350px;
+	height: 300px;
+}
+
+.commentImg {
+	border-radius: 50%; 
+	width:11%; 
+	height: 35px;
+	border:3px double;
+}
+
+.iconImg {
+	border-radius: 50%; 
+	width:16%; 
+	height: 35px;
+	border:3px double;
+	vertical-align: bottom;
+}
+
+.small {
+	width: 350px;
+	border: 1px solid;
+	margin: 0 auto;
+	background: white;
+}
+
+.top {
+	display: flex;
+	align-items: center;
+}
+
+.ramen {
+	width: 290px;
+	margin-top: 10px;
+	font-size: 13px;
+}
+
+.text {
+	font-size: 13px;
+}
+
+.btn1:hover {
+	color: red;
+	font-size: 14.5px;
+}
+
+#del {
+	background: none;
+	background-color: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+
+.heart: {
+	cursor: pointer;
+}
+
+.noheart:hover {
+	cursor: pointer;
+}
+
+.noheart {
+	color: black;
+	background-color: black;
+	text-decoration: none;
+	border: none;
+}
+
+.heart {
+	color: red;
+	background-color: red;
+}
+
+
+.comment {
+	font-size: 14px;
+	overflow: scroll;
+	height: 230px;
+	padding-left: 10px;
+	width: 350px;
+}
+
+
+.form {
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+}
+
+.goodFavo ul li{
+	display: inline-block;
+}
+
+.goodFavo ul {
+	margin: 0;
+	padding: 0;	
+	-webkit-text-stroke-width: medium;
+	text-align: justify;
+}
+
+.goodFavo ul:after {
+	content: "";
+    display: inline-block;
+    width: 100%;
+    height: 0;
+}
+
+#good {
+	background-color: transparent;
+	border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    appearance: none;
+}
+
+.goodFavo {
+	text-align: right;
+}
+
+.bigInfo {
+	text-align: center;
+}
+
+@media(min-width: 1100px) {
+	.container {
+		display: flex;
+		justify-content: center;
+	}
+	.ramenImg {
+		height: 540px;
+		width: 600px;
+	}
+	.ramen1 {
+		margin: 0;
+	}
+	.small {
+		width: 420px;
+		margin: 0;
+	}
+	.comment {
+		height: 290px;
+		width: 420px;
+	}
+	.head {
+		display:flex;
+	}
+	.smallInfo ul li {
+		display: inline-block;
+		font-size: 16px;
+	}
+	.smallInfo {
+		position: absolute;
+		right: 0;
+	}
+}
+
+.push {
+	width:280px;
+    height: 33px;
+    font-size: 14px;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    margin-left: 0;
+}
+
+@media(min-width: 1100px) {
+	.push {
+		width: 350px;
+	}
+	.iconImg {
+		width:15%; 
+		height: 40px;
+	}
+	.commentImg {
+		width: 10%;
+	}
+}

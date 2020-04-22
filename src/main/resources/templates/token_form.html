@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>メールに届いた英数字を入力</title>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+<link th:href="@{/css/password.css}" rel="stylesheet">
+</head>
+<body>
+<header>
+	<div class="head">
+		<div class="login">
+			<form th:action="@{/showReview}">
+				<button id="logo"><span class="logo">RaaaaLife...</span></button>
+			</form>
+		</div>
+	</div>
+</header>
+
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">メールをご確認ください</h3>
+			</div>
+			
+			<div class="panel-body">
+				<fieldset>
+					<form method="post" th:action="@{/reset/updatePass}" th:object="${resetPasswordForm}">
+					
+						<label class="control-label" style="color: red" for="inputError"></label>
+							<div class="alert alert-danger" th:if="${errorMessage}">
+								<span th:text="${errorMessage}">お送りしたメールに記載の英数字と異なっています</span>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword">メールに記載の英数字をご入力ください</label><br><br>
+								<label th:errors="*{token}" style="color: red"></label>
+								<input type="text" id="inputPassword" class="form-control" name="token" required placeholder="9c3f8158f9h1494b8ddc3j3b71e3q654">
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary">パスワードを再設定する</button>
+							</div>
+						
+					</form>
+				</fieldset>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

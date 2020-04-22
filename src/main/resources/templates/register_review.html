@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>レビュー登録</title>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+<link th:href="@{/css/register_review.css}" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script th:src="@{/js/register_review.js}"></script>
+</head>
+<body>
+<header>
+	<div class="head">
+		<div class="bigInfo">
+			<form th:action="@{/showReview}">
+				<button id="logo"><span class="logo">RaaaaLife...</span></button>
+			</form>
+		</div>
+		<div class="smallInfo">
+			<ul>
+				<li><a type="button" th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}"><span th:text="${user.userName}"></span>&nbsp;
+				<img th:src="${user.userIcon.iconImagePath}" class="img" onerror="this.src='/img/user.jpg'"/></a></li>
+				<li><a th:href="@{/review/toInsert}">投稿</a></li>
+				<li><a th:href="@{/logout}">ログアウト</a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+
+	<div class="box">
+		<div class="container">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">ラーメン登録</h3>
+				</div>
+				<div class="panel-body">
+					<fieldset>
+						<form th:action="@{/review/insert}" method="post"
+							th:object="${reviewRegisterForm}" enctype="multipart/form-data">
+							<div class="form-group">
+								<div th:if="${ramenShop}">
+									あなたが選択したのは<br> 「<span th:text="${ramenShop.shopName}"></span>」です。<br>
+								</div>
+								<a th:href="@{/ramenShopSearch}" type="button"
+									class="btn btn-primary"> <span th:unless="${ramenShop}">ラーメン店舗を検索する</span>
+									<span th:if="${ramenShop}">ラーメン店舗を選び直す</span></a>
+							</div>
+							
+							<div class="form-group">
+								<label th:errors="*{ramenName}" style="color: red">ラーメン名を入力してください</label>
+								<input type="text" name="ramenName" class="form-control"
+									id="name" th:field="*{ramenName}" placeholder="醤油ラーメン"
+									pattern=".*\S+.*">
+							</div>
+							
+							<div class="form-group">
+								<label th:errors="*{ramenPrice}" style="color: red">価格を入力してください</label>
+								<div class="alert alert-danger" th:if="${ramenPrice}">
+									<p th:text="${ramenPrice}" style="color: red"></p>
+								</div>
+								<input type="number" name="ramenPrice" class="form-control"
+									id="price" th:field="*{ramenPrice}" placeholder="値段（800）">
+							</div>
+							
+							<div class="form-group">
+								<label th:errors="*{comments}" style="color: red">感想を入力してください</label>
+								<input type="text" name="comments" class="form-control" placeholder="感想">
+							</div>
+							
+							<label th:errors="*{ramenImage}" style="color: red">画像を選択してください</label>
+							<input type="file" name="ramenImage" th:field="*{ramenImage}"
+								id="img" accept=".jpg,.png"><br>
+
+
+							<input id="btn" class="btn btn-success btn-block" type="submit"
+								value="投稿"> <small th:unless="${ramenShop}"
+								style="color: red">「ラーメン店舗を検索する」ボタンから<br>あなたが行ったラーメン店舗を選んでください
+							</small> <input type="hidden" id="id" th:if="${ramenShop}"
+								th:value="${ramenShop.shopId}" name="shopId">
+						</form>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ユーザーのレビュー一覧</title>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+<link th:href="@{/css/user_review_list.css}" rel="stylesheet">
+</head>
+<body>
+
+<header>
+	<div class="head">
+		<div class="bigInfo">
+			<form th:action="@{/showReview}">
+				<button id="logo"><span class="logo">RaaaaLife...</span></button>
+			</form>
+		</div>
+		<div class="smallInfo">
+			<ul>
+				<li><a type="button" th:href="@{'/userDetail/toDetail?userId=' + ${user.userId}}"><span th:text="${user.userName}"></span>&nbsp;
+				<img th:src="${user.userIcon.iconImagePath}" class="img" onerror="this.src='/img/user.jpg'"/></a></li>
+				<li><a th:href="@{/review/toInsert}">投稿</a></li>
+				<li><a th:href="@{/logout}">ログアウト</a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+	
+	<div th:text="${message}" style="font-size: 20px; text-align: center;"></div>
+
+<section>
+	<div class="card-deck">
+		<div class="row row-eq-height">
+			<div class="col-md-3 col-sm-6 col-xs-12 col" th:each="review : ${reviewList}">
+				<div class="card ramen">
+					<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}"> 
+					<img class="card-img-top img-fluid row-eq-height photo" th:src="${review.ramenImage.imagePath}"></a>
+					<div class="card-body px-2 py-3 text-center">
+						<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}"> 
+						<span class="card-title" th:text="${review.ramenShop.shopName}"></span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+	<!-- pagination -->
+	<div class="pages">
+		<nav class="page-nav">
+			<ul class="pager">
+				<li class="previous" th:if="${start != 0}">
+				<a th:href="@{'/userDetail/toUserReviewList?start='+${start - 8}}">&larr; prev</a></li>
+				<li class="next" th:if="${count > start + 8}">
+				<a th:href="@{'/userDetail/toUserReviewList?start='+${start + 8}}">next &rarr;</a></li>
+			</ul>
+		</nav>
+	</div>
+
+</body>
+</html>

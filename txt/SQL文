@@ -3,27 +3,41 @@ drop table if exists users cascade;
 
 create table users (
 user_id serial primary key
- , user_name varchar(100) not null
+ , user_name varchar(20)
+ , user_mail varchar(100) unique
  , password text not null
  , user_icon_id int
  , user_rank_id int default 1
- , created_by varchar(50) not null comment '登録者'
- , created_at datetime default null comment '登録日時'
- , updated_by varchar(50) default null comment '更新者'
- , updated_at datetime default null comment '更新日時'
- , version INT(11) null default null comment '更新回数'
- , deleted_by varchar(50) default null comment '削除者'
- , deleted_at datetime default null comment '削除日時'
+ , created_by varchar(20) not null
+ , created_at date default null
+ , updated_by varchar(20) default null
+ , updated_at date default null
+ , version int default null
+ , deleted_by varchar(20) default null
+ , deleted_at date default null
 ) ;
 
--- ユーザーメール
-drop table if exists user_mails cascade;
+-- 仮ユーザーテーブル
+drop table if exists tmp_users cascade;
 
-create table user_mails (
-user_id int not null
-, mail_type_id int not null comment '1:PC、2:Phone'
-, mail_address varchar(100) default null
-);
+create table tmp_users (
+id serial primary key
+, name varchar(20) not null
+, mail text not null
+, password text not null
+, uuid text not null
+) ;
+
+-- 削除済みユーザーテーブル
+drop table if exists deleted_users cascade;
+
+create table deleted_users (
+deleted_user_id serial primary key
+, user_id integer not null
+, user_name varchar(20) not null
+, user_mail text not null
+, deleted_at date default null
+) ;
 
 -- ユーザーアイコン
 drop table if exists user_icons cascade;
@@ -41,15 +55,28 @@ rank_id serial primary key
 , user_rank varchar(50)
 );
 
-insert into user_ranks(user_rank)values('ルーキ-1'),('ルーキー2'),('ルーキー3'),('ブロンズ1'),('ブロンズ2'),('ブロンズ3'),('シルバー1'),('シルバー2'),('シルバー3'),
+insert into user_ranks(user_rank)values('ルーキー1'),('ルーキー2'),('ルーキー3'),('ブロンズ1'),('ブロンズ2'),('ブロンズ3'),('シルバー1'),('シルバー2'),('シルバー3'),
 ('ゴールド1'),('ゴールド2'),('ゴールド3'),('プラチナ1'),('プラチナ2'),('プラチナ3'),('レジェンド1'),('レジェンド2'),('レジェンド3'),('キング');
 
+-- レビュー情報
+drop table if exists reviews cascade;
 
--- ユーザー登録
-insert into user_icons(icon_id,icon_image_path)values(1,'こんにちは');
-insert into user_ranks(rank_id,user_rank)values(1,'プロ');
-
-
+create table reviews (
+review_id serial primary key
+, shop_id int not null
+, user_id int not null
+, ramen_name varchar(30) not null
+, ramen_price int not null
+, comments text default null
+, ramen_image_path_id int default null
+ , created_by varchar(50) not null
+ , created_at date default null
+ , updated_by varchar(50) default null
+ , updated_at date default null
+ , version int default null
+ , deleted_by varchar(50) default null
+ , deleted_at date default null
+);
 
 -- ラーメン店舗
 drop table if exists ramen_shops cascade;
@@ -61,45 +88,28 @@ shop_id serial primary key
 , prefecture varchar(4) not null
 , city varchar(100) not null
 , other varchar(100)
-, holidays text not null
-, created_by varchar(50) not null comment '登録者'
-, created_at datetime not null comment '登録日時'
-, updated_by varchar(50) default null comment '更新者'
-, updated_at datetime default null comment '更新日時'
-, version INT(11) null default null comment '更新回数'
-, deleted_by varchar(50) default null comment '削除者'
-, deleted_at datetime default null comment '削除日時'
+, holidays text default null
+ , created_by varchar(50) not null
+ , created_at date default null
+ , updated_by varchar(50) default null
+ , updated_at date default null
+ , version int default null
+ , deleted_by varchar(50) default null
+ , deleted_at date default null
 );
 
 -- ラーメン店舗営業時間
 drop table if exists ramen_shops_times cascade;
 
 create table ramen_shops_times (
-shop_id int not null
-, days_id int not null comment '1:月, 2:火 3:水 4:木 5:金 6:土 7:日'
-, noon_start_time text not null
-, noon_end_time text not null
+ramen_shop_time_id serial primary key
+, shop_id int
+, days text
+, noon_start_time text
+, noon_end_time text
 , night_start_time text
 , night_end_time text
 , other_time text
-);
-
--- ラーメン情報
-drop table if exists ramens cascade;
-
-create table ramens (
-ramen_id serial primary key
-, shop_id int not null
-, ramen_name varchar(50) not null
-, ramen_price int not null
-, ramen_image_path_id int default null
-, created_by varchar(50) not null comment '登録者'
-, created_at datetime not null comment '登録日時'
-, updated_by varchar(50) default null comment '更新者'
-, updated_at datetime default null comment '更新日時'
-, version INT(11) null default null comment '更新回数'
-, deleted_by varchar(50) default null comment '削除者'
-, deleted_at datetime default null comment '削除日時'
 );
 
 -- ラーメン画像
@@ -110,12 +120,30 @@ image_id serial primary key
 , image_path text not null
 );
 
+--お気に入り
+drop table if exists favorites cascade;
 
--- 記事
-drop table if exists articles cascade;
+create table favorites (
+id serial primary key
+, user_id integer not null
+, review_id integer not null
+);
 
-create table articles (
-article_id serial primary key
-, user_id int not null
-, shop_id int not null
+--コメント
+drop table if exists comments cascade;
+
+create table comments (
+comment_id serial primary key
+, user_id integer not null
+, comment_name text not null
+, content text not null
+, review_id integer not null
+);
+
+--いいねボタン
+drop table if exists goods cascade;
+create table goods (
+	id serial primary key
+	,user_id integer not null
+	,review_id integer not null
 );

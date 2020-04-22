@@ -1,10 +1,42 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ramen?serverTimezone=JST
-    username: student
-    password: password
+    driver-class-name: org.postgresql.Driver
+    url: spring.datasource.url=jdbc:postgresql://ec2-3-234-169-147.compute-1.amazonaws.com/5432/d7edbo19lmt5rq?sslmode=require
+    username: nylvawponltvkm
+    password: eecc01861df9c85c0ccfa8a0b909b13c65ac028ce894e9a05fb5fe7d933d9660
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: rakus.yahoo@gmail.com
+    password: lggfscuvpevplvsw
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
   servlet:
     multipart:
       max-file-size: 30MB
       max-request-size: 30MB
+#spring:
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://localhost:5432/ramen_record
+#    username: higashiiida
+#    password: postgres
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: rakus.yahoo@gmail.com
+#    password: lggfscuvpevplvsw
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#  servlet:
+#    multipart:
+#      max-file-size: 30MB
+#      max-request-size: 30MB

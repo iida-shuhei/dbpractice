@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ユーザー登録</title>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+<link th:href="@{/css/register_user.css}" rel="stylesheet">
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+</head>
+<body>
+
+<header>
+	<div class="head">
+		<div class="login">
+			<form th:action="@{/showReview}">
+				<button id="logo"><span class="logo">RaaaaLife...</span></button>
+			</form>
+		</div>
+	</div>
+</header>
+
+	<div class="box">
+		<div class="container">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">新規登録</h3>
+				</div>
+				<div class="panel-body">
+					<fieldset>
+						<form th:action="@{/register}" method="post"
+							th:object="${userRegisterForm}">
+							<div class="form-group">
+								<label th:errors="*{userName}" style="color: red">名前を入力してください</label>
+								<input type="text" name="userName" th:field="*{userName}"
+									class="form-control" placeholder="名前">
+							</div>
+							<div class="form-group">
+								<label th:errors="*{userMail}" style="color: red">メールアドレスを入力してください</label>
+								<input type="email" name="userMail"
+									th:field="*{userMail}" class="form-control"
+									placeholder="メールアドレス">
+							</div>
+							<div class="form-group form">
+								<label th:errors="*{password}" style="color: red">パスワードを入力してください</label>
+								<input type="password" name="password" class="form-control password"
+									th:field="*{password}" id="pass"
+									pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+									placeholder="パスワード">
+							</div>
+							<div class="form-group">
+								<label th:errors="*{confirmationPassword}" style="color: red"></label>
+								<input type="password" name="confirmationPassword" id="confirm"
+									class="form-control password" th:field="*{confirmationPassword}"
+									pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+									placeholder="確認用パスワード"><small style="color: red">パスワードは8文字以上、1文字以上の数字、小文字、大文字アルファベットが含まれていること</small>
+							</div>
+							<input class="btn btn-success btn-block" type="submit"
+								value="登録">
+						</form>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

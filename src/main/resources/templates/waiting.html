@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>メールをご確認ください</title>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+<link th:href="@{/css/waiting.css}" rel="stylesheet">
+</head>
+<body>
+<header>
+	<div class="head">
+		<div class="login">
+			<form th:action="@{/showReview}">
+				<button id="logo"><span class="logo">RaaaaLife...</span></button>
+			</form>
+		</div>
+	</div>
+</header>
+
+	<div class="container">
+		<span th:text="${tmpUser.mail}"></span><span>&nbsp;宛に</span><div>メールを送信したので確認してください。</div><br>
+		<img th:src="@{/img/waitRamen.png}" class="ramen">
+		<div>もしメールが来ていない場合は</div><div><a th:href="@{/toRegister}">こちら</a>から再度登録お願いします。</div>
+	</div>
+</body>
+</html>
