@@ -1,7 +1,7 @@
 /**
  * 
  */
-$(function(){
+$(function() {
 	var id = document.getElementById("id");
 	var name = document.getElementById("name");
 	var price = document.getElementById("price");
