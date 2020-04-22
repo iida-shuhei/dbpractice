@@ -22,9 +22,6 @@ $(function() {
 		var reviewId = $('#review').val();
 		var userId = $('#user').val();
 		
-		console.log("ユーザー"　+userId)
-		console.log(reviewId)
-		
 		$.ajax({
 			type : 'POST',
 			url : '/good',

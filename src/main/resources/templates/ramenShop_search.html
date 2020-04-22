@@ -71,7 +71,8 @@ $(function(){
 								<div th:each="ramenShop : ${ramenShopList}">
 									<input type="radio" name="shopId"
 										th:text="${ramenShop.shopName}"
-										th:value="${ramenShop.shopId}">
+										th:value="${ramenShop.shopId}">&nbsp;&nbsp;&nbsp;
+									(<span th:text="${ramenShop.prefecture} + ${ramenShop.city} + ${ramenShop.other}"></span>)
 								</div>
 							</div>
 								<br>

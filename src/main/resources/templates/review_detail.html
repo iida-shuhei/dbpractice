@@ -67,22 +67,14 @@ $(function(){
 			<a th:href="@{'/userDetail/toNotUserDetail?userId=' + ${review.user.userId}}"><img th:src="${review.user.userIcon.iconImagePath}" class="commentImg" onerror="this.src='/img/user.jpg'"/>&nbsp;<strong><span th:text="${review.user.userName}"></span></strong></a> 
 			&nbsp;&nbsp;<span th:text="${review.comments}" class="form"></span><br><small></small>
 			<div th:each="comment:${review.commentList}">
-				<img th:src="${comment.user.userIcon.iconImagePath}" class="commentImg" onerror="this.src='/img/user.jpg'"/><strong><span th:text="${comment.user.userName}"></span></strong> 
+			<a th:href="@{'/userDetail/toNotUserDetail?userId=' + ${comment.user.userId}}"><img th:src="${comment.user.userIcon.iconImagePath}" class="commentImg" onerror="this.src='/img/user.jpg'"/><strong><span th:text="${comment.user.userName}"></span></strong> </a>
 				&nbsp;&nbsp;<span th:text="${comment.content}" class="form"></span><br><small></small>
 			</div>
 		</div>
-			
+			<hr>
 		<div class="post">
 			</div>
 			
-			<form th:action="@{/detail/register}" method="post">
-				<input type="hidden" name="reviewId" th:value="${review.reviewId}">
-				<input type="text" name="content" placeholder="コメントを追加..." class="form-control" required>
-				<button>投稿</button>
-			</form>
-			
-			<input type="hidden" id="userId" th:value="${user.userId}">
-				
 				<div class="goodFavo">
 						<ul>
 					 		<li>
@@ -101,13 +93,21 @@ $(function(){
 							 <li>
 							 	<div style="display:inline-flex">
 								 <form th:action="@{/detail/delete}" method="post">
-									<button class="btn" id="del">削除</button>
+									<button class="btn1" id="del">削除</button>
 									<input type="hidden" id="reviewUserId" th:value="${review.userId}" name="userId">
 									<input type="hidden" id="reviewId" th:value="${review.reviewId}" name="reviewId">
 								</form>
 								</div>
 							 </li>
 						</ul>
+						<form th:action="@{/detail/register}" method="post">
+							<input type="hidden" name="reviewId" th:value="${review.reviewId}">
+							<input type="text" name="content" placeholder="コメントを追加..." class="push" required>
+							<button class="btn btn-primary">投稿</button>
+						</form>
+						
+						<input type="hidden" id="userId" th:value="${user.userId}">
+							
 					</div>
 				</div>
 			</div>
