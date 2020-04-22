@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: spring.datasource.url=jdbc:postgresql://ec2-3-234-169-147.compute-1.amazonaws.com/5432/d7edbo19lmt5rq?sslmode=require
-    username: nylvawponltvkm
-    password: eecc01861df9c85c0ccfa8a0b909b13c65ac028ce894e9a05fb5fe7d933d9660
+    url: spring.datasource.url=jdbc:postgresql://ec2-18-206-84-251.compute-1.amazonaws.com/5432/d32tnng4cvihup?sslmode=require
+    username: ywgcwujbziszee
+    password: 128eea40bf11f5a15e6bb2cbed858fb9d7deaf6d553abd38bc091df8a299a30d
   mail:
     host: smtp.gmail.com
     port: 587
