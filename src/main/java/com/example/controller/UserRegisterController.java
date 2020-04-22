@@ -98,7 +98,8 @@ public class UserRegisterController {
 			model.addAttribute("tmpUser", tmpUser);
 			mailRepository.insert(tmpUser);
 			
-			String IPadnPort = "localhost:8080";
+//			String IPadnPort = "localhost:8080";
+			String IPadnPort = "dbpractice.herokuapp.com";
 			String from = "rakus.yahoo@gmail.com";
 			String title = "アカウント確認のお願い";
 			String content = userRegisterForm.getUserName() + "さん" +"\n"+ "この度はRaaaaLifeにご登録いただきありがとうございます。" + "\n"+"以下のリンクにアクセスしてアカウント認証をしてください"+"\n"+"http://"+IPadnPort+"/validate"+"?uuid="+uuid;
