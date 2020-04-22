@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+body {
+	margin: 0;
+}
+
 .box {
 	padding-top: 50px;
 }
@@ -8,9 +12,6 @@
 	margin: 0 auto;
 }
 
-.container {
-	width: 500px;
-}
 
 .head {
 	background-color: rgba(0,0,0,0.8);
@@ -40,4 +41,10 @@
 
 #logo .logo:hover {
 	font-size: 39.5px;
+}
+
+@media (min-width: 500px) {
+	.container {
+		width: 500px;
+	}
 }

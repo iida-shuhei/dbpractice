@@ -2,6 +2,7 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ユーザー詳細</title>
 <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
 <link th:href="@{/css/user_detail.css}" rel="stylesheet">
@@ -64,7 +65,7 @@
 										<div class="modal-header">
 											<h5 class="modal-title rank" id="exampleModalLongTitle">ユーザーランク一覧</h5>
 										</div>
-										<div class="modal-body">
+										<div class="modal-body info1">
 											<table class="info">
 												<tbody class="list1">
 													<tr th:each="rank : ${userRankList}">

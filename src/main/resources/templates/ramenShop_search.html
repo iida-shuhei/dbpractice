@@ -2,6 +2,7 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ラーメン店舗選択</title>
 <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
 <link th:href="@{/css/ramenShop_search.css}" rel="stylesheet">
@@ -56,8 +57,8 @@ $(function(){
 						<div class="form-group">
 							<form th:action="@{/ramenShopSearch/search}" method="post">
 								ラーメン店舗を検索する <br> <input type="text" name="shopName"
-									id="shopName" th:value="${shopName}" class="text"> <input
-									type="submit" value="検索">
+									id="shopName" th:value="${shopName}" class="form-control"> <input
+									type="submit" value="検索" class="btn btn-primary">
 							</form>
 							<span th:text="${message}"></span>
 						</div>

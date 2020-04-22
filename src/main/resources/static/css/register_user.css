@@ -8,10 +8,6 @@
 	margin: 0 auto;
 }
 
-.container {
-	width: 500px;
-}
-
 .head {
 	background-color: rgba(0,0,0,0.8);
 	width: 100%;
@@ -47,4 +43,10 @@
 	position: relative;
 	z-index: 2;
 	color: #555;
+}
+
+@media (min-width: 500px) {
+	.container {
+		width: 500px;
+	}
 }

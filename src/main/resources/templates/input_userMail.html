@@ -2,6 +2,7 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>パスワード再設定</title>
 <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
 <link th:href="@{/css/password.css}" rel="stylesheet">
@@ -30,9 +31,6 @@
 					<form method="post" th:action="@{/reset/token}" th:object="${resetPasswordForm}">
 					
 						<label class="control-label" style="color: red" for="inputError"></label>
-						<div class="alert alert-danger" th:if="${errorMessage}">
-							<p th:text="${errorMessage}">お送りしたメールに記載の英数字と異なっています</p>
-						</div>
 						
 						<p>パスワード再設定の方法を記載したメールをお送りいたします。</p>
 						

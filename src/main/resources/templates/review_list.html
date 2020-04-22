@@ -3,6 +3,7 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>レビュー一覧</title>
 <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
 <link th:href="@{/css/review_list.css}" rel="stylesheet">
@@ -33,9 +34,9 @@
 	<div th:text="${message}" style="font-size: 20px; text-align: center;"></div>
 
 	<section>
-		<div class="card-deck">
+		<div class="card-deck card">
 			<div class="row row-eq-height">
-				<div class="col-md-3 col" th:each="review : ${reviewList}">
+				<div class="col-md-3 col-sm-6 col-xs-12 col" th:each="review : ${reviewList}">
 					<div class="card ramen">
 						<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}"> 
 						<input type="hidden" name="userId"> 

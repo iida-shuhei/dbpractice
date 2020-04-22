@@ -2,6 +2,7 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>お気に入りリスト</title>
 <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
 <link th:href="@{/css/favorite_list.css}" rel="stylesheet">
@@ -35,7 +36,7 @@
 		<section>
 			<div class="card-deck">
 				<div class="row row-eq-height">
-					<div class="col-sm-6 col-md-3 col" th:each="review : ${reviewList}">
+					<div class="col-md-3 col-sm-6 col-xs-12 col" th:each="review : ${reviewList}">
 						<div class="card ramen">
 							<a th:href="@{'/detail?reviewId=' + ${review.reviewId}}"> 
 							<input type="hidden" name="userId"> 

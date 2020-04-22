@@ -1,7 +1,6 @@
 @charset "UTF-8";
 
 .container {
-	width: 500px;
 	font-size: 15px;
 	text-align: center;
 	letter-spacing: 2px;
@@ -20,8 +19,10 @@
 	margin: 0 auto;
 }
 
-.container {
-	width: 500px;
+@media (min-width: 500px) {
+	.container {
+		width: 500px;
+	}
 }
 
 .head {
