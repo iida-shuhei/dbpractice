@@ -29,9 +29,23 @@
 	</div>
 </header>
 
-<main>
-	<div th:text="${message}" style="font-size: 20px; text-align: center;"></div>
+<!-- スライダー -->
+<h1 class="trend">🍜最近一押しの一品</h1>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img th:src="@{/img/ramen09.jpg}" alt="Swiper01"></div>
+      <div class="swiper-slide"><img th:src="@{/img/ramen10.jpg}" alt="Swiper02"></div>
+      <div class="swiper-slide"><img th:src="@{/img/ramen11.jpg}" alt="Swiper03"></div>
+    </div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
 
+<hr size="70" color="red">
+<main>
+     <br>
+	<div th:text="${message}" style="font-size: 35px; text-align: center;"></div>
+    
 	<section>
 		<div class="card-deck">
 			<div class="row row-eq-height">
@@ -66,5 +80,21 @@
 		</nav>
 	</div>
 	
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" th:src="@{/js/review_list.js}"></script>
+<script>var swiper = new Swiper('.swiper-container', {
+	  navigation: {
+		    nextEl: '.swiper-button-next',
+		    prevEl: '.swiper-button-prev',
+		  },
+		  loop: true,
+		 　effect : 'flip'	,
+		  autoHeight: true,
+		  autoplay: {
+			    delay: 3000,
+			    disableOnInteraction: true
+		  },
+		});
+</script>
 </body>
 </html>
