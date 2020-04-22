@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+
+body{
+	background-image: url(../img/background2.jpg);
+	background-size :cover;
+}
 .box1 {
 	padding-top: 30px;
 }

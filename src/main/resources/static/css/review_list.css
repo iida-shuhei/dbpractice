@@ -1,4 +1,8 @@
 @charset "UTF-8";
+body{
+	background-image: url(../img/background2.jpg);
+	background-size :cover;
+}
 
 img.photo {
 	display: inline-block; /* ここがポイント */
@@ -709,5 +713,3 @@ button.swiper-pagination-bullet {
 	font-family: 'Montserrat',sans-serif;;
 	
 }
-
-

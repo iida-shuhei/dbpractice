@@ -83,7 +83,6 @@ public class ShowReviewController {
 		
 		User user = userService.findByUserId(loginUser.getUser().getUserId());
 		model.addAttribute("user", user);
-		model.addAttribute("message","投稿されたラーメン記事");
 		return "review_list";
 	}
 	
