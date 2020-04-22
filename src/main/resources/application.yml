@@ -1,30 +1,9 @@
-#spring:
-#  datasource:
-#    driver-class-name: org.postgresql.Driver
-#    url: spring.datasource.url=jdbc:postgresql://ec2-52-201-55-4.compute-1.amazonaws.com/5432/devudehtks2c3v?sslmode=require
-#    username: iwhpvuwlbkhrtg
-#    password: bd2b6d685be4b7e0330470209bf6c0f7a0fd951e64f5f29b15f29e58342ae3b6
-#  mail:
-#    host: smtp.gmail.com
-#    port: 587
-#    username: rakus.yahoo@gmail.com
-#    password: lggfscuvpevplvsw
-#    properties:
-#      mail:
-#        smtp:
-#          auth: true
-#          starttls:
-#            enable: true
-#  servlet:
-#    multipart:
-#      max-file-size: 30MB
-#      max-request-size: 30MB
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/ramen_record
-    username: higashiiida
-    password: postgres
+    url: spring.datasource.url=jdbc:postgresql://ec2-52-6-143-153.compute-1.amazonaws.com/5432/d62trgthg0kug3?sslmode=require
+    username: krkofsxoeiuhiq
+    password: f827171b5f3e65ae28953701ba8e5602072b794d56e8c5741ddb5a5121f2a8f1
   mail:
     host: smtp.gmail.com
     port: 587
@@ -40,3 +19,24 @@ spring:
     multipart:
       max-file-size: 30MB
       max-request-size: 30MB
+#spring:
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://localhost:5432/ramen_record
+#    username: higashiiida
+#    password: postgres
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: rakus.yahoo@gmail.com
+#    password: lggfscuvpevplvsw
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#  servlet:
+#    multipart:
+#      max-file-size: 30MB
+#      max-request-size: 30MB
