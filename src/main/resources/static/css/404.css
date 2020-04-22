@@ -3,6 +3,7 @@
 	font-family: 'Bradley Hand',sans-serif;
 	font-size: 80px;
 	letter-spacing: 0.1em;
+	color: white;
 }
 
 #logo {
@@ -44,4 +45,9 @@
 	font-size: 17px;
 	letter-spacing: 0.5em;
 	color: white;
+}
+
+body{
+	background-image: url(../img/background2.jpg);
+	background-size :cover;
 }
