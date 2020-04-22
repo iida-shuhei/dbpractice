@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+body{
+	background-image: url(../img/background2.jpg);
+	background-size :cover;
+}
+
 .smallInfo ul li {
 	display: inline-block;
 	margin-right: 2em;
@@ -103,6 +108,7 @@
 	width: 350px;
 	border: 1px solid;
 	margin: 0 auto;
+	background: white;
 }
 
 .top {
@@ -112,6 +118,7 @@
 
 .ramen {
 	width: 290px;
+	margin-top: 10px;
 	font-size: 13px;
 }
 

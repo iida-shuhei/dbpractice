@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+
+body{
+	background-image: url(../img/background2.jpg);
+	background-size :cover;
+}
 .logo {
 	font-family: 'Bradley Hand',sans-serif;
 	font-size: 80px;

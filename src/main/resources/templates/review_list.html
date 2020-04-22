@@ -31,22 +31,21 @@
 </header>
 
 <!-- スライダー -->
-<h1 class="trend">🍜最近一押しの一品</h1>
 <div class="swiper-container">
     <div class="swiper-wrapper">
-      <div class="swiper-slide"><img th:src="@{/img/ramen09.jpg}" alt="Swiper01"></div>
-      <div class="swiper-slide"><img th:src="@{/img/ramen10.jpg}" alt="Swiper02"></div>
-      <div class="swiper-slide"><img th:src="@{/img/ramen11.jpg}" alt="Swiper03"></div>
+      <div class="swiper-slide"><img th:src="@{/img/ramen03.jpg}" alt="Swiper01" style="width: 50%; height: 500px;"></div>
+      <div class="swiper-slide"><img th:src="@{/img/ramen.jpg}" alt="Swiper01" style="width: 50%; height: 500px;"></div>
+      <div class="swiper-slide"><img th:src="@{/img/ramen09.jpg}" alt="Swiper01" style="width: 50%; height: 500px;"></div>
+      <div class="swiper-slide"><img th:src="@{/img/ramen10.jpg}" alt="Swiper02" style="width: 50%; height: 500px;"></div>
+      <div class="swiper-slide"><img th:src="@{/img/ramen12.jpg}" alt="Swiper03" style="width: 50%; height: 500px;"></div>
     </div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-  </div>
+</div>
 
-<hr size="70" color="red">
+<hr size="50" color="red">
+
+<div th:text="${message}" style="font-size: 20px; text-align: center; color: white;"></div>
+
 <main>
-     <br>
-	<div th:text="${message}" style="font-size: 35px; text-align: center;"></div>
-    
 	<section>
 		<div class="card-deck card">
 			<div class="row row-eq-height">
