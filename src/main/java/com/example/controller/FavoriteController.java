@@ -8,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.Favorite;
 import com.example.domain.LoginUser;
 import com.example.domain.Review;
 import com.example.domain.User;
+import com.example.repository.FavoriteRepository;
 import com.example.repository.ReviewRepository;
 import com.example.service.UserService;
 
@@ -25,10 +27,31 @@ import com.example.service.UserService;
 public class FavoriteController {
 	
 	@Autowired
+	private FavoriteRepository favoriteRepository;
+	
+	@Autowired
 	private UserService userService;
 	
 	@Autowired
 	private ReviewRepository reviewRepository;
+	
+	/**
+	 * レビューをお気に入りに登録か削除をする.
+	 * 
+	 * @param reviewId レビューID
+	 * @param loginUser ログインユーザー
+	 * @return レビュー詳細
+	 */
+	@RequestMapping("")
+	public String registerOrDelete(Integer reviewId, @AuthenticationPrincipal LoginUser loginUser) {
+		List<Favorite> favoriteList = favoriteRepository.findByUserIdAndReviewId(loginUser.getUser().getUserId(), reviewId);
+		if(favoriteList.size() == 0) {
+			favoriteRepository.register(loginUser.getUser().getUserId(), reviewId);
+		} else {
+			favoriteRepository.delete(loginUser.getUser().getUserId(), reviewId);
+		}
+		return "redirect:/detail?reviewId=" + reviewId;
+	}
 	
 	
 	/**
