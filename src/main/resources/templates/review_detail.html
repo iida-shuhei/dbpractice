@@ -11,14 +11,6 @@
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
-
-<script>
-$(function(){
-	$("#favorite-btn").on("click",function(){
-		$("#favorite").submit();
-	});
-});
-</script>
 <body>
 <header>
 	<div class="head">
@@ -38,10 +30,6 @@ $(function(){
 	</div>
 </header>
 
-	<form th:action="@{/favorite}" id="favorite" method="post">
-		<input type="hidden" name="reviewId" th:value="${review.reviewId}">
-	</form>
-	
 <div class="container">
 	<div class="ramen1">
 		<img th:src="${review.ramenImage.imagePath}" class="ramenImg">
@@ -77,10 +65,15 @@ $(function(){
 			
 				<div class="goodFavo">
 						<ul>
-					 		<li>
 							<!-- お気に入りボタン -->
-							  <span th:if="${favorite}"><a type="button" id="favorite-btn"><img th:src="@{/img/heart1.png}" class="noheart" style="width:40px; height: 40px"></a></span>
-							  <span th:if="${nofavorite}"><a type="button" id="favorite-btn"><img th:src="@{/img/heart1.png}" class="heart" style="width:40px; height: 40px"></a></span>
+					 		<li>
+<!-- 							  <span th:if="${favorite}" class="1"> -->
+<!-- 							  	<button class="favorite-btn"><img th:src="@{/img/heart1.png}" class="heart"></button> -->
+<!-- 							  </span> -->
+<!-- 							  <span th:if="${nofavorite}" class="2"> -->
+<!-- 							  	<button class="favorite-btn"><img th:src="@{/img/heart1.png}" class="noheart"></button> -->
+<!-- 							  </span> -->
+								<button id="favorite-btn"><img th:src="@{/img/heart1.png}" class="heart"></button>
 					 		</li>
 							<!-- いいねボタン -->
 							 <li>

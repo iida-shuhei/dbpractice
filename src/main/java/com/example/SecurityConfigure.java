@@ -51,6 +51,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter{
 						,"/reset/*"
 						,"/reset*"
 						,"/good"
+						,"/favorite"
 						).permitAll()//全てのユーザでアクセス化
 			.anyRequest().authenticated();//それ以外のパスは認証必須
 		
@@ -69,8 +70,8 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter{
 			.deleteCookies("JSESSIONID")//ログアウト後Cookieに保存されているセッションIDを削除
 			.invalidateHttpSession(true);//true:ログアウト後セッションを無効にする
 		
-		//ajaxを使えるようにする.
-				http.csrf().ignoringAntMatchers("/good","/countGood");
+			//ajaxを使えるようにする.
+			http.csrf().ignoringAntMatchers("/good","/countGood", "/favorite");
 	}
 	
 	@Override

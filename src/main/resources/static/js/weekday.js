@@ -85,7 +85,6 @@ $(function(){
 			
 			var noonStartTime = document.createElement("input");
 			noonStartTime.setAttribute("type","number");
-			noonStartTime.setAttribute("step","1800");
 			noonStartTime.setAttribute("placeholder","開始時間");
 			noonStartTime.setAttribute("name","ramenShopTimeList[" + countMon + "].noonStartTime");
 			noonStartTime.setAttribute("class","mon1");

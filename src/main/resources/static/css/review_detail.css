@@ -140,24 +140,15 @@ body{
 }
 
 
-.heart: {
+.heart:hover {
 	cursor: pointer;
 }
 
-.noheart:hover {
-	cursor: pointer;
-}
-
-.noheart {
-	color: black;
-	background-color: black;
-	text-decoration: none;
-	border: none;
-}
 
 .heart {
-	color: red;
-	background-color: red;
+	background-color: black;
+	width:40px; 
+	height: 40px
 }
 
 

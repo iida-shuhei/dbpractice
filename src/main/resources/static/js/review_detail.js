@@ -31,6 +31,7 @@ $(function() {
 			},
 			dataType : 'json'
 		}).done(function(data){
+			console.log(data)
 			var id = $('#review').val();
 			$.ajax({
 				type : 'POST',
@@ -42,6 +43,26 @@ $(function() {
 			}).done(function(data){
 				$("#textGood").html("<span>" + data + "<span>");
 			})
+		})
+	});
+	
+	//お気に入りボタン
+	$("#favorite-btn").on('click',function(){
+		var reviewId = $('#review').val();
+		$.ajax({
+			type : 'POST',
+			url : '/favorite',
+			data : {
+				reviewId : reviewId,
+			},
+			dataType : 'json'
+		}).done(function(data){
+			console.log("wow")
+			if($('.heart').css('background','red')){
+				$('.heart').css('background','black')
+			} else {
+				$('.heart').css('background','red')
+			}
 		})
 	});
 });

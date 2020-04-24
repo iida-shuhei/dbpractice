@@ -65,11 +65,9 @@ public class DetailReviewController {
 			review.setCommentList(commentList);
 			model.addAttribute("review", review);
 			model.addAttribute("good",goodRepository.good(reviewId));
-
 		}
-
-		List<Favorite> favoriteList = favoriteRepository.findByUserIdAndReviewId(loginUser.getUser().getUserId(),
-				reviewId);
+		
+		List<Favorite> favoriteList = favoriteRepository.findByUserIdAndReviewId(loginUser.getUser().getUserId(),reviewId);
 		if (favoriteList.size() == 0) {
 			model.addAttribute("favorite", "favorite");
 		} else {
