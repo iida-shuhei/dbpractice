@@ -99,4 +99,9 @@ public class ShowReviewController {
 		}
 		return "insert_article";
 	}
+	
+	@RequestMapping("/init")
+	private String init() {
+		return "Hello World";
+	}
 }
