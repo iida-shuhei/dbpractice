@@ -1,0 +1,3 @@
+[submodule "Memories"]
+	path = Memories
+	url = git@github.com:iida-shuhei/Memories.git
